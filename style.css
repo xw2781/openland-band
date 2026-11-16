@@ -423,14 +423,30 @@ footer a:hover { color: var(--gold-2); }
 }
 .member-sm > .avatar-mark svg { width: 44px; height: 44px; }
 
-/* mobile hero auto-pan so the whole band is visible */
-@keyframes hero-pan {
-  from { background-position: center, 0% 30%; }
-  to   { background-position: center, 100% 30%; }
+/* mobile hero: seamless one-direction marquee so the whole band is visible.
+   hero-tile.webp = band photo + a ~9% bridge of synthesized wall slats that
+   blends the right edge into the left edge, so copies join without a visible seam. */
+.hero-track { display: none; }
+@keyframes hero-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-33.3333%, 0, 0); }
 }
-@media (max-width: 768px) {
-  .hero-bg { animation: hero-pan 24s ease-in-out infinite alternate; will-change: background-position; }
-}
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
-  .hero-bg { animation: none; background-position: center, center 30%; }
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .hero-bg { background: none; z-index: 0; }
+  .hero-bg::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, var(--ink) 0%, rgba(16,14,12,0.55) 42%, rgba(16,14,12,0.25) 70%, rgba(16,14,12,0.45) 100%);
+  }
+  .hero-bg::after { z-index: 1; }
+  .hero-track {
+    display: flex; position: absolute; top: 0; left: 0; height: 100%;
+    width: max-content;
+    animation: hero-marquee 36s linear infinite;
+    will-change: transform;
+  }
+  .hero-track span {
+    flex: none; display: block; height: 100%;
+    aspect-ratio: 1686 / 1024;
+    background: url("img/hero-tile.webp") center / 100% 100% no-repeat;
+  }
 }
