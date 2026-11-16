@@ -422,3 +422,15 @@ footer a:hover { color: var(--gold-2); }
   border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
 }
 .member-sm > .avatar-mark svg { width: 44px; height: 44px; }
+
+/* mobile hero auto-pan so the whole band is visible */
+@keyframes hero-pan {
+  from { background-position: center, 0% 30%; }
+  to   { background-position: center, 100% 30%; }
+}
+@media (max-width: 768px) {
+  .hero-bg { animation: hero-pan 24s ease-in-out infinite alternate; will-change: background-position; }
+}
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .hero-bg { animation: none; background-position: center, center 30%; }
+}
