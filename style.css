@@ -321,9 +321,11 @@ section { padding: 88px 0; }
   color: var(--cream-dim); font-size: 14px;
 }
 .guest-tag { font-size: 11px; letter-spacing: 0.14em; color: var(--gold); }
+.guest-names { display: inline-flex; align-items: baseline; gap: 8px; }
+.guest-names + .guest-names::before { content: ""; width: 1px; height: 14px; background: var(--line-strong); align-self: center; margin-right: 4px; }
 .guest strong { font-size: 17px; color: var(--cream); font-weight: 600; }
 .guest em { font-style: normal; font-size: 12.5px; color: var(--cream-mute); }
-@media (max-width: 520px) { .guest { border-radius: 18px; flex-direction: column; align-items: center; } }
+@media (max-width: 520px) { .guest { border-radius: 18px; flex-direction: column; align-items: center; } .guest-names + .guest-names::before { display: none; } }
 .alumni {
   color: var(--cream-mute); font-size: 14px; margin: 8px 0 36px; text-align: center;
 }
