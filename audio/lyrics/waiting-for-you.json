@@ -1,0 +1,588 @@
+{
+  "id": "waiting",
+  "title": "Waiting For You",
+  "lang": "en",
+  "placeholder": false,
+  "source": "audio/lyrics/waiting-for-you.txt",
+  "audio": "audio/waiting-for-you.m4a",
+  "note": "Official lyrics. Timing aligned to the studio master (faster-whisper large-v3). Intro is instrumental until ~0:20. Line 2 (\"Midnight talks…\") sits in a clear slot that the recognizer mis-heard; time kept from that slot. The five closing repeats were checked against the vocal energy contour (the recognizer only marked two and hallucinated a credit at the fade). Translations are editorial, not official.",
+  "lines": [
+    {
+      "t": 20.48,
+      "text": "City lights keep fading slow",
+      "te": 25.14,
+      "tr": {
+        "zh": "城市的灯火慢慢褪去",
+        "ja": "街の灯がゆっくりと消えていく",
+        "ko": "도시의 불빛이 천천히 사그라든다"
+      }
+    },
+    {
+      "t": 25.14,
+      "text": "Midnight talks we used to know",
+      "te": 29.98,
+      "tr": {
+        "zh": "那些我们曾熟悉的深夜长谈",
+        "ja": "あの頃の、真夜中の会話",
+        "ko": "우리가 알던 한밤의 이야기"
+      }
+    },
+    {
+      "t": 29.98,
+      "text": "Every street just calls your name",
+      "te": 36.5,
+      "tr": {
+        "zh": "每条街都在唤着你的名字",
+        "ja": "どの通りも君の名前を呼ぶ",
+        "ko": "모든 거리가 네 이름을 부른다"
+      }
+    },
+    {
+      "t": 36.8,
+      "text": "But nothing feels like the same",
+      "te": 41.06,
+      "tr": {
+        "zh": "可一切都和从前不一样了",
+        "ja": "でも何もかもが、もう同じじゃない",
+        "ko": "하지만 아무것도 예전 같지 않아"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 42.56,
+      "text": "Moonlight spills across my room",
+      "te": 46.96,
+      "tr": {
+        "zh": "月光铺满我的房间",
+        "ja": "月明かりが部屋いっぱいにこぼれ",
+        "ko": "달빛이 내 방을 가득 채운다"
+      }
+    },
+    {
+      "t": 47.36,
+      "text": "Counting stars to clear my mind",
+      "te": 52.66,
+      "tr": {
+        "zh": "数着星星，好让心里平静",
+        "ja": "星を数えて、心を澄ませる",
+        "ko": "별을 세며 마음을 비운다"
+      }
+    },
+    {
+      "t": 52.66,
+      "text": "Every beat inside my chest",
+      "te": 58.36,
+      "tr": {
+        "zh": "胸腔里的每一次心跳",
+        "ja": "胸の奥の、ひとつひとつの鼓動",
+        "ko": "가슴속 모든 박동이"
+      }
+    },
+    {
+      "t": 58.48,
+      "text": "Still knows you are my best",
+      "te": 62.84,
+      "tr": {
+        "zh": "仍知道，你是我最珍贵的人",
+        "ja": "今も知っている、君が一番だと",
+        "ko": "여전히 알지, 네가 나의 전부라는 걸"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 63.4,
+      "text": "I am waiting for you",
+      "te": 66.56,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 66.7,
+      "text": "My love",
+      "te": 67.92,
+      "tr": {
+        "zh": "我的爱",
+        "ja": "愛しい人",
+        "ko": "나의 사랑"
+      }
+    },
+    {
+      "t": 68.72,
+      "text": "I'm always here and",
+      "te": 70.7,
+      "tr": {
+        "zh": "我一直都在，",
+        "ja": "いつでもここにいる、",
+        "ko": "나는 언제나 여기 있어,"
+      }
+    },
+    {
+      "t": 70.7,
+      "text": "Waiting for you",
+      "te": 72.06,
+      "tr": {
+        "zh": "等着你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 72.06,
+      "text": "Come back",
+      "te": 73.46,
+      "tr": {
+        "zh": "回来吧",
+        "ja": "戻ってきて",
+        "ko": "돌아와 줘"
+      }
+    },
+    {
+      "t": 73.64,
+      "text": "Through days and nights",
+      "te": 75.82,
+      "tr": {
+        "zh": "走过多少昼夜",
+        "ja": "昼も夜も",
+        "ko": "낮과 밤을 지나"
+      }
+    },
+    {
+      "t": 75.82,
+      "text": "I am waiting for you",
+      "te": 77.5,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 77.62,
+      "text": "It's time",
+      "te": 78.8,
+      "tr": {
+        "zh": "是时候了",
+        "ja": "もうその時だ",
+        "ko": "이제는 때야"
+      }
+    },
+    {
+      "t": 78.8,
+      "text": "I keep you in my heart",
+      "te": 82.22,
+      "tr": {
+        "zh": "我把你放在心里",
+        "ja": "心の中に君を留めて",
+        "ko": "마음에 너를 품고"
+      }
+    },
+    {
+      "t": 82.22,
+      "text": "To hold to love",
+      "te": 84.44,
+      "tr": {
+        "zh": "紧握这份爱",
+        "ja": "この愛を、抱きしめて",
+        "ko": "이 사랑을 붙잡고"
+      }
+    },
+    {
+      "t": 84.44,
+      "text": "I am waiting for you",
+      "te": 87.06,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 108.8,
+      "text": "Moonlight spills across my room",
+      "te": 112.44,
+      "tr": {
+        "zh": "月光铺满我的房间",
+        "ja": "月明かりが部屋いっぱいにこぼれ",
+        "ko": "달빛이 내 방을 가득 채운다"
+      }
+    },
+    {
+      "t": 113.8,
+      "text": "Counting stars to clear my mind",
+      "te": 118.38,
+      "tr": {
+        "zh": "数着星星，好让心里平静",
+        "ja": "星を数えて、心を澄ませる",
+        "ko": "별을 세며 마음을 비운다"
+      }
+    },
+    {
+      "t": 118.38,
+      "text": "Every beat inside my chest",
+      "te": 123.82,
+      "tr": {
+        "zh": "胸腔里的每一次心跳",
+        "ja": "胸の奥の、ひとつひとつの鼓動",
+        "ko": "가슴속 모든 박동이"
+      }
+    },
+    {
+      "t": 123.82,
+      "text": "Still knows you are my best",
+      "te": 128.48,
+      "tr": {
+        "zh": "仍知道，你是我最珍贵的人",
+        "ja": "今も知っている、君が一番だと",
+        "ko": "여전히 알지, 네가 나의 전부라는 걸"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 128.48,
+      "text": "I am waiting for you",
+      "te": 132.12,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 132.26,
+      "text": "My love",
+      "te": 133.62,
+      "tr": {
+        "zh": "我的爱",
+        "ja": "愛しい人",
+        "ko": "나의 사랑"
+      }
+    },
+    {
+      "t": 133.62,
+      "text": "I'm always here and",
+      "te": 136.2,
+      "tr": {
+        "zh": "我一直都在，",
+        "ja": "いつでもここにいる、",
+        "ko": "나는 언제나 여기 있어,"
+      }
+    },
+    {
+      "t": 136.2,
+      "text": "Waiting for you",
+      "te": 137.54,
+      "tr": {
+        "zh": "等着你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 137.54,
+      "text": "Come back",
+      "te": 139.08,
+      "tr": {
+        "zh": "回来吧",
+        "ja": "戻ってきて",
+        "ko": "돌아와 줘"
+      }
+    },
+    {
+      "t": 139.46,
+      "text": "Through days and nights",
+      "te": 141.34,
+      "tr": {
+        "zh": "走过多少昼夜",
+        "ja": "昼も夜も",
+        "ko": "낮과 밤을 지나"
+      }
+    },
+    {
+      "t": 141.34,
+      "text": "I am waiting for you",
+      "te": 142.98,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 142.98,
+      "text": "It's time",
+      "te": 144.36,
+      "tr": {
+        "zh": "是时候了",
+        "ja": "もうその時だ",
+        "ko": "이제는 때야"
+      }
+    },
+    {
+      "t": 145.2,
+      "text": "I keep you in my heart",
+      "te": 147.74,
+      "tr": {
+        "zh": "我把你放在心里",
+        "ja": "心の中に君を留めて",
+        "ko": "마음에 너를 품고"
+      }
+    },
+    {
+      "t": 147.74,
+      "text": "To hold to love",
+      "te": 149.96,
+      "tr": {
+        "zh": "紧握这份爱",
+        "ja": "この愛を、抱きしめて",
+        "ko": "이 사랑을 붙잡고"
+      }
+    },
+    {
+      "t": 150.22,
+      "text": "I am waiting for you",
+      "te": 152.66,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 173.82,
+      "text": "Though nights so long",
+      "te": 177.24,
+      "tr": {
+        "zh": "纵使夜那么长",
+        "ja": "夜がどれほど長くても",
+        "ko": "밤이 아무리 길어도"
+      }
+    },
+    {
+      "t": 177.24,
+      "text": "And days so cold",
+      "te": 179.96,
+      "tr": {
+        "zh": "日子那么冷",
+        "ja": "昼がどれほど冷たくても",
+        "ko": "낮이 아무리 차가워도"
+      }
+    },
+    {
+      "t": 180.4,
+      "text": "I'll be right here",
+      "te": 182.68,
+      "tr": {
+        "zh": "我都会在这里",
+        "ja": "ここにいるよ",
+        "ko": "난 여기 있을게"
+      }
+    },
+    {
+      "t": 182.74,
+      "text": "You'll always know",
+      "te": 185.2,
+      "tr": {
+        "zh": "你会一直知道",
+        "ja": "君はいつだって知っているはず",
+        "ko": "너는 언제나 알 거야"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 185.2,
+      "text": "Like rivers flow",
+      "te": 187.9,
+      "tr": {
+        "zh": "如同江河流向",
+        "ja": "川が流れるように",
+        "ko": "강물이 흐르듯"
+      }
+    },
+    {
+      "t": 187.9,
+      "text": "To seas below",
+      "te": 190.54,
+      "tr": {
+        "zh": "汇入下方的海",
+        "ja": "下の海へと",
+        "ko": "아래 바다로 가듯"
+      }
+    },
+    {
+      "t": 190.54,
+      "text": "My love won't fade",
+      "te": 193.46,
+      "tr": {
+        "zh": "我的爱不会褪去",
+        "ja": "僕の愛は色あせない",
+        "ko": "내 사랑은 사그라지지 않고"
+      }
+    },
+    {
+      "t": 194.0,
+      "text": "It only grows",
+      "te": 196.16,
+      "tr": {
+        "zh": "只会更深",
+        "ja": "ただ深くなっていく",
+        "ko": "더욱 깊어질 뿐"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 199.42,
+      "text": "I am waiting for you",
+      "te": 203.02,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 203.2,
+      "text": "My love",
+      "te": 204.42,
+      "tr": {
+        "zh": "我的爱",
+        "ja": "愛しい人",
+        "ko": "나의 사랑"
+      }
+    },
+    {
+      "t": 205.2,
+      "text": "I'm always here",
+      "te": 206.8,
+      "tr": {
+        "zh": "我一直都在",
+        "ja": "いつでもここにいる",
+        "ko": "나는 언제나 여기 있어"
+      }
+    },
+    {
+      "t": 206.8,
+      "text": "And waiting for you",
+      "te": 208.48,
+      "tr": {
+        "zh": "等着你",
+        "ja": "そして君を待っている",
+        "ko": "그리고 너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 208.6,
+      "text": "Come back",
+      "te": 209.82,
+      "tr": {
+        "zh": "回来吧",
+        "ja": "戻ってきて",
+        "ko": "돌아와 줘"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 210.64,
+      "text": "Through days and nights",
+      "te": 212.2,
+      "tr": {
+        "zh": "走过多少昼夜",
+        "ja": "昼も夜も",
+        "ko": "낮과 밤을 지나"
+      }
+    },
+    {
+      "t": 212.3,
+      "text": "I'm waiting for you",
+      "te": 215.32,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 215.78,
+      "text": "It's time my love",
+      "te": 218.0,
+      "tr": {
+        "zh": "是时候了，我的爱",
+        "ja": "もうその時だ、愛しい人",
+        "ko": "이제는 때야, 나의 사랑"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 220.48,
+      "text": "I am waiting for you",
+      "te": 223.5,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 223.5,
+      "text": "I am waiting for you",
+      "te": 226.22,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 226.22,
+      "text": "I am waiting for you",
+      "te": 228.86,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 231.8,
+      "text": "I am waiting for you",
+      "te": 235.8,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    },
+    {
+      "t": 237.0,
+      "text": "I am waiting for you",
+      "te": 241.5,
+      "tr": {
+        "zh": "我在等你",
+        "ja": "君を待っている",
+        "ko": "너를 기다리고 있어"
+      }
+    }
+  ]
+}

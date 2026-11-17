@@ -1,0 +1,384 @@
+{
+  "id": "huiyi",
+  "title": "回忆成光",
+  "lang": "zh",
+  "placeholder": false,
+  "source": "audio/lyrics/huiyi-chengguang.txt",
+  "audio": "audio/huiyi-chengguang.m4a",
+  "note": "Official lyrics. Timing aligned to the studio master (faster-whisper large-v3 + manual verification of the instrumental intro, sax/instrumental break, and the line 人总要成长). Translations are editorial, not official.",
+  "lines": [
+    {
+      "t": 24.42,
+      "text": "照片泛黄 旧歌弹响",
+      "te": 30.72,
+      "tr": {
+        "en": "The photographs have yellowed, an old song rings out",
+        "ja": "写真は色あせ、古い歌が響く",
+        "ko": "사진은 바래고, 옛 노래가 울린다"
+      }
+    },
+    {
+      "t": 30.72,
+      "text": "是我们 绚烂的 过往",
+      "te": 36.7,
+      "tr": {
+        "en": "It is our brilliant past",
+        "ja": "あれは僕たちの、絢爛とした過ぎし日",
+        "ko": "그것은 우리의 찬란했던 지난날"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 38.02,
+      "text": "人来人往 聚散无常",
+      "te": 44.22,
+      "tr": {
+        "en": "People come and go; meeting and parting have no certainty",
+        "ja": "人は来ては去り、出会いと別れは常なきもの",
+        "ko": "사람들은 오고 가고, 만남과 이별은 덧없다"
+      }
+    },
+    {
+      "t": 44.22,
+      "text": "是生活 无奈的 走向",
+      "te": 49.5,
+      "tr": {
+        "en": "That is the helpless way life goes",
+        "ja": "それが暮らしの、抗えない行方",
+        "ko": "그것이 삶의 어쩔 수 없는 방향"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 50.72,
+      "text": "人 生 是场流浪",
+      "te": 54.88,
+      "tr": {
+        "en": "Life is a wandering",
+        "ja": "人生は流浪の旅",
+        "ko": "인생은 떠돎의 여정"
+      }
+    },
+    {
+      "t": 54.88,
+      "text": "没 人 总守望",
+      "te": 58.04,
+      "tr": {
+        "en": "No one keeps watch forever",
+        "ja": "誰もずっと見守ってはくれない",
+        "ko": "언제나 지켜봐 주는 사람은 없다"
+      }
+    },
+    {
+      "t": 58.04,
+      "text": "无奈的幻想",
+      "te": 61.08,
+      "tr": {
+        "en": "Helpless fantasies",
+        "ja": "なすすべのない幻想",
+        "ko": "어쩔 수 없는 환상"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 63.34,
+      "text": "离 别 难免惆怅",
+      "te": 67.58,
+      "tr": {
+        "en": "Parting can’t help but bring melancholy",
+        "ja": "別れには寂しさがつきもの",
+        "ko": "이별에는 서글픔이 따르기 마련"
+      }
+    },
+    {
+      "t": 67.58,
+      "text": "就 让 这时光",
+      "te": 70.82,
+      "tr": {
+        "en": "Then just let this time",
+        "ja": "どうか、この時を",
+        "ko": "그저 이 시간을"
+      }
+    },
+    {
+      "t": 70.82,
+      "text": "轻轻的原谅",
+      "te": 73.88,
+      "tr": {
+        "en": "Forgive us, gently",
+        "ja": "そっと許してほしい",
+        "ko": "부드럽게 용서하게 두자"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 127.4,
+      "text": "a yi ya la",
+      "te": 131.42
+    },
+    {
+      "t": 131.98,
+      "text": "Yi ya la",
+      "te": 134.66
+    },
+    {
+      "t": 135.2,
+      "text": "Yi ya a la",
+      "te": 137.84
+    },
+    {
+      "t": 137.84,
+      "text": "别感伤",
+      "te": 140.74,
+      "tr": {
+        "en": "Don’t linger in sorrow",
+        "ja": "感傷に浸らないで",
+        "ko": "슬퍼하지 마"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 141.08,
+      "text": "a yi ya la",
+      "te": 144.32
+    },
+    {
+      "t": 144.8,
+      "text": "Yi ya la",
+      "te": 147.54
+    },
+    {
+      "t": 147.92,
+      "text": "Yi ya a la",
+      "te": 150.68
+    },
+    {
+      "t": 151.0,
+      "text": "人总要成长",
+      "te": 153.68,
+      "tr": {
+        "en": "We all have to grow",
+        "ja": "人はいつか成長していく",
+        "ko": "사람은 결국 성장해야 하니까"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 203.6,
+      "text": "照片泛黄 旧歌弹响",
+      "te": 210.74,
+      "tr": {
+        "en": "The photographs have yellowed, an old song rings out",
+        "ja": "写真は色あせ、古い歌が響く",
+        "ko": "사진은 바래고, 옛 노래가 울린다"
+      }
+    },
+    {
+      "t": 210.74,
+      "text": "是我们 绚烂的 过往",
+      "te": 215.38,
+      "tr": {
+        "en": "It is our brilliant past",
+        "ja": "あれは僕たちの、絢爛とした過ぎし日",
+        "ko": "그것은 우리의 찬란했던 지난날"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 215.38,
+      "text": "人来人往 聚散匆忙",
+      "te": 223.54,
+      "tr": {
+        "en": "People come and go; we gather and scatter in haste",
+        "ja": "人は来ては去り、出会いは慌ただしく散る",
+        "ko": "사람들은 오고 가고, 만남과 이별은 바쁘게 스친다"
+      }
+    },
+    {
+      "t": 223.54,
+      "text": "要接受 命运的无常",
+      "te": 228.24,
+      "tr": {
+        "en": "We have to accept the inconstancy of fate",
+        "ja": "運命の無常を受け入れなくては",
+        "ko": "운명의 무상함을 받아들여야 해"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 228.92,
+      "text": "人 生 是场远航",
+      "te": 234.16,
+      "tr": {
+        "en": "Life is a long voyage",
+        "ja": "人生は遠い航海",
+        "ko": "인생은 먼 항해"
+      }
+    },
+    {
+      "t": 234.52,
+      "text": "各 自 有方向",
+      "te": 237.14,
+      "tr": {
+        "en": "Each of us has our own course",
+        "ja": "それぞれに進む方向がある",
+        "ko": "저마다 방향이 있다"
+      }
+    },
+    {
+      "t": 237.68,
+      "text": "能并肩同往",
+      "te": 239.96,
+      "tr": {
+        "en": "To walk side by side",
+        "ja": "並んで同じ道を行けること",
+        "ko": "나란히 함께 갈 수 있다면"
+      }
+    },
+    {
+      "t": 240.2,
+      "text": "一程已足够珍藏",
+      "te": 243.18,
+      "tr": {
+        "en": "Even one stretch of the journey is already worth keeping",
+        "ja": "一程でも、十分にかけがえがない",
+        "ko": "한 길을 함께한 것만으로도 이미 소중하다"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 243.18,
+      "text": "离 别 难免惆怅",
+      "te": 246.78,
+      "tr": {
+        "en": "Parting can’t help but bring melancholy",
+        "ja": "別れには寂しさがつきもの",
+        "ko": "이별에는 서글픔이 따르기 마련"
+      }
+    },
+    {
+      "t": 247.48,
+      "text": "但 有这时光",
+      "te": 250.02,
+      "tr": {
+        "en": "But we have this time",
+        "ja": "でも、この時間がある",
+        "ko": "하지만 이 시간이 있기에"
+      }
+    },
+    {
+      "t": 250.52,
+      "text": "能一起回想",
+      "te": 252.78,
+      "tr": {
+        "en": "That we can look back on together",
+        "ja": "一緒に振り返れる",
+        "ko": "함께 되돌아볼 수 있다면"
+      }
+    },
+    {
+      "t": 252.94,
+      "text": "也不枉 这趟",
+      "te": 255.52,
+      "tr": {
+        "en": "And this journey won’t have been in vain",
+        "ja": "この旅も無駄ではなかった",
+        "ko": "이 여정도 헛되지 않다"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 256.38,
+      "text": "a yi ya la",
+      "te": 259.48
+    },
+    {
+      "t": 259.74,
+      "text": "Yi ya la",
+      "te": 262.78
+    },
+    {
+      "t": 262.9,
+      "text": "Yi ya a la",
+      "te": 265.86
+    },
+    {
+      "t": 265.86,
+      "text": "前进吧",
+      "te": 268.64,
+      "tr": {
+        "en": "Go forward",
+        "ja": "進もう",
+        "ko": "나아가자"
+      }
+    },
+    {
+      "break": true
+    },
+    {
+      "t": 268.64,
+      "text": "a yi ya la",
+      "te": 272.26
+    },
+    {
+      "t": 272.48,
+      "text": "Yi ya la",
+      "te": 275.52
+    },
+    {
+      "t": 275.9,
+      "text": "Yi ya a la",
+      "te": 278.76
+    },
+    {
+      "t": 279.56,
+      "text": "回忆化成光",
+      "te": 281.62,
+      "tr": {
+        "en": "Memories turn into light",
+        "ja": "思い出は光になる",
+        "ko": "추억은 빛이 된다"
+      }
+    },
+    {
+      "t": 289.54,
+      "text": "回忆化成光",
+      "te": 294.42,
+      "tr": {
+        "en": "Memories turn into light",
+        "ja": "思い出は光になる",
+        "ko": "추억은 빛이 된다"
+      }
+    },
+    {
+      "t": 301.76,
+      "text": "照亮我前方",
+      "te": 307.26,
+      "tr": {
+        "en": "And light the way ahead of me",
+        "ja": "僕の行く先を照らしてくれる",
+        "ko": "내 앞길을 밝혀 준다"
+      }
+    }
+  ]
+}
