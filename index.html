@@ -29,40 +29,46 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip" href="#main">跳到正文</a>
+  <a data-i18n="t001" class="skip" href="#main">跳到正文</a>
 
   <header class="nav" id="nav">
     <a class="nav-brand" href="#top">
-      <img src="img/avatar.jpg" alt="Openland 旷野乐队头像">
+      <img data-i18n-alt="alt002" src="img/avatar.jpg" alt="Openland 旷野乐队头像">
       <span>
         <span class="en">Openland</span>
-        <span class="zh">旷野乐队</span>
+        <span data-i18n="t003" class="zh">旷野乐队</span>
       </span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false"><span></span></button>
+    <button data-i18n-aria="aria004" class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false"><span></span></button>
     <nav class="nav-links" id="navLinks">
-      <a href="#about">简介</a>
-      <a href="#originals">原创作品</a>
-      <a href="#events">活动集锦</a>
-      <a href="#members">成员</a>
-      <a class="nav-cta" href="#upcoming">11/21 专场</a>
+      <a data-i18n="t005" href="#about">简介</a>
+      <a data-i18n="t006" href="#originals">原创作品</a>
+      <a data-i18n="t007" href="#events">活动集锦</a>
+      <a data-i18n="t008" href="#members">成员</a>
+      <a data-i18n="t009" class="nav-cta" href="#upcoming">11/21 专场</a>
+      <div class="lang-switch" role="group" aria-label="Language / 语言 / 言語 / 언어">
+        <a href="?lang=zh" data-lang="zh" lang="zh-CN" class="active" aria-current="true">中</a>
+        <a href="?lang=ja" data-lang="ja" lang="ja">日</a>
+        <a href="?lang=en" data-lang="en" lang="en">EN</a>
+        <a href="?lang=ko" data-lang="ko" lang="ko">한</a>
+      </div>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero-bg" role="img" aria-label="Openland 旷野乐队成员在标志前合影"><div class="hero-track" aria-hidden="true"><span></span><span></span><span></span></div></div>
+      <div data-i18n-aria="aria010" class="hero-bg" role="img" aria-label="Openland 旷野乐队成员在标志前合影"><div class="hero-track" aria-hidden="true"><span></span><span></span><span></span></div></div>
       <div class="hero-inner">
         <p class="eyebrow">New Jersey Independent Band</p>
-        <h1>Openland<span class="zh">旷野乐队</span></h1>
-        <p class="tagline">曲风多变的新泽西独立乐队，原星期四乐队。一群热爱音乐的工作党，从爵士翻唱走到自己的原创世界。</p>
+        <h1>Openland<span data-i18n="t003" class="zh">旷野乐队</span></h1>
+        <p data-i18n="t011" class="tagline">曲风多变的新泽西独立乐队，原星期四乐队。一群热爱音乐的工作党，从爵士翻唱走到自己的原创世界。</p>
         <div class="hero-actions">
-          <a class="btn btn-solid" href="#upcoming">即将上演 · 11/21 纽约原创专场</a>
-          <a class="btn" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">小红书主页</a>
+          <a data-i18n="t012" class="btn btn-solid" href="#upcoming">即将上演 · 11/21 纽约原创专场</a>
+          <a data-i18n="t013" class="btn" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">小红书主页</a>
         </div>
         <div class="platforms">
-          <span style="color: var(--cream-mute); font-size: 12px; letter-spacing: 0.12em;">收听</span>
-          <a href="https://music.163.com/#/search/m/?s=Openland" target="_blank" rel="noopener">网易云音乐</a>
+          <span data-i18n="t014" style="color: var(--cream-mute); font-size: 12px; letter-spacing: 0.12em;">收听</span>
+          <a data-i18n="t015" href="https://music.163.com/#/search/m/?s=Openland" target="_blank" rel="noopener">网易云音乐</a>
           <a href="https://open.spotify.com/search/Openland" target="_blank" rel="noopener">Spotify</a>
           <a href="https://music.apple.com/search?term=Openland" target="_blank" rel="noopener">Apple Music</a>
           <a href="https://music.youtube.com/search?q=Openland" target="_blank" rel="noopener">YouTube Music</a>
@@ -74,23 +80,23 @@
       <div class="wrap">
         <div class="upcoming-card">
           <div class="upcoming-poster">
-            <img src="img/n1-2.webp" alt="Openland 旷野乐队在标志前的合影">
+            <img data-i18n-alt="alt016" src="img/n1-2.webp" alt="Openland 旷野乐队在标志前的合影">
           </div>
           <div class="upcoming-body">
-            <span class="pill">即将上演 · Free Entry</span>
-            <h2>11/21 原创专场<br>The Delancey, New York</h2>
+            <span data-i18n="t017" class="pill">即将上演 · Free Entry</span>
+            <h2 data-i18n="t018">11/21 原创专场<br>The Delancey, New York</h2>
             <ul class="meta">
-              <li><span class="k">日期</span><span>2026年11月21日 周六</span></li>
-              <li><span class="k">签到</span><span>Check-in 5:00 pm</span></li>
-              <li><span class="k">演出</span><span>5:30 – 7:30 pm</span></li>
-              <li><span class="k">地点</span><span>The Delancey，168 Delancey St, New York, NY 10002</span></li>
-              <li><span class="k">入场</span><span>免费。欢迎当天 walk in，或在小红书私信获取 RSVP 链接</span></li>
-              <li><span class="k">嘉宾</span><span>盲盒乐队 TheBlindBox 特邀开场</span></li>
+              <li><span data-i18n="t019" class="k">日期</span><span data-i18n="t020">2026年11月21日 周六</span></li>
+              <li><span data-i18n="t021" class="k">签到</span><span>Check-in 5:00 pm</span></li>
+              <li><span data-i18n="t022" class="k">演出</span><span>5:30 – 7:30 pm</span></li>
+              <li><span data-i18n="t023" class="k">地点</span><span data-i18n="t024">The Delancey，168 Delancey St, New York, NY 10002</span></li>
+              <li><span data-i18n="t025" class="k">入场</span><span data-i18n="t026">免费。欢迎当天 walk in，或在小红书私信获取 RSVP 链接</span></li>
+              <li><span data-i18n="t027" class="k">嘉宾</span><span data-i18n="t028">盲盒乐队 TheBlindBox 特邀开场</span></li>
             </ul>
-            <p class="note-sm">在这场近两小时的演出中，我们将带来 10 首风格各异的原创作品。到现场请跟场地说是来看 Openland 的，否则会收费。</p>
+            <p data-i18n="t029" class="note-sm">在这场近两小时的演出中，我们将带来 10 首风格各异的原创作品。到现场请跟场地说是来看 Openland 的，否则会收费。</p>
             <div class="btn-row">
-              <a class="btn btn-solid" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" target="_blank" rel="noopener">在小红书查看详情</a>
-              <a class="btn" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">私信咨询</a>
+              <a data-i18n="t030" class="btn btn-solid" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" target="_blank" rel="noopener">在小红书查看详情</a>
+              <a data-i18n="t031" class="btn" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">私信咨询</a>
             </div>
           </div>
         </div>
@@ -101,15 +107,15 @@
       <div class="wrap about-grid">
         <div class="about-copy">
           <p class="section-kicker">About</p>
-          <h2 class="section-title">简介</h2>
-          <p>2024 年初，一群在美国新泽西、热爱音乐的工作党组成了星期四乐队。一开始以翻唱爵士风格的歌为主，也会积极尝试别的风格。同年夏天，他们在 Highland Park 的 Penstock Coffee 录下乐队首支 Live Video Cover《亲密爱人》，随后又登上公园草坪前的大舞台，把《亲密爱人》、Fly Me to the Moon、City of Stars 等曲目带到户外。</p>
-          <p>当时谁也没想过以后还会去搞原创，更没想过有一天能把自己的歌多平台发行。但正如他们后来写下的：「有这么一群志同道合的人向着一个目标努力，只要坚持下去，总能实现不敢想的事。」</p>
-          <p>2025 年 7 月，星期四乐队把第一首原创《回忆成光》搬上了舞台：「前进吧 别感伤 回忆会化成光 照亮前方。」到了 2026 年，乐队已以 Openland 旷野乐队的名字示人——简介里写着「原星期四乐队 曲风多变的新泽西独立乐队」。</p>
-          <p>同年 4 月，第一首单曲《Waiting For You》在网易云、Spotify、Apple Music、YouTube Music 发行；年中又发布了第二首单曲《回忆成光》，并陆续写出《Shall I Stay》《我的心》等新作。目前的计划，是把全部 10 首原创都录出来、全平台发布。11 月 21 日在纽约 The Delancey 的这场原创专场，将是他们把这些作品带到 live house 的一次收尾与开始。</p>
+          <h2 data-i18n="t005" class="section-title">简介</h2>
+          <p data-i18n="t032">2024 年初，一群在美国新泽西、热爱音乐的工作党组成了星期四乐队。一开始以翻唱爵士风格的歌为主，也会积极尝试别的风格。同年夏天，他们在 Highland Park 的 Penstock Coffee 录下乐队首支 Live Video Cover《亲密爱人》，随后又登上公园草坪前的大舞台，把《亲密爱人》、Fly Me to the Moon、City of Stars 等曲目带到户外。</p>
+          <p data-i18n="t033">当时谁也没想过以后还会去搞原创，更没想过有一天能把自己的歌多平台发行。但正如他们后来写下的：「有这么一群志同道合的人向着一个目标努力，只要坚持下去，总能实现不敢想的事。」</p>
+          <p data-i18n="t034">2025 年 7 月，星期四乐队把第一首原创《回忆成光》搬上了舞台：「前进吧 别感伤 回忆会化成光 照亮前方。」到了 2026 年，乐队已以 Openland 旷野乐队的名字示人——简介里写着「原星期四乐队 曲风多变的新泽西独立乐队」。</p>
+          <p data-i18n="t035">同年 4 月，第一首单曲《Waiting For You》在网易云、Spotify、Apple Music、YouTube Music 发行；年中又发布了第二首单曲《回忆成光》，并陆续写出《Shall I Stay》《我的心》等新作。目前的计划，是把全部 10 首原创都录出来、全平台发布。11 月 21 日在纽约 The Delancey 的这场原创专场，将是他们把这些作品带到 live house 的一次收尾与开始。</p>
         </div>
         <div class="about-photos">
-          <img class="wide" src="img/n14-1.webp" alt="乐队在 The Cutting Room 舞台上演出">
-          <img loading="lazy" decoding="async" class="tall" src="img/n5-4.webp" alt="乐队成员在林间的拍立得合影">
+          <img data-i18n-alt="alt036" class="wide" src="img/n14-1.webp" alt="乐队在 The Cutting Room 舞台上演出">
+          <img data-i18n-alt="alt037" loading="lazy" decoding="async" class="tall" src="img/n5-4.webp" alt="乐队成员在林间的拍立得合影">
         </div>
       </div>
     </section>
@@ -117,39 +123,39 @@
     <section class="originals" id="originals">
       <div class="wrap">
         <p class="section-kicker">Originals</p>
-        <h2 class="section-title">原创作品</h2>
-        <p class="section-lead">从第一首搬上舞台的《回忆成光》，到多平台发行的首单，再到写给异乡与内心的新作。各平台搜索 Openland 即可收听已发行曲目。</p>
+        <h2 data-i18n="t006" class="section-title">原创作品</h2>
+        <p data-i18n="t038" class="section-lead">从第一首搬上舞台的《回忆成光》，到多平台发行的首单，再到写给异乡与内心的新作。各平台搜索 Openland 即可收听已发行曲目。</p>
         <div class="song-grid">
           <article class="song">
-            <div class="song-art"><img loading="lazy" decoding="async" src="img/n6-1.webp" alt="《回忆成光》播放界面"></div>
+            <div class="song-art"><img data-i18n-alt="alt039" loading="lazy" decoding="async" src="img/n6-1.webp" alt="《回忆成光》播放界面"></div>
             <div class="song-body">
-              <h3>《回忆成光》</h3>
-              <p class="sub">第二首单曲 · 2025 年 7 月首演</p>
-              <p>乐队第一首搬上舞台的原创。灵感来自毕业留子们很日常、却永远不想面对的离别——出国时与家乡告别，毕业后各奔东西，工作后又因生活再次分别。「人生是场远航，各自有方向，能并肩同往一程已足够珍藏。」2026 年中作为第二首单曲发布。</p>
+              <h3 data-i18n="t040">《回忆成光》</h3>
+              <p data-i18n="t041" class="sub">第二首单曲 · 2025 年 7 月首演</p>
+              <p data-i18n="t042">乐队第一首搬上舞台的原创。灵感来自毕业留子们很日常、却永远不想面对的离别——出国时与家乡告别，毕业后各奔东西，工作后又因生活再次分别。「人生是场远航，各自有方向，能并肩同往一程已足够珍藏。」2026 年中作为第二首单曲发布。</p>
             </div>
           </article>
           <article class="song">
-            <div class="song-art"><img loading="lazy" decoding="async" src="img/n11-3.webp" alt="《Waiting For You》单曲封面"></div>
+            <div class="song-art"><img data-i18n-alt="alt043" loading="lazy" decoding="async" src="img/n11-3.webp" alt="《Waiting For You》单曲封面"></div>
             <div class="song-body">
-              <h3>《Waiting For You》</h3>
-              <p class="sub">第一首单曲 · 2026 年 4 月发行</p>
-              <p>Openland 旷野乐队发行的第一首单曲，也在 2 月「清武飞扬」新春联欢会上预先唱给过现场。对一支 2024 年初才开始玩乐队的新泽西打工人组合来说，把一首自己的歌发行到各平台，是「当初没敢想」的事。</p>
+              <h3 data-i18n="t044">《Waiting For You》</h3>
+              <p data-i18n="t045" class="sub">第一首单曲 · 2026 年 4 月发行</p>
+              <p data-i18n="t046">Openland 旷野乐队发行的第一首单曲，也在 2 月「清武飞扬」新春联欢会上预先唱给过现场。对一支 2024 年初才开始玩乐队的新泽西打工人组合来说，把一首自己的歌发行到各平台，是「当初没敢想」的事。</p>
             </div>
           </article>
           <article class="song">
-            <div class="song-art"><img loading="lazy" decoding="async" src="img/n3-1.webp" alt="主唱在排练室演唱《Shall I Stay》"></div>
+            <div class="song-art"><img data-i18n-alt="alt047" loading="lazy" decoding="async" src="img/n3-1.webp" alt="主唱在排练室演唱《Shall I Stay》"></div>
             <div class="song-body">
-              <h3>《Shall I Stay》</h3>
-              <p class="sub">原创 · 关于「不属于这里」</p>
-              <p>一首关于归属的歌。身在异国他乡，一切充满着不确定性；早已习惯这里的生活，却仍会问：是留下还是离开，哪里才是家，又该去哪里寻找自己的位置。这些困惑，被写进了这首作品里。</p>
+              <h3 data-i18n="t048">《Shall I Stay》</h3>
+              <p data-i18n="t049" class="sub">原创 · 关于「不属于这里」</p>
+              <p data-i18n="t050">一首关于归属的歌。身在异国他乡，一切充满着不确定性；早已习惯这里的生活，却仍会问：是留下还是离开，哪里才是家，又该去哪里寻找自己的位置。这些困惑，被写进了这首作品里。</p>
             </div>
           </article>
           <article class="song">
-            <div class="song-art"><img loading="lazy" decoding="async" src="img/n2-1.webp" alt="《我的心》排练现场，11月21日演出预告画面"></div>
+            <div class="song-art"><img data-i18n-alt="alt051" loading="lazy" decoding="async" src="img/n2-1.webp" alt="《我的心》排练现场，11月21日演出预告画面"></div>
             <div class="song-body">
-              <h3>《我的心》</h3>
-              <p class="sub">原创小情歌</p>
-              <p>主唱有感而发写下的原创小情歌。11 月 21 日的纽约原创专场上，它将和更多风格各异的新作一起，被带到 The Delancey 的舞台。</p>
+              <h3 data-i18n="t052">《我的心》</h3>
+              <p data-i18n="t053" class="sub">原创小情歌</p>
+              <p data-i18n="t054">主唱有感而发写下的原创小情歌。11 月 21 日的纽约原创专场上，它将和更多风格各异的新作一起，被带到 The Delancey 的舞台。</p>
             </div>
           </article>
         </div>
@@ -159,192 +165,192 @@
     <section id="events">
       <div class="wrap">
         <p class="section-kicker">Highlights</p>
-        <h2 class="section-title">重要活动集锦</h2>
-        <p class="section-lead">从公园草坪到纽约 live house，从婚礼现场到第一首单曲发行。时间由近及远，带视频的卡片可以直接在网页里播放，每张卡片也都能回到当年的小红书笔记。</p>
+        <h2 data-i18n="t055" class="section-title">重要活动集锦</h2>
+        <p data-i18n="t056" class="section-lead">从公园草坪到纽约 live house，从婚礼现场到第一首单曲发行。时间由近及远，带视频的卡片可以直接在网页里播放，每张卡片也都能回到当年的小红书笔记。</p>
 
         <div class="timeline">
           <article class="event">
-            <div class="event-date">2026.11.21<small>即将上演</small></div>
+            <div class="event-date">2026.11.21<small data-i18n="t057">即将上演</small></div>
             <div class="event-copy">
-              <h3>原创专场 @ The Delancey</h3>
-              <p>NJ 打工人乐队的第一个原创专场。近两小时、10 首风格各异的原创作品，好友盲盒乐队 TheBlindBox 特邀开场。免费入场，Check-in 5:00 pm，演出 5:30–7:30 pm。地址 168 Delancey St, New York, NY 10002。到现场请跟场地说是来看 Openland。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t058">原创专场 @ The Delancey</h3>
+              <p data-i18n="t059">NJ 打工人乐队的第一个原创专场。近两小时、10 首风格各异的原创作品，好友盲盒乐队 TheBlindBox 特邀开场。免费入场，Check-in 5:00 pm，演出 5:30–7:30 pm。地址 168 Delancey St, New York, NY 10002。到现场请跟场地说是来看 Openland。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n1-2.webp" alt="乐队在 Openland 标志前的合影">
+              <img data-i18n-alt="alt061" loading="lazy" decoding="async" src="img/n1-2.webp" alt="乐队在 Openland 标志前的合影">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2026.10<small>金秋婚礼</small></div>
+            <div class="event-date">2026.10<small data-i18n="t062">金秋婚礼</small></div>
             <div class="event-copy">
-              <h3>十月婚礼演出</h3>
-              <p>金秋十月，把最好的歌声，唱给最幸福的人。法拉盛等地的婚礼现场，留下了一整月粉红色的回忆。摄影 Ford Guo。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6aea91ff000000000e00c72e" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t063">十月婚礼演出</h3>
+              <p data-i18n="t064">金秋十月，把最好的歌声，唱给最幸福的人。法拉盛等地的婚礼现场，留下了一整月粉红色的回忆。摄影 Ford Guo。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/6aea91ff000000000e00c72e" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/6aea91ff000000000e00c72e" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n4-3.webp" alt="婚礼现场乐队与主唱合影">
+              <img data-i18n-alt="alt065" loading="lazy" decoding="async" src="img/n4-3.webp" alt="婚礼现场乐队与主唱合影">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2026 年中<small>公园 / 校友会</small></div>
+            <div data-i18n="t066" class="event-date">2026 年中<small>公园 / 校友会</small></div>
             <div class="event-copy">
-              <h3>中央公园春游会 &amp; 校友会野餐文化节</h3>
-              <p>5 月 3 日，Openland 旷野乐队参演厦门大学 × 华南理工大学校友会联合春游会，在中央公园以民谣版本唱了《亲密爱人》《春风十里》《那些花儿》和 Yellow。6 月下旬又前往 Fort Lee 的 Overpeck County Park，为校友会 2026 联合野餐暨文化节带来方大同的《爱爱爱》和《特别的人》。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69f53337000000003701e11c" target="_blank" rel="noopener">春游会笔记</a>
+              <h3 data-i18n="t067">中央公园春游会 &amp; 校友会野餐文化节</h3>
+              <p data-i18n="t068">5 月 3 日，Openland 旷野乐队参演厦门大学 × 华南理工大学校友会联合春游会，在中央公园以民谣版本唱了《亲密爱人》《春风十里》《那些花儿》和 Yellow。6 月下旬又前往 Fort Lee 的 Overpeck County Park，为校友会 2026 联合野餐暨文化节带来方大同的《爱爱爱》和《特别的人》。</p>
+              <a data-i18n="t069" class="xhs-link" href="https://www.xiaohongshu.com/explore/69f53337000000003701e11c" target="_blank" rel="noopener">春游会笔记</a>
               &nbsp;&nbsp;
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6a3b1326000000001603da5f" target="_blank" rel="noopener">野餐文化节笔记</a>
+              <a data-i18n="t070" class="xhs-link" href="https://www.xiaohongshu.com/explore/6a3b1326000000001603da5f" target="_blank" rel="noopener">野餐文化节笔记</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/69f53337000000003701e11c" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n9-2.webp" alt="中央公园春游会海报「觅春而至 沐春而歌」">
+              <img data-i18n-alt="alt071" loading="lazy" decoding="async" src="img/n9-2.webp" alt="中央公园春游会海报「觅春而至 沐春而歌」">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2026.04<small>首单发行</small></div>
+            <div class="event-date">2026.04<small data-i18n="t072">首单发行</small></div>
             <div class="event-copy">
-              <h3>《Waiting For You》发行</h3>
-              <p>在新泽西搞乐队两年，终于发行了第一首单曲。网易云、Spotify、Apple Music、YouTube Music 均可搜索 Openland。他们说，过些天会把新歌片段剪成视频，今年也会努力再发行几首原创。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69d6d9960000000021013155" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t073">《Waiting For You》发行</h3>
+              <p data-i18n="t074">在新泽西搞乐队两年，终于发行了第一首单曲。网易云、Spotify、Apple Music、YouTube Music 均可搜索 Openland。他们说，过些天会把新歌片段剪成视频，今年也会努力再发行几首原创。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/69d6d9960000000021013155" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/69d6d9960000000021013155" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n11-5.webp" alt="Openland 首张单曲发行海报，乐队成员合影">
+              <img data-i18n-alt="alt075" loading="lazy" decoding="async" src="img/n11-5.webp" alt="Openland 首张单曲发行海报，乐队成员合影">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2026.02.28<small>新春联欢</small></div>
+            <div class="event-date">2026.02.28<small data-i18n="t076">新春联欢</small></div>
             <div class="event-copy">
-              <h3>「清武飞扬」新春联欢会</h3>
-              <p>清华 &amp; 武大纽约校友会春节联欢。现场带来鹿先森乐队的《春风十里》，以及即将发行的原创单曲《Waiting For You》。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69a0e587000000001600ae4c" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t077">「清武飞扬」新春联欢会</h3>
+              <p data-i18n="t078">清华 &amp; 武大纽约校友会春节联欢。现场带来鹿先森乐队的《春风十里》，以及即将发行的原创单曲《Waiting For You》。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/69a0e587000000001600ae4c" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/69a0e587000000001600ae4c" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n12-1.webp" alt="清武飞扬新春联欢会红色海报">
+              <img data-i18n-alt="alt079" loading="lazy" decoding="async" src="img/n12-1.webp" alt="清武飞扬新春联欢会红色海报">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2026.02.22<small>布鲁克林</small></div>
+            <div class="event-date">2026.02.22<small data-i18n="t080">布鲁克林</small></div>
             <div class="event-copy">
-              <h3>梦响计划美食音乐联欢</h3>
-              <p>感谢梦响计划与饭团外卖联合筹划，在布鲁克林举行音乐美食博主联欢会。当天带来四首经典翻唱：两首中文歌《月牙湾》《特别的人》，两首英文歌 Can’t Take My Eyes Off You、If I Ain’t Got You。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69990342000000001d025d44" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t081">梦响计划美食音乐联欢</h3>
+              <p data-i18n="t082">感谢梦响计划与饭团外卖联合筹划，在布鲁克林举行音乐美食博主联欢会。当天带来四首经典翻唱：两首中文歌《月牙湾》《特别的人》，两首英文歌 Can’t Take My Eyes Off You、If I Ain’t Got You。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/69990342000000001d025d44" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/69990342000000001d025d44" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n13-1.webp" alt="音乐美食博主联欢会海报">
+              <img data-i18n-alt="alt083" loading="lazy" decoding="async" src="img/n13-1.webp" alt="音乐美食博主联欢会海报">
             </a>
           </article>
 
           <article class="event has-video">
-            <div class="event-date">2025.07<small>原创首演</small></div>
+            <div class="event-date">2025.07<small data-i18n="t084">原创首演</small></div>
             <div class="event-copy">
-              <h3>《回忆成光》首演</h3>
-              <p>乐队终于把首个原创搬上了舞台。「前进吧 别感伤 回忆会化成光 照亮前方。」——《回忆成光》，当时仍以星期四乐队之名。摄像 长弓影视、Chris Y Photography、下班别走；剪辑 Sakura。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/686ef058000000001301266b" target="_blank" rel="noopener">小红书原帖 ↗</a>
+              <h3 data-i18n="t085">《回忆成光》首演</h3>
+              <p data-i18n="t086">乐队终于把首个原创搬上了舞台。「前进吧 别感伤 回忆会化成光 照亮前方。」——《回忆成光》，当时仍以星期四乐队之名。摄像 长弓影视、Chris Y Photography、下班别走；剪辑 Sakura。</p>
+              <a data-i18n="t087" class="xhs-link" href="https://www.xiaohongshu.com/explore/686ef058000000001301266b" target="_blank" rel="noopener">小红书原帖 ↗</a>
             </div>
             <div class="event-media is-video has-player">
-              <video controls playsinline preload="none" poster="video/huiyi-chengguang.webp" aria-label="《回忆成光》首演现场视频">
+              <video data-i18n-aria="vid1" controls playsinline preload="none" poster="video/huiyi-chengguang.webp" aria-label="《回忆成光》首演现场视频">
                 <source src="video/huiyi-chengguang.mp4" type="video/mp4">
               </video>
-              <button class="play" type="button" aria-label="播放：《回忆成光》首演现场视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">5:19</span></button>
+              <button data-i18n-aria="aria088" class="play" type="button" aria-label="播放：《回忆成光》首演现场视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">5:19</span></button>
             </div>
           </article>
 
           <article class="event">
             <div class="event-date">2025.06.28<small>The Cutting Room</small></div>
             <div class="event-copy">
-              <h3>下班别走派对</h3>
-              <p>受主办方「下班别走」邀请，在曼哈顿 The Cutting Room（44 E 32nd St, New York, NY 10016）参加夏日歌舞派对，时间 6:00–8:30 pm。开场曲为 Can’t Take My Eyes Off You。同台还有更多乐队、舞团与脱口秀。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68561596000000001202d562" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t089">下班别走派对</h3>
+              <p data-i18n="t090">受主办方「下班别走」邀请，在曼哈顿 The Cutting Room（44 E 32nd St, New York, NY 10016）参加夏日歌舞派对，时间 6:00–8:30 pm。开场曲为 Can’t Take My Eyes Off You。同台还有更多乐队、舞团与脱口秀。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/68561596000000001202d562" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/68561596000000001202d562" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n16-1.webp" alt="星期四乐队 × 下班别走，The Cutting Room 演出海报">
+              <img data-i18n-alt="alt091" loading="lazy" decoding="async" src="img/n16-1.webp" alt="星期四乐队 × 下班别走，The Cutting Room 演出海报">
             </a>
           </article>
 
           <article class="event">
-            <div class="event-date">2025.06.01<small>校友会</small></div>
+            <div class="event-date">2025.06.01<small data-i18n="t092">校友会</small></div>
             <div class="event-copy">
-              <h3>大纽约高校校友会</h3>
-              <p>星期四乐队再次受邀为 6 月 1 日大纽约高校校友会演出。那年夏天意外凉爽，微风中演奏格外舒服。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6850c9880000000012007465" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t093">大纽约高校校友会</h3>
+              <p data-i18n="t094">星期四乐队再次受邀为 6 月 1 日大纽约高校校友会演出。那年夏天意外凉爽，微风中演奏格外舒服。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/6850c9880000000012007465" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/6850c9880000000012007465" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n17-8.webp" alt="乐队在校友会蓝色舞台背景前演出">
+              <img data-i18n-alt="alt095" loading="lazy" decoding="async" src="img/n17-8.webp" alt="乐队在校友会蓝色舞台背景前演出">
             </a>
           </article>
 
           <article class="event has-video">
-            <div class="event-date">2025.04.26<small>婚礼爵士</small></div>
+            <div class="event-date">2025.04.26<small data-i18n="t096">婚礼爵士</small></div>
             <div class="event-copy">
-              <h3>婚礼现场 · Just the Two of Us</h3>
-              <p>有幸作为婚礼乐队见证美好的爱情。现场录像录音节选，改编自经典爵士 Just the Two of Us。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/681c0da2000000000f0382a9" target="_blank" rel="noopener">小红书原帖 ↗</a>
+              <h3 data-i18n="t097">婚礼现场 · Just the Two of Us</h3>
+              <p data-i18n="t098">有幸作为婚礼乐队见证美好的爱情。现场录像录音节选，改编自经典爵士 Just the Two of Us。</p>
+              <a data-i18n="t087" class="xhs-link" href="https://www.xiaohongshu.com/explore/681c0da2000000000f0382a9" target="_blank" rel="noopener">小红书原帖 ↗</a>
             </div>
             <div class="event-media is-video has-player">
-              <video controls playsinline preload="none" poster="video/just-the-two-of-us.webp" aria-label="婚礼现场 Just the Two of Us 视频">
+              <video data-i18n-aria="vid2" controls playsinline preload="none" poster="video/just-the-two-of-us.webp" aria-label="婚礼现场 Just the Two of Us 视频">
                 <source src="video/just-the-two-of-us.mp4" type="video/mp4">
               </video>
-              <button class="play" type="button" aria-label="播放：婚礼现场 Just the Two of Us 视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">1:36</span></button>
+              <button data-i18n-aria="aria099" class="play" type="button" aria-label="播放：婚礼现场 Just the Two of Us 视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">1:36</span></button>
             </div>
           </article>
 
           <article class="event has-video vertical-video">
             <div class="event-date">2025.01.25<small>THE DUO</small></div>
             <div class="event-copy">
-              <h3>THE DUO 音乐节</h3>
-              <p>正式演出前一周进行了设备调试与试音。1 月 25 日登台，欢迎新老朋友一起来捧场。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/678d3771000000001601a4fa" target="_blank" rel="noopener">小红书原帖 ↗</a>
+              <h3 data-i18n="t100">THE DUO 音乐节</h3>
+              <p data-i18n="t101">正式演出前一周进行了设备调试与试音。1 月 25 日登台，欢迎新老朋友一起来捧场。</p>
+              <a data-i18n="t087" class="xhs-link" href="https://www.xiaohongshu.com/explore/678d3771000000001601a4fa" target="_blank" rel="noopener">小红书原帖 ↗</a>
             </div>
             <div class="event-media is-video has-player is-vertical">
-              <video controls playsinline preload="none" poster="video/the-duo.webp" aria-label="THE DUO 音乐节彩排视频">
+              <video data-i18n-aria="vid3" controls playsinline preload="none" poster="video/the-duo.webp" aria-label="THE DUO 音乐节彩排视频">
                 <source src="video/the-duo.mp4" type="video/mp4">
               </video>
-              <button class="play" type="button" aria-label="播放：THE DUO 音乐节彩排视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">0:53</span></button>
+              <button data-i18n-aria="aria102" class="play" type="button" aria-label="播放：THE DUO 音乐节彩排视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">0:53</span></button>
             </div>
           </article>
 
           <article class="event">
-            <div class="event-date">2024 夏<small>公园舞台</small></div>
+            <div data-i18n="t103" class="event-date">2024 夏<small>公园舞台</small></div>
             <div class="event-copy">
-              <h3>夏日公园演出</h3>
-              <p>盛夏如期而至，星期四乐队登上公园草坪前的大舞台。曲目包括《亲密爱人》、Fly Me to the Moon、Try Everything、Rise Up、《这世界那么多人》、City of Stars。成员特写与合照，记下了那笔珍贵的回忆。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6678e59b000000001d016a17" target="_blank" rel="noopener">在小红书观看</a>
+              <h3 data-i18n="t104">夏日公园演出</h3>
+              <p data-i18n="t105">盛夏如期而至，星期四乐队登上公园草坪前的大舞台。曲目包括《亲密爱人》、Fly Me to the Moon、Try Everything、Rise Up、《这世界那么多人》、City of Stars。成员特写与合照，记下了那笔珍贵的回忆。</p>
+              <a data-i18n="t060" class="xhs-link" href="https://www.xiaohongshu.com/explore/6678e59b000000001d016a17" target="_blank" rel="noopener">在小红书观看</a>
             </div>
             <a class="event-media" href="https://www.xiaohongshu.com/explore/6678e59b000000001d016a17" target="_blank" rel="noopener">
-              <img loading="lazy" decoding="async" src="img/n20-2.webp" alt="夏日公园舞台上的星期四乐队">
+              <img data-i18n-alt="alt106" loading="lazy" decoding="async" src="img/n20-2.webp" alt="夏日公园舞台上的星期四乐队">
             </a>
           </article>
 
           <article class="event has-video">
-            <div class="event-date">2024.06<small>早期翻唱</small></div>
+            <div class="event-date">2024.06<small data-i18n="t107">早期翻唱</small></div>
             <div class="event-copy">
               <h3>Don't Know Why</h3>
-              <p>早期乐队翻唱，原曲是 Norah Jones 的 Don't Know Why。老王在早期视频里担任小提琴。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/666ccd9c000000001c02a02e?xsec_token=ABf5pvnunSBF7KjX0lOUYAWyBS1gf5xOk5dYl4w-Jpj3E=&xsec_source=pc_user" target="_blank" rel="noopener">小红书原帖 ↗</a>
+              <p data-i18n="t108">早期乐队翻唱，原曲是 Norah Jones 的 Don't Know Why。老王在早期视频里担任小提琴。</p>
+              <a data-i18n="t087" class="xhs-link" href="https://www.xiaohongshu.com/explore/666ccd9c000000001c02a02e?xsec_token=ABf5pvnunSBF7KjX0lOUYAWyBS1gf5xOk5dYl4w-Jpj3E=&xsec_source=pc_user" target="_blank" rel="noopener">小红书原帖 ↗</a>
             </div>
             <div class="event-media is-video has-player">
-              <video controls playsinline preload="none" poster="video/dont-know-why.webp" aria-label="早期翻唱 Don't Know Why 视频">
+              <video data-i18n-aria="vid4" controls playsinline preload="none" poster="video/dont-know-why.webp" aria-label="早期翻唱 Don't Know Why 视频">
                 <source src="video/dont-know-why.mp4" type="video/mp4">
               </video>
-              <button class="play" type="button" aria-label="播放：早期翻唱 Don't Know Why 视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">2:58</span></button>
+              <button data-i18n-aria="aria109" class="play" type="button" aria-label="播放：早期翻唱 Don't Know Why 视频"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">2:58</span></button>
             </div>
           </article>
 
           <article class="event has-video">
             <div class="event-date">2024.06<small>Penstock Coffee</small></div>
             <div class="event-copy">
-              <h3>首个 Live Video Cover</h3>
-              <p>地点在新泽西 Highland Park 的 Penstock Coffee。歌曲是王若琳的《亲密爱人》。一支刚组建不久的新泽西工作党乐队，以爵士翻唱为主，也想试试别的风格，并把这份原声现场留下来。</p>
-              <a class="xhs-link" href="https://www.xiaohongshu.com/explore/666ccce1000000001c029e23" target="_blank" rel="noopener">小红书原帖 ↗</a>
+              <h3 data-i18n="t110">首个 Live Video Cover</h3>
+              <p data-i18n="t111">地点在新泽西 Highland Park 的 Penstock Coffee。歌曲是王若琳的《亲密爱人》。一支刚组建不久的新泽西工作党乐队，以爵士翻唱为主，也想试试别的风格，并把这份原声现场留下来。</p>
+              <a data-i18n="t087" class="xhs-link" href="https://www.xiaohongshu.com/explore/666ccce1000000001c029e23" target="_blank" rel="noopener">小红书原帖 ↗</a>
             </div>
             <div class="event-media is-video has-player">
-              <video controls playsinline preload="none" poster="video/qinmi-airen.webp" aria-label="首个 Live Video Cover《亲密爱人》">
+              <video data-i18n-aria="vid5" controls playsinline preload="none" poster="video/qinmi-airen.webp" aria-label="首个 Live Video Cover《亲密爱人》">
                 <source src="video/qinmi-airen.mp4" type="video/mp4">
               </video>
-              <button class="play" type="button" aria-label="播放：首个 Live Video Cover《亲密爱人》"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">4:31</span></button>
+              <button data-i18n-aria="aria112" class="play" type="button" aria-label="播放：首个 Live Video Cover《亲密爱人》"><span class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="video-dur">4:31</span></button>
             </div>
           </article>
         </div>
@@ -354,103 +360,103 @@
     <section class="members" id="members">
       <div class="wrap">
         <p class="section-kicker">The Band</p>
-        <h2 class="section-title">乐队成员</h2>
-        <p class="section-lead">现任成员与特邀嘉宾。</p>
+        <h2 data-i18n="t113" class="section-title">乐队成员</h2>
+        <p data-i18n="t114" class="section-lead">现任成员与特邀嘉宾。</p>
 
         <div class="member-grid">
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-sakura.webp" alt="Joy Qiu（Sakura）演唱">
+            <img data-i18n-alt="alt115" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-sakura.webp" alt="Joy Qiu（Sakura）演唱">
             <div class="member-body">
               <h3>Joy Qiu</h3>
               <span class="nick">Sakura</span>
-              <span class="role">主唱 · Vocals</span>
+              <span data-i18n="t116" class="role">主唱 · Vocals</span>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-xiaowei.webp" alt="Xiao Wei 韦笑吹萨克斯">
+            <img data-i18n-alt="alt117" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-xiaowei.webp" alt="Xiao Wei 韦笑吹萨克斯">
             <div class="member-body">
               <h3>Xiao Wei</h3>
-              <span class="nick">韦笑</span>
-              <span class="role">萨克斯 · Saxophone</span>
+              <span data-i18n="t118" class="nick">韦笑</span>
+              <span data-i18n="t119" class="role">萨克斯 · Saxophone</span>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-will.webp" alt="Will Song 老宋弹键盘">
+            <img data-i18n-alt="alt120" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-will.webp" alt="Will Song 老宋弹键盘">
             <div class="member-body">
               <h3>Will Song</h3>
-              <span class="nick">老宋</span>
-              <span class="role">键盘 · Keyboards</span>
+              <span data-i18n="t121" class="nick">老宋</span>
+              <span data-i18n="t122" class="role">键盘 · Keyboards</span>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-shutiao.webp" alt="Minghao Qin 薯条打鼓">
+            <img data-i18n-alt="alt123" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-shutiao.webp" alt="Minghao Qin 薯条打鼓">
             <div class="member-body">
               <h3>Minghao Qin</h3>
-              <span class="nick">薯条</span>
-              <span class="role">鼓 · Drums</span>
-              <p class="note">最擅长自拍的鼓手哥</p>
+              <span data-i18n="t124" class="nick">薯条</span>
+              <span data-i18n="t125" class="role">鼓 · Drums</span>
+              <p data-i18n="t126" class="note">最擅长自拍的鼓手哥</p>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-anki.webp" alt="Anki 安淇弹贝斯">
+            <img data-i18n-alt="alt127" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-anki.webp" alt="Anki 安淇弹贝斯">
             <div class="member-body">
               <h3>Anki</h3>
-              <span class="nick">安淇</span>
-              <span class="role">贝斯 · Bass</span>
+              <span data-i18n="t128" class="nick">安淇</span>
+              <span data-i18n="t129" class="role">贝斯 · Bass</span>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-vickers.webp" alt="Vickers 的手与电吉他（不露脸）">
+            <img data-i18n-alt="alt130" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-vickers.webp" alt="Vickers 的手与电吉他（不露脸）">
             <div class="member-body">
               <h3>Vickers</h3>
-              <span class="role">吉他 · Guitar</span>
+              <span data-i18n="t131" class="role">吉他 · Guitar</span>
             </div>
           </article>
           <article class="member">
-            <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-mangata.webp" alt="Mangata 放放拉大提琴">
+            <img data-i18n-alt="alt132" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-mangata.webp" alt="Mangata 放放拉大提琴">
             <div class="member-body">
               <h3>Mangata</h3>
-              <span class="nick">放放</span>
-              <span class="role">大提琴 · Cello</span>
+              <span data-i18n="t133" class="nick">放放</span>
+              <span data-i18n="t134" class="role">大提琴 · Cello</span>
             </div>
           </article>
         </div>
         <div class="guest">
-          <span class="guest-tag">特邀嘉宾 · Guests</span>
+          <span data-i18n="t135" class="guest-tag">特邀嘉宾 · Guests</span>
           <div class="guest-cards">
             <article class="member member-sm">
-              <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-laowang.webp" alt="老王拉小提琴">
+              <img data-i18n-alt="alt136" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-laowang.webp" alt="老王拉小提琴">
               <div class="member-body">
-                <h3>老王</h3>
-                <span class="role">小提琴 · Violin</span>
+                <h3 data-i18n="t137">老王</h3>
+                <span data-i18n="t138" class="role">小提琴 · Violin</span>
               </div>
             </article>
             <article class="member member-sm">
-              <img class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-xinchao.webp" alt="新超弹贝斯">
+              <img data-i18n-alt="alt139" class="member-photo" loading="lazy" decoding="async" width="800" height="1000" src="img/member-xinchao.webp" alt="新超弹贝斯">
               <div class="member-body">
-                <h3>新超</h3>
-                <span class="role">贝斯 · Bass</span>
+                <h3 data-i18n="t140">新超</h3>
+                <span data-i18n="t129" class="role">贝斯 · Bass</span>
               </div>
             </article>
           </div>
-          <em>非固定成员，近期有参与演出</em>
+          <em data-i18n="t141">非固定成员，近期有参与演出</em>
         </div>
-        <p class="alumni">曾经的伙伴：宇翔（吉他）</p>
+        <p data-i18n="t142" class="alumni">曾经的伙伴：宇翔（吉他）</p>
 
-        <h3 class="gallery-title">现场掠影</h3>
-        <p class="gallery-note">来自 2024 夏日公园演出的成员特写与合照，作为整支乐队的相册，不为单人标注。</p>
+        <h3 data-i18n="t143" class="gallery-title">现场掠影</h3>
+        <p data-i18n="t144" class="gallery-note">来自 2024 夏日公园演出的成员特写与合照，作为整支乐队的相册，不为单人标注。</p>
         <div class="gallery">
-          <img loading="lazy" decoding="async" class="wide" src="img/n20-2.webp" alt="公园舞台全景">
-          <img loading="lazy" decoding="async" src="img/n20-3.webp" alt="演出后的合影">
-          <img loading="lazy" decoding="async" src="img/n20-4.webp" alt="主唱在舞台上">
-          <img loading="lazy" decoding="async" src="img/n20-5.webp" alt="原声吉他演奏">
-          <img loading="lazy" decoding="async" src="img/n20-6.webp" alt="粉色贝斯特写">
-          <img loading="lazy" decoding="async" src="img/n20-7.webp" alt="贝斯手演奏">
-          <img loading="lazy" decoding="async" src="img/n20-8.webp" alt="萨克斯与键盘">
-          <img loading="lazy" decoding="async" src="img/n20-9.webp" alt="鼓手准备">
-          <img loading="lazy" decoding="async" src="img/n20-10.webp" alt="后台与观众席一瞥">
-          <img loading="lazy" decoding="async" src="img/n20-11.webp" alt="调试鼓组">
-          <img loading="lazy" decoding="async" src="img/n20-12.webp" alt="键盘与萨克斯同框">
+          <img data-i18n-alt="alt145" loading="lazy" decoding="async" class="wide" src="img/n20-2.webp" alt="公园舞台全景">
+          <img data-i18n-alt="alt146" loading="lazy" decoding="async" src="img/n20-3.webp" alt="演出后的合影">
+          <img data-i18n-alt="alt147" loading="lazy" decoding="async" src="img/n20-4.webp" alt="主唱在舞台上">
+          <img data-i18n-alt="alt148" loading="lazy" decoding="async" src="img/n20-5.webp" alt="原声吉他演奏">
+          <img data-i18n-alt="alt149" loading="lazy" decoding="async" src="img/n20-6.webp" alt="粉色贝斯特写">
+          <img data-i18n-alt="alt150" loading="lazy" decoding="async" src="img/n20-7.webp" alt="贝斯手演奏">
+          <img data-i18n-alt="alt151" loading="lazy" decoding="async" src="img/n20-8.webp" alt="萨克斯与键盘">
+          <img data-i18n-alt="alt152" loading="lazy" decoding="async" src="img/n20-9.webp" alt="鼓手准备">
+          <img data-i18n-alt="alt153" loading="lazy" decoding="async" src="img/n20-10.webp" alt="后台与观众席一瞥">
+          <img data-i18n-alt="alt154" loading="lazy" decoding="async" src="img/n20-11.webp" alt="调试鼓组">
+          <img data-i18n-alt="alt155" loading="lazy" decoding="async" src="img/n20-12.webp" alt="键盘与萨克斯同框">
         </div>
       </div>
     </section>
@@ -461,27 +467,27 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="en">Openland</div>
-          <div class="zh">旷野乐队</div>
-          <p>原星期四乐队。曲风多变的新泽西独立乐队。<br>合作 / 商演欢迎通过小红书私信联系。</p>
+          <div data-i18n="t003" class="zh">旷野乐队</div>
+          <p data-i18n="t156">原星期四乐队。曲风多变的新泽西独立乐队。<br>合作 / 商演欢迎通过小红书私信联系。</p>
         </div>
         <div>
-          <h4>收听</h4>
+          <h4 data-i18n="t014">收听</h4>
           <ul>
-            <li><a href="https://music.163.com/#/search/m/?s=Openland" target="_blank" rel="noopener">网易云音乐</a></li>
+            <li><a data-i18n="t015" href="https://music.163.com/#/search/m/?s=Openland" target="_blank" rel="noopener">网易云音乐</a></li>
             <li><a href="https://open.spotify.com/search/Openland" target="_blank" rel="noopener">Spotify</a></li>
             <li><a href="https://music.apple.com/search?term=Openland" target="_blank" rel="noopener">Apple Music</a></li>
             <li><a href="https://music.youtube.com/search?q=Openland" target="_blank" rel="noopener">YouTube Music</a></li>
           </ul>
         </div>
         <div>
-          <h4>关注</h4>
+          <h4 data-i18n="t157">关注</h4>
           <ul>
-            <li><a href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">小红书 @Openland旷野乐队</a></li>
-            <li><a href="#upcoming">11/21 纽约原创专场</a></li>
+            <li><a data-i18n="t158" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" target="_blank" rel="noopener">小红书 @Openland旷野乐队</a></li>
+            <li><a data-i18n="t159" href="#upcoming">11/21 纽约原创专场</a></li>
           </ul>
         </div>
       </div>
-      <p class="copy">© 2024–2026 Openland 旷野乐队。页面内容整理自乐队小红书账号发布的笔记。</p>
+      <p data-i18n="t160" class="copy">© 2024–2026 Openland 旷野乐队。页面内容整理自乐队小红书账号发布的笔记。</p>
     </div>
   </footer>
 
@@ -493,7 +499,7 @@
       const open = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.querySelectorAll('a:not([data-lang])').forEach(a => a.addEventListener('click', () => {
       nav.classList.remove('open');
       toggle.setAttribute('aria-expanded', 'false');
     }));
@@ -510,5 +516,6 @@
       });
     });
   </script>
+  <script src="i18n.js?v=1"></script>
 </body>
 </html>

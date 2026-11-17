@@ -471,3 +471,46 @@ footer a:hover { color: var(--gold-2); }
   .event.has-video, .event.has-video.vertical-video { grid-template-columns: 1fr; }
   .has-player.is-vertical { max-width: 360px; }
 }
+
+/* LANGUAGE SWITCHER */
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 2px;
+  margin-left: 10px; padding: 3px;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+}
+.nav-links .lang-switch a {
+  padding: 4px 9px; border-radius: 999px;
+  font-size: 12px; letter-spacing: 0.04em; line-height: 1.4;
+  color: var(--cream-mute); border: 0;
+}
+.nav-links .lang-switch a:hover { color: var(--gold-2); }
+.nav-links .lang-switch a.active { background: var(--gold); color: var(--ink); font-weight: 600; }
+@media (max-width: 1080px) and (min-width: 721px) {
+  .nav-links a { padding: 8px 8px; letter-spacing: 0.06em; }
+  .nav-cta { margin-left: 4px; }
+  .lang-switch { margin-left: 6px; }
+}
+@media (max-width: 720px) {
+  .lang-switch { margin: 14px auto 0; align-self: center; padding: 4px; }
+  .nav-links .lang-switch a { padding: 8px 16px; font-size: 14px; border-top: 0; }
+}
+
+/* PER-LANGUAGE FONTS (JP/KR families load only when that language is active) */
+html[lang="ja"] {
+  --font-serif: "Cormorant Garamond", "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif SC", serif;
+  --font-sans: "Manrope", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Noto Sans SC", sans-serif;
+}
+html[lang="ko"] {
+  --font-serif: "Cormorant Garamond", "Noto Serif KR", "AppleMyungjo", "Noto Serif SC", serif;
+  --font-sans: "Manrope", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans SC", sans-serif;
+}
+html[lang="ko"] body { word-break: keep-all; overflow-wrap: break-word; }
+html[lang="ja"] body, html[lang="en"] body { overflow-wrap: break-word; }
+@media (max-width: 900px) and (min-width: 721px) {
+  .nav { padding: 0 18px; }
+  .nav-links { gap: 2px; }
+  .nav-links a { padding: 8px 6px; font-size: 12px; letter-spacing: 0.02em; white-space: nowrap; }
+  .nav-cta { padding: 6px 10px !important; }
+  .nav-links .lang-switch a { padding: 3px 6px; font-size: 11px; }
+  .nav-brand .zh { display: none; }
+}
