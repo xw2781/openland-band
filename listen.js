@@ -16,8 +16,8 @@
         { src: 'audio/huiyi-chengguang.m4a', type: 'audio/mp4' },
         { src: 'audio/huiyi-chengguang.mp3', type: 'audio/mpeg' }
       ],
-      cover: 'img/n6-1.webp',
-      coverPos: '50% 28%',
+      cover: 'img/cover-huiyi-chengguang.webp',
+      coverPos: '50% 50%',
       lyrics: 'audio/lyrics/huiyi-chengguang.json',
       ariaPlay: 'aria187'
     },
