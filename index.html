@@ -486,8 +486,10 @@
     // inline video players: custom play overlay, one video at a time
     document.querySelectorAll('.has-player').forEach(function (box) {
       var v = box.querySelector('video'), btn = box.querySelector('.play');
-      btn.addEventListener('click', function () { v.play(); });
+      v.removeAttribute('controls'); // clean poster until tapped; native controls return on play
+      btn.addEventListener('click', function () { v.controls = true; v.play(); });
       v.addEventListener('play', function () {
+        v.controls = true;
         box.classList.add('playing');
         document.querySelectorAll('.has-player video').forEach(function (o) { if (o !== v) o.pause(); });
       });
