@@ -6,6 +6,65 @@
   "source": "audio/lyrics/waiting-for-you.txt",
   "audio": "audio/waiting-for-you.m4a",
   "note": "Official lyrics. Timing aligned to the studio master (faster-whisper large-v3). Intro is instrumental until ~0:20. Line 2 (\"Midnight talks…\") sits in a clear slot that the recognizer mis-heard; time kept from that slot. The five closing repeats were checked against the vocal energy contour (the recognizer only marked two and hallucinated a credit at the fade). Translations are editorial, not official.",
+  "credits": [
+    {
+      "key": "cr1",
+      "zh": "演唱 / 演奏",
+      "en": "Performing Artists",
+      "people": [
+        [
+          "Joy Qiu",
+          "Vocals"
+        ],
+        [
+          "Xiao Wei",
+          "Saxophone"
+        ],
+        [
+          "Will Song",
+          "Keyboards"
+        ],
+        [
+          "Minghao Qin",
+          "Drums"
+        ],
+        [
+          "Anki",
+          "Bass"
+        ],
+        [
+          "Vickers",
+          "Guitar"
+        ],
+        [
+          "Mangata",
+          "Cello"
+        ]
+      ]
+    },
+    {
+      "key": "cr2",
+      "zh": "作词作曲",
+      "en": "Composition & Lyrics",
+      "people": [
+        [
+          "Joy Qiu",
+          "Songwriter"
+        ]
+      ]
+    },
+    {
+      "key": "cr3",
+      "zh": "制作与录音",
+      "en": "Production & Engineering",
+      "people": [
+        [
+          "Xiao Wei",
+          "Recording Engineer"
+        ]
+      ]
+    }
+  ],
   "lines": [
     {
       "t": 20.48,

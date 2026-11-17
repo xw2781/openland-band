@@ -17,6 +17,7 @@
         { src: 'audio/huiyi-chengguang.mp3', type: 'audio/mpeg' }
       ],
       cover: 'img/cover-huiyi-chengguang.webp',
+      thumb: 'img/s/cover-huiyi-chengguang-320.webp',
       coverPos: '50% 50%',
       lyrics: 'audio/lyrics/huiyi-chengguang.json',
       ariaPlay: 'aria187'
@@ -32,6 +33,7 @@
         { src: 'audio/waiting-for-you.mp3', type: 'audio/mpeg' }
       ],
       cover: 'img/n11-3.webp',
+      thumb: 'img/s/n11-3-320.webp',
       coverPos: '50% 50%',
       lyrics: 'audio/lyrics/waiting-for-you.json',
       ariaPlay: 'aria188'
@@ -67,10 +69,16 @@
   var lyricFollow = true;
   var lyricPreviewT = null;
   var lyricScrubbing = false;
-  var lyricIgnoreScroll = false;
   var lyricFollowTimer = 0;
-  var lyricIgnoreTimer = 0;
   var lyricPointer = null;
+  var lyricSwallowClick = false;
+  var lyricY = 0;       /* current translateY of the list (px) */
+  var lyricViewH = 0;   /* cached height of the fixed lyrics viewport */
+  var glowEl = root.querySelector('.listen-glow');
+  var haloEl = root.querySelector('.listen-halo');
+  var haloGlowEl = root.querySelector('.listen-halo-glow');
+  var lastPulse = -1, lastProg = '', lastCur = '', lastNow = -1;
+  var levels = null;    /* 5 band levels (0..1) for the nav now-playing chip, null when unavailable */
   var ctx = null, analyser = null, sourceNode = null, freq = null;
   var rafViz = 0;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -78,7 +86,7 @@
     matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (e) {
       reduce = e.matches;
       root.classList.toggle('is-reduced', reduce);
-      if (reduce) root.style.setProperty('--listen-pulse', '0');
+      if (reduce) setPulse(0);
     });
   }
   root.classList.toggle('is-reduced', reduce);
@@ -115,14 +123,15 @@
   function applyTrack(track, keepTime) {
     var wasPlaying = playing();
     var t = keepTime ? audio.currentTime : 0;
+    pendingT = null;
     current = track;
     setSources(track);
     titleEl.textContent = track.titleFull;
-    artEl.src = track.cover;
+    artEl.src = track.thumb || track.cover; /* the disc label is ~80px: no need to decode the 1254px cover */
     artEl.style.objectPosition = track.coverPos || '50% 50%';
     artEl.alt = track.titleFull;
     durEl.textContent = fmt(track.duration);
-    curEl.textContent = fmt(t);
+    setCur(t);
     seekEl.setAttribute('aria-valuemax', String(Math.floor(track.duration)));
     root.querySelectorAll('.listen-track').forEach(function (b) {
       var on = b.getAttribute('data-track') === track.id;
@@ -155,7 +164,6 @@
     playBtn.setAttribute('aria-label', on ? lab.pause : lab.play);
     playBtn.setAttribute('data-i18n-aria', on ? 'aria185' : 'aria184');
     playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    if (!on && reduce) root.style.setProperty('--listen-pulse', '0');
   }
 
   function updateSongButtons() {
@@ -232,15 +240,29 @@
   function currentTime() {
     if (seeking && seekEl._seekT != null) return seekEl._seekT;
     if (lyricPreviewT != null) return lyricPreviewT;
+    if (pendingT != null) return pendingT;
     return audio.currentTime || 0;
+  }
+  /* seeking before the file has loaded (preload is "none") is remembered and applied on load */
+  var pendingT = null;
+  function seekAudio(t) {
+    if (audio.readyState < 1) { pendingT = t; return; }
+    pendingT = null;
+    try { audio.currentTime = t; } catch (err) {}
+  }
+  /* text / custom-property writes only happen when the value really changed */
+  function setCur(t) {
+    var v = fmt(t);
+    if (v !== lastCur) { lastCur = v; curEl.textContent = v; }
   }
   function updateSeek() {
     if (!seekEl) return;
     var dur = current.duration || 1;
     var t = currentTime();
-    var prog = Math.max(0, Math.min(1, t / dur));
-    seekEl.style.setProperty('--listen-prog', prog.toFixed(4));
-    seekEl.setAttribute('aria-valuenow', String(Math.floor(t)));
+    var prog = Math.max(0, Math.min(1, t / dur)).toFixed(4);
+    if (prog !== lastProg) { lastProg = prog; seekEl.style.setProperty('--listen-prog', prog); }
+    var now = Math.floor(t);
+    if (now !== lastNow) { lastNow = now; seekEl.setAttribute('aria-valuenow', String(now)); }
   }
 
   function timeFromEvent(e) {
@@ -253,7 +275,7 @@
     seeking = true;
     seekEl.classList.add('is-seeking');
     seekEl._seekT = timeFromEvent(e);
-    curEl.textContent = fmt(seekEl._seekT);
+    setCur(seekEl._seekT);
     updateSeek();
     if (seekEl.setPointerCapture && e.pointerId != null) {
       try { seekEl.setPointerCapture(e.pointerId); } catch (err) {}
@@ -263,7 +285,7 @@
   function moveSeek(e) {
     if (!seeking) return;
     seekEl._seekT = timeFromEvent(e);
-    curEl.textContent = fmt(seekEl._seekT);
+    setCur(seekEl._seekT);
     updateSeek();
   }
   function endSeek(e) {
@@ -271,36 +293,50 @@
     seeking = false;
     seekEl.classList.remove('is-seeking');
     var t = seekEl._seekT != null ? seekEl._seekT : timeFromEvent(e);
-    try { audio.currentTime = t; } catch (err) {}
+    seekAudio(t);
     seekEl._seekT = null;
-    curEl.textContent = fmt(t);
+    setCur(t);
     updateSeek();
     lyricFollow = true;
     updateLyrics(true);
   }
 
-  /* ── soft pulse from average energy (no spectrum bars) ── */
+  /* ── soft pulse from average energy: opacity + transform on pre-painted layers only ── */
+  function setPulse(p) {
+    if (Math.abs(p - lastPulse) < 0.02 && !(p === 0 && lastPulse !== 0)) return;
+    lastPulse = p;
+    if (glowEl) glowEl.style.opacity = p.toFixed(2);
+    if (haloGlowEl) haloGlowEl.style.opacity = (p * 0.9).toFixed(2);
+    if (haloEl) haloEl.style.transform = p ? 'scale(' + (1 + p * 0.028).toFixed(4) + ')' : '';
+  }
+  var BANDS = [[1, 3], [3, 6], [6, 11], [11, 19], [19, 32]];
   function updatePulse() {
     if (reduce || !analyser || !playing() || !freq) {
-      root.style.setProperty('--listen-pulse', '0');
+      levels = null;
+      setPulse(0);
       return;
     }
     analyser.getByteFrequencyData(freq);
     var count = Math.max(1, Math.floor(freq.length * 0.6));
     var sum = 0;
     for (var i = 0; i < count; i++) sum += freq[i];
-    var pulse = Math.min(1, (sum / count / 255) * 1.45);
-    root.style.setProperty('--listen-pulse', pulse.toFixed(3));
+    setPulse(Math.min(1, (sum / count / 255) * 1.45));
+    if (!levels) levels = [0, 0, 0, 0, 0];
+    for (var b = 0; b < 5; b++) {
+      var a = 0, lo = BANDS[b][0], hi = BANDS[b][1];
+      for (var k = lo; k < hi; k++) a += freq[k];
+      levels[b] = Math.min(1, a / (hi - lo) / 255 * (1 + b * 0.18));
+    }
   }
 
   function tick() {
     rafViz = 0;
     if (!playing()) { updatePulse(); updateSeek(); updateLyrics(); return; }
-    if (!seeking && lyricPreviewT == null) curEl.textContent = fmt(audio.currentTime || 0);
-    else if (lyricPreviewT != null) curEl.textContent = fmt(lyricPreviewT);
+    if (!seeking) setCur(currentTime());
     updateSeek();
     updatePulse();
     updateLyrics();
+    if (window.OPENLAND_NOWPLAYING) window.OPENLAND_NOWPLAYING.levels(levels);
     rafViz = requestAnimationFrame(tick);
   }
   function startAnim() {
@@ -309,7 +345,6 @@
   function stopAnim() {
     if (rafViz) cancelAnimationFrame(rafViz);
     rafViz = 0;
-    root.style.setProperty('--listen-pulse', '0');
     updatePulse();
     updateSeek();
     updateLyrics();
@@ -356,7 +391,7 @@
       if (current.id !== track.id) return;
       lyricsData = data || {};
       renderLyrics();
-      updateLyrics(true);
+      updateLyrics('instant');
     }).catch(function () {
       if (current.id === track.id) renderLyricsComing();
     });
@@ -390,6 +425,62 @@
     if (lyricsRoot) lyricsRoot.classList.remove('is-coming');
     var jumpLab = { zh: '跳转到这句', en: 'Jump to this line', ja: 'この行に移動', ko: '이 소절로 이동' };
     var jlab = jumpLab[siteLang()] || jumpLab.zh;
+    function addLine(row, kind) {
+      var i = lyricLines.length;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'listen-lyric' + (kind ? ' is-credit' + (kind === 'head' ? ' is-credit-head' : '') : '');
+      btn.setAttribute('data-t', String(row.t));
+      btn.setAttribute('aria-label', (kind ? row.text + ' · ' : jlab + ' · ') + fmt(row.t));
+      var text = document.createElement('span');
+      text.className = 'tx';
+      if (kind === 'row') {
+        var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = row.name;
+        var pt = document.createElement('span'); pt.className = 'pt'; pt.textContent = row.part;
+        text.appendChild(nm); text.appendChild(pt);
+      } else {
+        text.textContent = row.text;
+      }
+      btn.appendChild(text);
+      var tr = kind ? '' : translationFor(row);
+      if (tr) {
+        var sub = document.createElement('span');
+        sub.className = 'tr';
+        sub.textContent = tr;
+        btn.appendChild(sub);
+      }
+      btn.addEventListener('click', function (e) {
+        if (lyricSwallowClick) { e.preventDefault(); return; }
+        seekToLyric(i, true);
+      });
+      btn.addEventListener('focus', function () {
+        /* keyboard focus: bring the row into view ourselves (the viewport never scrolls) */
+        var vis = false;
+        try { vis = btn.matches(':focus-visible'); } catch (e) {}
+        if (!vis || lyricScrubbing) return;
+        centerLyric(i, false);
+        scheduleFollowResume();
+      });
+      lyricsList.appendChild(btn);
+      lyricLines.push({
+        t: Number(row.t),
+        te: row.te != null ? Number(row.te) : null,
+        text: row.text,
+        tr: row.tr || null,
+        credit: !!kind,
+        el: btn,
+        index: i,
+        c: 0
+      });
+    }
+    /* credits: spread evenly over the instrumental intro, done ~1s before the first sung line */
+    creditRows(timed[0].t).forEach(function (cr) { addLine(cr, cr.head ? 'head' : 'row'); });
+    if (lyricLines.length) {
+      var end = document.createElement('div');
+      end.className = 'listen-credit-end';
+      end.setAttribute('aria-hidden', 'true');
+      lyricsList.appendChild(end);
+    }
     rows.forEach(function (row) {
       if (row && row.break) {
         var sp = document.createElement('div');
@@ -399,37 +490,36 @@
         return;
       }
       if (!row || !row.text || row.t == null || !isFinite(row.t)) return;
-      var i = lyricLines.length;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'listen-lyric';
-      btn.setAttribute('data-t', String(row.t));
-      btn.setAttribute('aria-label', jlab + ' · ' + fmt(row.t));
-      var text = document.createElement('span');
-      text.className = 'tx';
-      text.textContent = row.text;
-      btn.appendChild(text);
-      var tr = translationFor(row);
-      if (tr) {
-        var sub = document.createElement('span');
-        sub.className = 'tr';
-        sub.textContent = tr;
-        btn.appendChild(sub);
-      }
-      btn.addEventListener('click', function (e) {
-        if (lyricPointer && lyricPointer.dragged) { e.preventDefault(); return; }
-        seekToLyric(i, true);
-      });
-      lyricsList.appendChild(btn);
-      lyricLines.push({
-        t: Number(row.t),
-        te: row.te != null ? Number(row.te) : null,
-        text: row.text,
-        tr: row.tr || null,
-        el: btn,
-        index: i
+      addLine(row, '');
+    });
+    measureLyrics();
+  }
+  function creditHead(sec) {
+    var lang = siteLang();
+    var dict = (window.OPENLAND_I18N || {})[lang] || {};
+    if (lang !== 'zh' && sec.key && dict[sec.key]) return dict[sec.key];
+    return (lang === 'zh' ? sec.zh : sec.en) || sec.en || sec.zh || '';
+  }
+  function creditRows(firstT) {
+    var secs = (lyricsData && lyricsData.credits) || [];
+    var out = [];
+    secs.forEach(function (sec) {
+      out.push({ head: true, text: creditHead(sec) });
+      (sec.people || []).forEach(function (p) {
+        out.push({ head: false, name: p[0], part: p[1], text: p[0] + ' — ' + p[1] });
       });
     });
+    var span = Number(firstT) - 1; /* keep ~1s clear before the first lyric */
+    if (!out.length || !(span >= out.length * 0.6)) return [];
+    out.forEach(function (r, k) { r.t = Math.round(k * span / out.length * 100) / 100; });
+    return out;
+  }
+  /* geometry is read once after rendering (and on width changes) — never during playback */
+  function measureLyrics() {
+    if (!lyricsView || !lyricLines.length) return;
+    lyricViewH = lyricsView.clientHeight;
+    lyricLines.forEach(function (ln) { ln.c = ln.el.offsetTop + ln.el.offsetHeight / 2; });
+    if (lyricActive >= 0 && !lyricScrubbing) centerLyric(lyricActive, true);
   }
   function lineAt(t) {
     if (!lyricLines.length) return -1;
@@ -440,13 +530,22 @@
     }
     return i;
   }
-  function scrollLyricToCenter(el, instant) {
-    if (!el || !lyricsView) return;
-    var top = el.offsetTop - lyricsView.clientHeight / 2 + el.offsetHeight / 2;
-    lyricIgnoreScroll = true;
-    lyricsView.scrollTo({ top: Math.max(0, top), behavior: (instant || reduce) ? 'auto' : 'smooth' });
-    clearTimeout(lyricIgnoreTimer);
-    lyricIgnoreTimer = setTimeout(function () { lyricIgnoreScroll = false; }, (instant || reduce) ? 80 : 480);
+  var instantRaf = 0;
+  function setLyricY(y, instant) {
+    lyricY = y;
+    if (!lyricsList) return;
+    if (instant && lyricsRoot) {
+      lyricsRoot.classList.add('is-instant');
+      cancelAnimationFrame(instantRaf);
+      instantRaf = requestAnimationFrame(function () {
+        instantRaf = requestAnimationFrame(function () { lyricsRoot.classList.remove('is-instant'); });
+      });
+    }
+    lyricsList.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+  }
+  function centerLyric(i, instant) {
+    var ln = lyricLines[i];
+    if (ln) setLyricY(lyricViewH / 2 - ln.c, instant);
   }
   function paintLyricClasses(currentIdx, targetIdx) {
     lyricLines.forEach(function (ln, i) {
@@ -458,31 +557,28 @@
   function updateLyrics(forceScroll) {
     if (!lyricLines.length) return;
     if (lyricScrubbing && !forceScroll) return;
-    var t = currentTime();
-    var i = lineAt(t);
+    var i = lineAt(currentTime());
     var changed = i !== lyricActive;
+    if (!changed && !forceScroll) return;
     lyricActive = i;
     paintLyricClasses(i, -1);
-    if ((changed || forceScroll) && lyricFollow && i >= 0) {
-      scrollLyricToCenter(lyricLines[i].el, !!forceScroll || reduce);
-    }
+    if (lyricFollow && i >= 0) centerLyric(i, forceScroll === 'instant');
   }
   function lineNearestCenter() {
-    if (!lyricsView || !lyricLines.length) return 0;
-    var mid = lyricsView.scrollTop + lyricsView.clientHeight / 2;
+    if (!lyricLines.length) return 0;
+    var mid = lyricViewH / 2 - lyricY;
     var best = 0, bestD = Infinity;
-    lyricLines.forEach(function (ln, i) {
-      var c = ln.el.offsetTop + ln.el.offsetHeight / 2;
-      var d = Math.abs(c - mid);
+    for (var i = 0; i < lyricLines.length; i++) {
+      var d = Math.abs(lyricLines[i].c - mid);
       if (d < bestD) { bestD = d; best = i; }
-    });
+    }
     return best;
   }
   function previewLyric(i) {
     if (i < 0 || i >= lyricLines.length) return;
     var ln = lyricLines[i];
     lyricPreviewT = ln.t;
-    if (curEl) curEl.textContent = fmt(ln.t);
+    setCur(ln.t);
     updateSeek();
     paintLyricClasses(lineAt(audio.currentTime || 0), i);
     if (lyricsScrub) lyricsScrub.hidden = false;
@@ -492,17 +588,17 @@
   function seekToLyric(i, followNow) {
     if (i < 0 || i >= lyricLines.length) return;
     var t = lyricLines[i].t;
-    try { audio.currentTime = t; } catch (e) {}
+    seekAudio(t);
     lyricPreviewT = null;
     lyricScrubbing = false;
     if (lyricsScrub) lyricsScrub.hidden = true;
     if (lyricsRoot) lyricsRoot.classList.remove('is-scrubbing');
     lyricFollow = !!followNow;
     lyricActive = i;
-    if (curEl) curEl.textContent = fmt(t);
+    setCur(t);
     updateSeek();
     paintLyricClasses(i, -1);
-    scrollLyricToCenter(lyricLines[i].el, true);
+    centerLyric(i, false);
     if (!followNow) scheduleFollowResume();
   }
   function scheduleFollowResume() {
@@ -513,53 +609,59 @@
       updateLyrics(true);
     }, 3000);
   }
-  function onLyricsUserScroll() {
-    if (lyricIgnoreScroll || !lyricLines.length) return;
-    lyricScrubbing = true;
-    lyricFollow = false;
-    clearTimeout(lyricFollowTimer);
-    var i = lineNearestCenter();
-    previewLyric(i);
-    clearTimeout(lyricFollowTimer);
-    lyricFollowTimer = setTimeout(function () {
-      if (!lyricScrubbing) return;
-      /* wheel/trackpad "release": seek, then wait 3s to follow */
-      seekToLyric(i, false);
-    }, 180);
-  }
   function bindLyricsScrub() {
     if (!lyricsView) return;
-    lyricsView.addEventListener('scroll', onLyricsUserScroll, { passive: true });
-    lyricsView.addEventListener('wheel', function () {
-      /* scroll event handles preview; keep preventDefault off so it remains scrollable */
+    /* focus can make the browser scroll an overflow:hidden box — always pin it back to 0 */
+    lyricsView.addEventListener('scroll', function () {
+      if (lyricsView.scrollTop) lyricsView.scrollTop = 0;
+      if (lyricsView.scrollLeft) lyricsView.scrollLeft = 0;
     }, { passive: true });
     lyricsView.addEventListener('pointerdown', function (e) {
       if (e.button != null && e.button !== 0) return;
-      lyricPointer = { y: e.clientY, dragged: false, id: e.pointerId };
+      if (!lyricLines.length) return;
+      lyricPointer = { y: e.clientY, y0: lyricY, dragged: false, id: e.pointerId, i: -1 };
     });
     lyricsView.addEventListener('pointermove', function (e) {
-      if (!lyricPointer) return;
-      if (Math.abs(e.clientY - lyricPointer.y) > 6) lyricPointer.dragged = true;
-      if (lyricPointer.dragged) {
+      if (!lyricPointer || e.pointerId !== lyricPointer.id) return;
+      var dy = e.clientY - lyricPointer.y;
+      if (!lyricPointer.dragged) {
+        if (Math.abs(dy) < 6) return;
+        lyricPointer.dragged = true;
         lyricScrubbing = true;
         lyricFollow = false;
         clearTimeout(lyricFollowTimer);
-        previewLyric(lineNearestCenter());
+        try { lyricsView.setPointerCapture(e.pointerId); } catch (err) {}
       }
+      var first = lyricLines[0], last = lyricLines[lyricLines.length - 1];
+      var y = Math.max(lyricViewH / 2 - last.c, Math.min(lyricViewH / 2 - first.c, lyricPointer.y0 + dy));
+      setLyricY(y, false);
+      var i = lineNearestCenter();
+      if (i !== lyricPointer.i) { lyricPointer.i = i; previewLyric(i); }
     });
-    function endPointer() {
-      if (!lyricPointer) return;
-      var dragged = lyricPointer.dragged;
+    function endPointer(e) {
+      if (!lyricPointer || (e && e.pointerId !== lyricPointer.id)) return;
+      var p = lyricPointer;
       lyricPointer = null;
-      if (dragged) {
-        var i = lineNearestCenter();
-        seekToLyric(i, false);
+      if (!p.dragged) return;
+      lyricSwallowClick = true;
+      setTimeout(function () { lyricSwallowClick = false; }, 60);
+      if (e && e.type === 'pointercancel') {
+        /* gesture taken away: drop the preview and go back to following the song */
+        lyricPreviewT = null;
+        lyricScrubbing = false;
+        if (lyricsScrub) lyricsScrub.hidden = true;
+        if (lyricsRoot) lyricsRoot.classList.remove('is-scrubbing');
+        lyricFollow = true;
+        lyricActive = -1;
+        updateLyrics(true);
+        setCur(audio.currentTime || 0);
+        updateSeek();
+        return;
       }
+      seekToLyric(lineNearestCenter(), false);
     }
     lyricsView.addEventListener('pointerup', endPointer);
-    lyricsView.addEventListener('pointercancel', function () {
-      lyricPointer = null;
-    });
+    lyricsView.addEventListener('pointercancel', endPointer);
   }
   bindLyricsScrub();
 
@@ -613,13 +715,13 @@
     updatePlayUi();
     updateSongButtons();
     stopAnim();
-    curEl.textContent = fmt(current.duration);
+    setCur(current.duration);
     updateSeek();
     setMediaSession();
   });
   audio.addEventListener('timeupdate', function () {
     if (seeking) return;
-    curEl.textContent = fmt(audio.currentTime || 0);
+    if (lyricPreviewT == null) setCur(currentTime());
     if (!rafViz) { updateSeek(); updateLyrics(); }
     if ('mediaSession' in navigator && navigator.mediaSession.setPositionState) {
       try {
@@ -636,6 +738,7 @@
       current.duration = audio.duration;
       durEl.textContent = fmt(current.duration);
     }
+    if (pendingT != null) { var pt = pendingT; pendingT = null; try { audio.currentTime = pt; } catch (e) {} }
   });
 
   seekEl.addEventListener('pointerdown', beginSeek);
@@ -688,17 +791,131 @@
     updateSongButtons();
     if (lyricsData) renderLyrics();
     else if (lyricsList && lyricsList.querySelector('.listen-lyrics-coming')) renderLyricsComing();
-    updateLyrics(true);
+    lyricActive = -1;
+    updateLyrics('instant');
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-  window.addEventListener('resize', function () { updateSeek(); });
+  /* re-measure the lyric rows only when the panel width really changed (never on the
+     height-only resizes phones fire while the toolbar collapses) */
+  var lyricW = 0;
+  function remeasureLyrics() {
+    var w = lyricsView ? lyricsView.clientWidth : 0;
+    if (w === lyricW) return;
+    lyricW = w;
+    measureLyrics();
+  }
+  window.addEventListener('resize', remeasureLyrics, { passive: true });
+  window.addEventListener('load', function () { lyricW = -1; remeasureLyrics(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { lyricW = -1; remeasureLyrics(); });
 
   window.OPENLAND_LISTEN = {
     pause: function () { try { audio.pause(); } catch (e) {} },
     play: playTrack,
-    playing: playing
+    playing: playing,
+    title: function () { return current.titleFull; },
+    el: root
   };
 
   applyTrack(TRACKS.huiyi, false);
   bindMediaSession();
   updateSeek();
+})();
+
+/* Now-playing chip in the nav: shows while the listen player or any page video is playing */
+(function () {
+  'use strict';
+  var chip = document.getElementById('nowPlaying');
+  var label = document.getElementById('nowPlayingLabel');
+  var audio = document.getElementById('listenAudio');
+  if (!chip || !label) return;
+  var bars = Array.prototype.slice.call(chip.querySelectorAll('.np-bars i'));
+  var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
+  var cards = new Map(); /* video -> its timeline card (the video itself may move into the theater) */
+  videos.forEach(function (v) { cards.set(v, v.closest('.event') || v.parentNode); });
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var src = null, hideT = 0, live = false;
+  var ARIA = { zh: '正在播放：{title}，点击跳转' };
+
+  function lang() {
+    var l = (document.documentElement.lang || 'zh').toLowerCase().slice(0, 2);
+    return /^(ja|en|ko)$/.test(l) ? l : 'zh';
+  }
+  function isPlaying(m) { return m && !m.paused && !m.ended; }
+  function titleOf(s) {
+    if (!s) return '';
+    if (s === audio) return (window.OPENLAND_LISTEN && window.OPENLAND_LISTEN.title()) || '';
+    var card = cards.get(s), h = card && card.querySelector && card.querySelector('h3');
+    return h ? h.textContent.trim() : '';
+  }
+  function paint() {
+    var t = titleOf(src), l = lang();
+    var tpl = l === 'zh' ? ARIA.zh : (((window.OPENLAND_I18N || {})[l] || {}).np1 || ARIA.zh);
+    label.textContent = t;
+    chip.setAttribute('aria-label', tpl.replace('{title}', t));
+    chip.title = t;
+  }
+  function setLive(on) {
+    if (on === live) return;
+    live = on;
+    chip.classList.toggle('is-live', on);
+    if (!on) bars.forEach(function (b) { b.style.transform = ''; });
+  }
+  function refresh() {
+    var next = isPlaying(audio) ? audio : null;
+    if (!next) for (var i = 0; i < videos.length; i++) if (isPlaying(videos[i])) { next = videos[i]; break; }
+    if (next) {
+      src = next;
+      clearTimeout(hideT);
+      paint();
+      if (chip.hidden) {
+        chip.hidden = false;
+        requestAnimationFrame(function () { requestAnimationFrame(function () { if (src) chip.classList.add('is-on'); }); });
+      } else chip.classList.add('is-on');
+      if (next !== audio) setLive(false);
+    } else if (src) {
+      src = null;
+      setLive(false);
+      chip.classList.remove('is-on');
+      clearTimeout(hideT);
+      hideT = setTimeout(function () { if (!src) chip.hidden = true; }, 380);
+    }
+  }
+  /* media events do not bubble, but they can be captured on the document */
+  ['play', 'playing', 'pause', 'ended', 'emptied'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (e.target === audio || (e.target && e.target.tagName === 'VIDEO')) refresh();
+    }, true);
+  });
+  new MutationObserver(function () { if (src) paint(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+  chip.addEventListener('click', function () {
+    if (!src) return;
+    var smooth = reduce ? 'auto' : 'smooth';
+    if (src === audio) {
+      var el = (window.OPENLAND_LISTEN && window.OPENLAND_LISTEN.el) || document.getElementById('listen');
+      if (el) el.scrollIntoView({ behavior: smooth, block: 'center' });
+      return;
+    }
+    var theater = document.getElementById('theater');
+    if (theater && theater.classList.contains('is-open') && theater.contains(src)) {
+      var c = theater.querySelector('.theater-close');
+      (c || src).focus();
+      return;
+    }
+    var card = cards.get(src);
+    /* block: page scroll to the card; inline: the timeline carousel brings the card to its centre */
+    if (card && card.scrollIntoView) card.scrollIntoView({ behavior: smooth, block: 'center', inline: 'center' });
+  });
+
+  window.OPENLAND_NOWPLAYING = {
+    /* called once per frame by the listen player with 5 real band levels (or null) */
+    levels: function (lv) {
+      if (!lv || reduce || src !== audio) { setLive(false); return; }
+      setLive(true);
+      for (var i = 0; i < bars.length; i++) {
+        bars[i].style.transform = 'scaleY(' + (0.18 + 0.82 * (lv[i] || 0)).toFixed(3) + ')';
+      }
+    }
+  };
+  refresh();
 })();

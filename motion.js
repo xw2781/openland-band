@@ -21,10 +21,10 @@
       var t = k / (N - 1);
       var env = 0.35 + 0.65 * Math.sin(Math.PI * t);
       var h = env * (0.3 + 0.7 * Math.abs(Math.sin(k * 0.9) * Math.cos(k * 0.37 + 1.1)));
-      var s = 0.12 + 0.38 * t;
-      html += '<i class="sd-in" style="--h:' + Math.max(0.1, h).toFixed(3) + ';--s:' + s.toFixed(3) + ';--e:' + (s + 0.1).toFixed(3) + '"></i>';
+      html += '<i style="--h:' + Math.max(0.1, h).toFixed(3) + '"></i>';
     }
-    wave.innerHTML = html;
+    /* two layers (dim bars + a clipped bright copy) instead of one animated layer per bar */
+    wave.innerHTML = '<span class="wave-dim">' + html + '</span><span class="wave-lit sd-in"><span class="sd-in">' + html + '</span></span>';
   }
 
   /* ── statement: split into characters that light up one by one ── */
@@ -35,13 +35,15 @@
     if (!MOTION) return;
     st.setAttribute('aria-label', txt);
     var out = '', n = txt.length;
+    /* phones (quote not pinned): finish lighting while the quote is still mid-screen */
+    var K = window.innerWidth < 721 ? 0.58 : 0.8, S0 = window.innerWidth < 721 ? 0.1 : 0.04;
     for (var c = 0; c < n; c++) {
-      var a = 0.04 + 0.8 * (c / (n || 1));
+      var a = S0 + K * (c / (n || 1));
       var ch = txt.charAt(c);
       if (ch === '&') ch = '&amp;';
       else if (ch === '<') ch = '&lt;';
       else if (ch === '>') ch = '&gt;';
-      out += '<span class="ch sd-in rg-contain" aria-hidden="true" style="--s:' + a.toFixed(4) + ';--e:' + (a + 0.8 * 5 / (n || 1)).toFixed(4) + '">' + ch + '</span>';
+      out += '<span class="ch sd-in rg-contain" aria-hidden="true" style="--s:' + a.toFixed(4) + ';--e:' + (a + K * 5 / (n || 1)).toFixed(4) + '">' + ch + '</span>';
     }
     st.innerHTML = out;
   }
@@ -69,39 +71,150 @@
 
   if (!MOTION) return;
 
-  /* ── horizontal timeline: counter + date label, keyboard focus support ── */
-  var hs = $('#hscroll'), hsStage = hs && $('.hscroll-stage', hs);
-  var hsIdx = $('#hsIdx'), hsLabel = $('#hsLabel');
-  var events = hs ? $$('.event', hs) : [];
-  var labels = events.map(function (ev) { var d = $('.event-date', ev); return d && d.firstChild ? d.firstChild.textContent.trim() : ''; });
+  /* ── stable viewport height ──
+     Phones resize the visual viewport whenever the browser toolbar collapses (and many in-app
+     browsers resize 100vh with it). Anything derived from that height would re-layout mid-scroll,
+     so on touch devices the two height units the layout uses are locked to pixels once and only
+     refreshed when the WIDTH changes (rotation / real resize). Height-only resizes are ignored. */
+  var probe = document.createElement('div');
+  probe.setAttribute('aria-hidden', 'true');
+  probe.style.cssText = 'position:fixed;left:0;top:0;width:0;visibility:hidden;pointer-events:none;height:100vh;height:100lvh';
+  var probeS = probe.cloneNode(false);
+  probeS.style.cssText = 'position:fixed;left:0;top:0;width:0;visibility:hidden;pointer-events:none;height:100vh;height:100svh';
+  document.body.appendChild(probe); document.body.appendChild(probeS);
+  var COARSE = !!(window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches);
+  var VW = 0, VH = 0;
+  function lockViewport(force) {
+    var w = root.clientWidth;
+    if (!force && COARSE && w === VW) return false;
+    var h = probe.offsetHeight || window.innerHeight, sh = probeS.offsetHeight || h;
+    if (w === VW && h === VH) return false;
+    VW = w; VH = h;
+    if (COARSE) {
+      root.style.setProperty('--lvh', h + 'px');
+      root.style.setProperty('--svh', Math.min(sh, h) + 'px');
+    }
+    root.classList.toggle('vh-tall', h >= 700);
+    return true;
+  }
+  lockViewport(true);
+
+  /* ── timeline: native horizontal carousel (counter, progress, arrows, drag, keys) ── */
+  var hs = $('#hscroll'), tl = $('#timeline');
+  var hsIdx = $('#hsIdx'), hsLabel = $('#hsLabel'), hsBar = $('#hsBar');
+  var hsPrev = $('#hsPrev'), hsNext = $('#hsNext');
+  var events = tl ? $$('.event', tl) : [];
+  var readLabels = function () {
+    return events.map(function (ev) { var d = $('.event-date', ev); return d && d.firstChild ? d.firstChild.textContent.trim() : ''; });
+  };
+  var labels = readLabels();
   var hsTotal = hs && $('.hs-count em', hs);
   if (hsTotal && events.length) hsTotal.textContent = '/ ' + events.length;
 
-  var curIdx = 0;
-  function hsPinned() { return hsStage && getComputedStyle(hsStage).position === 'sticky'; }
+  var curIdx = -1, hsPos = [], hsMax = 0, hsRaf = 0, tickFlip = false;
   function tick(el, text) {
-    el.textContent = text; el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick');
+    /* restart the little rise animation by swapping between two identical keyframes (no forced reflow) */
+    if (!el) return;
+    el.textContent = text;
+    el.classList.remove(tickFlip ? 'tick' : 'tick2');
+    el.classList.add(tickFlip ? 'tick2' : 'tick');
+  }
+  function measureHs() {
+    if (!tl || !events.length) return;
+    var cw = tl.clientWidth;
+    hsMax = Math.max(0, tl.scrollWidth - cw);
+    hsPos = events.map(function (ev) { return clamp(ev.offsetLeft + ev.offsetWidth / 2 - cw / 2, 0, hsMax); });
+    updateHs(true);
+  }
+  function setIdx(i) {
+    if (i === curIdx) return;
+    if (events[curIdx]) events[curIdx].classList.remove('is-active');
+    curIdx = i;
+    events[i].classList.add('is-active');
+    tickFlip = !tickFlip;
+    tick(hsIdx, (i + 1 < 10 ? '0' : '') + (i + 1));
+    tick(hsLabel, labels[i]);
+    if (hsPrev) hsPrev.disabled = i === 0;
+    if (hsNext) hsNext.disabled = i === events.length - 1;
   }
   function updateHs() {
-    if (!hs || !events.length) return;
-    var r = hs.getBoundingClientRect(), span = r.height - window.innerHeight;
-    if (span <= 0) return;
-    var i = Math.round(clamp(-r.top / span, 0, 1) * (events.length - 1));
-    if (i !== curIdx) {
-      curIdx = i;
-      tick(hsIdx, (i + 1 < 10 ? '0' : '') + (i + 1));
-      tick(hsLabel, labels[i]);
+    hsRaf = 0;
+    if (!tl || !hsPos.length) return;
+    var x = tl.scrollLeft, best = 0, bd = Infinity;
+    for (var i = 0; i < hsPos.length; i++) { var d = Math.abs(hsPos[i] - x); if (d < bd) { bd = d; best = i; } }
+    setIdx(best);
+    if (hsBar) {
+      var n = events.length, p = hsMax > 0 ? clamp(x / hsMax, 0, 1) : 0;
+      hsBar.style.transform = 'scaleX(' + ((1 + (n - 1) * p) / n).toFixed(4) + ')';
     }
   }
-  events.forEach(function (ev, i) {
-    ev.addEventListener('focusin', function () {
-      if (!hsPinned()) return;
-      hsStage.scrollLeft = 0;
-      if (i === curIdx) return;
-      var top = hs.getBoundingClientRect().top + window.pageYOffset;
-      var span = hs.offsetHeight - window.innerHeight;
-      window.scrollTo(0, top + span * i / (events.length - 1));
+  function hsGo(i, instant) {
+    if (!tl || !hsPos.length) return;
+    i = clamp(i, 0, events.length - 1);
+    try { tl.scrollTo({ left: hsPos[i], behavior: instant ? 'auto' : 'smooth' }); }
+    catch (e) { tl.scrollLeft = hsPos[i]; }
+  }
+  if (tl && events.length) {
+    tl.addEventListener('scroll', function () { if (!hsRaf) hsRaf = requestAnimationFrame(updateHs); }, { passive: true });
+    if (hsPrev) hsPrev.addEventListener('click', function () { hsGo(curIdx - 1); });
+    if (hsNext) hsNext.addEventListener('click', function () { hsGo(curIdx + 1); });
+    tl.addEventListener('keydown', function (e) {
+      if (e.target !== tl) return;
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'Right') { e.preventDefault(); hsGo(curIdx + 1); }
+      else if (k === 'ArrowLeft' || k === 'Left') { e.preventDefault(); hsGo(curIdx - 1); }
+      else if (k === 'Home') { e.preventDefault(); hsGo(0); }
+      else if (k === 'End') { e.preventDefault(); hsGo(events.length - 1); }
     });
+
+    /* mouse: click-drag to pan (touch / trackpad / shift+wheel are native) */
+    var drag = null, settleT = 0, swallowClick = false;
+    var settle = function () { clearTimeout(settleT); tl.classList.remove('is-dragging'); };
+    tl.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      if (e.target.closest && e.target.closest('.duo-show, video, button, input, .has-player.playing')) return;
+      drag = { x: e.clientX, left: tl.scrollLeft, id: e.pointerId, moved: false, lx: e.clientX, lt: e.timeStamp, v: 0 };
+    });
+    tl.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x;
+      if (!drag.moved) {
+        if (Math.abs(dx) < 6) return;
+        drag.moved = true;
+        clearTimeout(settleT);
+        tl.classList.add('is-dragging');
+        try { tl.setPointerCapture(drag.id); } catch (err) {}
+      }
+      var dt = e.timeStamp - drag.lt;
+      if (dt > 0) { drag.v = 0.7 * (e.clientX - drag.lx) / dt + 0.3 * drag.v; drag.lx = e.clientX; drag.lt = e.timeStamp; }
+      tl.scrollLeft = drag.left - dx;
+    });
+    var endDrag = function (e) {
+      if (!drag || (e && e.pointerId !== drag.id)) return;
+      var d = drag; drag = null;
+      if (!d.moved) return;
+      swallowClick = true; setTimeout(function () { swallowClick = false; }, 60);
+      var aim = tl.scrollLeft - d.v * 220, best = 0, bd = Infinity;
+      for (var i = 0; i < hsPos.length; i++) { var dd = Math.abs(hsPos[i] - aim); if (dd < bd) { bd = dd; best = i; } }
+      hsGo(best);
+      settleT = setTimeout(settle, 520); /* snapping comes back once the glide has landed */
+    };
+    tl.addEventListener('pointerup', endDrag);
+    tl.addEventListener('pointercancel', endDrag);
+    tl.addEventListener('click', function (e) { if (swallowClick) { e.preventDefault(); e.stopPropagation(); } }, true);
+    tl.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    measureHs();
+  }
+
+  /* ── in-page links glide (native scrollIntoView; html no longer has scroll-behavior: smooth) ── */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var id = a.getAttribute('href').slice(1), t = id && document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try { history.pushState(null, '', '#' + id); } catch (err) {}
   });
 
   /* ── desktop: card tilt + cursor stage light ── */
@@ -176,7 +289,7 @@
   }
   function f4(v) { return clamp(v, -1, 2).toFixed(4); }
   function update() {
-    var y = window.pageYOffset, vh = window.innerHeight;
+    var y = window.pageYOffset, vh = VH;
     for (var i = 0; i < items.length; i++) {
       var it = items[i], a = y + vh - it.top, h = it.h;
       var state = a < -vh * 0.6 ? 'b' : (y > it.top + h + vh * 0.6 ? 'a' : '');
@@ -214,31 +327,43 @@
   function onScroll() {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(function () { ticking = false; if (FALLBACK) update(); updateHs(); });
+    requestAnimationFrame(function () { ticking = false; update(); });
   }
-  var remeasure = function () { if (FALLBACK) { measure(); update(); } updateHs(); };
+  /* content changed size (fonts, language, images): re-measure. Never triggered by scrolling. */
+  var remeasure = function () { if (FALLBACK) { measure(); update(); } measureHs(); };
+  /* window resize: only act when the width (or, on desktop, the real height) changed.
+     The toolbar-collapse resizes that phones fire while scrolling are dropped here. */
+  var onResize = function () { if (lockViewport(false)) remeasure(); };
 
-  if (FALLBACK) { collect(); measure(); update(); }
-  updateHs();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', remeasure);
-  window.addEventListener('load', remeasure);
   if (FALLBACK) {
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
-    if ('ResizeObserver' in window) {
-      var roT = 0;
-      new ResizeObserver(function () { clearTimeout(roT); roT = setTimeout(remeasure, 120); }).observe(document.body);
-    }
+    collect(); measure(); update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('orientationchange', function () { setTimeout(function () { if (lockViewport(true)) remeasure(); }, 250); });
+  window.addEventListener('load', remeasure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+  if (FALLBACK && 'ResizeObserver' in window) {
+    var roT = 0, roH = 0;
+    new ResizeObserver(function (es) {
+      var h = es[0] && es[0].contentRect ? Math.round(es[0].contentRect.height) : -1;
+      if (h === roH) return; roH = h;
+      clearTimeout(roT); roT = setTimeout(remeasure, 120);
+    }).observe(document.body);
   }
 
   window.OPENLAND_MOTION = {
     onLang: function () {
       splitStatement();
-      labels = events.map(function (ev) { var d = $('.event-date', ev); return d && d.firstChild ? d.firstChild.textContent.trim() : ''; });
-      curIdx = -1;
-      var reflow = function () { if (FALLBACK) { /* items already collected */ measure(); update(); } updateHs(); };
-      reflow();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(reflow);
+      labels = readLabels();
+      if (curIdx >= 0) tick(hsLabel, labels[curIdx]);
+      remeasure();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+    },
+    /* bring a timeline card to the centre of the carousel (used by the now-playing chip) */
+    showEvent: function (el) {
+      var i = events.indexOf(el);
+      if (i >= 0) hsGo(i);
     }
   };
 })();

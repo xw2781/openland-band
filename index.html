@@ -4,13 +4,13 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>Openland 旷野乐队</title>
-<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信联系。" name="description"/>
+<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信或邮件 openlandband@gmail.com 联系。" name="description"/>
 <meta content="#100e0c" name="theme-color"/>
 <link href="https://xw2781.github.io/openland-band/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Openland 旷野乐队" property="og:site_name"/>
 <meta content="Openland 旷野乐队" property="og:title"/>
-<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信联系。" property="og:description"/>
+<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信或邮件 openlandband@gmail.com 联系。" property="og:description"/>
 <meta content="https://xw2781.github.io/openland-band/" property="og:url"/>
 <meta content="https://xw2781.github.io/openland-band/img/og.jpg" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
@@ -18,7 +18,7 @@
 <meta content="zh_CN" property="og:locale"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Openland 旷野乐队" name="twitter:title"/>
-<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信联系。" name="twitter:description"/>
+<meta content="Openland 旷野乐队，曲风多变的新泽西独立乐队。合作与商演欢迎通过小红书私信或邮件 openlandband@gmail.com 联系。" name="twitter:description"/>
 <meta content="https://xw2781.github.io/openland-band/img/og.jpg" name="twitter:image"/>
 <link href="img/favicon-32.png" rel="icon" type="image/png"/>
 <link href="img/apple-touch.png" rel="apple-touch-icon"/>
@@ -38,14 +38,14 @@
       d.className += ' motion ' + (ok ? 'sda' : 'sdf');
     })();
   </script>
-<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/><link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" media="print" onload="this.media='all'" rel="stylesheet"/><noscript><link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" rel="stylesheet"/></noscript><link href="style.css?v=20261116f" rel="stylesheet"/>
-<script defer="" onerror="document.documentElement.className=''" src="motion.js?v=20261116f"></script>
+<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/><link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" media="print" onload="this.media='all'" rel="stylesheet"/><noscript><link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" rel="stylesheet"/></noscript><link href="style.css?v=20261116h" rel="stylesheet"/>
+<script defer="" onerror="document.documentElement.className=''" src="motion.js?v=20261116h"></script>
 </head>
 <body>
 <a class="skip" data-i18n="t001" href="#main">跳到正文</a>
 <header class="nav" id="nav">
 <a class="nav-brand" href="#top">
-<img alt="Openland 旷野乐队头像" data-i18n-alt="alt002" src="img/avatar.jpg"/>
+<img alt="Openland 旷野乐队头像" data-i18n-alt="alt002" src="img/avatar.jpg" width="446" height="446" decoding="async"/>
 <span>
 <span class="en">Openland</span>
 <span class="zh" data-i18n="t003">旷野乐队</span>
@@ -59,6 +59,10 @@
 <a data-i18n="t008" href="#members">成员</a>
 <a class="nav-cta" data-i18n="t009" href="#upcoming">11/21 专场</a>
 </nav><div class="nav-tools">
+<button aria-label="正在播放，点击跳转" class="np" hidden id="nowPlaying" type="button">
+<span aria-hidden="true" class="np-bars"><i></i><i></i><i></i><i></i><i></i></span>
+<span class="np-label" id="nowPlayingLabel"></span>
+</button>
 <div class="lang-menu" id="langMenu">
 <button aria-controls="langPanel" aria-expanded="false" aria-haspopup="true" aria-label="Language / 语言 / 言語 / 언어" class="lang-btn" id="langBtn" type="button">
 <svg aria-hidden="true" fill="none" focusable="false" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
@@ -110,14 +114,23 @@
 <div class="act" id="act-warm">
 <section class="upcoming" id="upcoming">
 <div class="wrap">
-<div aria-hidden="true" class="big-date sd">11/21</div>
 <div class="upcoming-card sd">
 <div class="upcoming-poster">
-<img alt="Openland 旷野乐队全员合影" class="sd zoom" data-i18n-alt="alt016" src="img/group-studio.webp" width="1280" height="720" style="object-position:50% 12%"/>
+<div class="upcoming-photo">
+<img alt="Openland 旷野乐队全员合影" class="sd zoom" data-i18n-alt="alt016" src="img/group-studio.webp" width="1280" height="720" decoding="async"/>
+</div>
+<div class="gig-type">
+<div class="gig-top sd rv">
+<span class="pill" data-i18n="t017">即将上演 · Free Entry</span>
+<span class="gig-venue" data-i18n="t018c">The Delancey, New York</span>
+</div>
+<h2 class="gig-title sd rv">
+<span class="gig-name" data-i18n="t018b">原创专场</span>
+<span class="gig-date" data-i18n="t018a">11/21</span>
+</h2>
+</div>
 </div>
 <div class="upcoming-body">
-<span class="pill" data-i18n="t017">即将上演 · Free Entry</span>
-<h2 data-i18n="t018">11/21 原创专场<br/>The Delancey, New York</h2>
 <ul class="meta">
 <li class="sd rv-x"><span class="k" data-i18n="t019">日期</span><span data-i18n="t020">2026年11月21日 周六</span></li>
 <li class="sd rv-x"><span class="k" data-i18n="t021">签到</span><span>Check-in 5:00 pm</span></li>
@@ -130,6 +143,7 @@
 <div class="btn-row">
 <a class="btn btn-solid" data-i18n="t030" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" rel="noopener" target="_blank">在小红书查看详情</a>
 <a class="btn" data-i18n="t031" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" rel="noopener" target="_blank">私信咨询</a>
+<a class="btn btn-mail" href="mailto:openlandband@gmail.com"><svg aria-hidden="true" class="ico-mail" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 7.5 8.5 6 8.5-6"></path></svg><span data-i18n="t192">邮件联系</span></a>
 </div>
 </div>
 </div>
@@ -146,8 +160,8 @@
 <p class="sd rv" data-i18n="t035">同年 4 月，第一首单曲《Waiting For You》在网易云、Spotify、Apple Music、YouTube Music 发行；年中又发布了第二首单曲《回忆成光》，并陆续写出《Shall I Stay》《我的心》等新作。目前的计划，是把全部 10 首原创都录出来、全平台发布。11 月 21 日在纽约 The Delancey 的这场原创专场，将是他们把这些作品带到 live house 的一次收尾与开始。</p>
 </div>
 <div class="about-photos">
-<figure class="ph wide sd par"><img alt="乐队在 The Cutting Room 舞台上演出" class="sd zoom" data-i18n-alt="alt036" decoding="async" loading="lazy" src="img/n14-1.webp"/></figure>
-<figure class="ph tall sd par"><img alt="乐队成员在林间的拍立得合影" class="sd zoom" data-i18n-alt="alt037" decoding="async" loading="lazy" src="img/n5-4.webp"/></figure>
+<figure class="ph wide sd par"><img alt="乐队在 The Cutting Room 舞台上演出" class="sd zoom" data-i18n-alt="alt036" decoding="async" loading="lazy" src="img/n14-1.webp" width="1080" height="1440" srcset="img/s/n14-1-800.webp 800w, img/n14-1.webp 1080w" sizes="(max-width: 980px) 46vw, 480px"/></figure>
+<figure class="ph tall sd par"><img alt="乐队成员在林间的拍立得合影" class="sd zoom" data-i18n-alt="alt037" decoding="async" loading="lazy" src="img/n5-4.webp" width="1080" height="1440" srcset="img/s/n5-4-800.webp 800w, img/n5-4.webp 1080w" sizes="(max-width: 980px) 46vw, 480px"/></figure>
 </div>
 </div>
 <div class="wrap">
@@ -174,11 +188,13 @@
 
 <div class="listen sd rv" id="listen">
   <div class="listen-stage">
+    <div class="listen-glow" aria-hidden="true"></div>
     <div class="listen-viz-wrap">
+      <div class="listen-halo-glow" aria-hidden="true"></div>
       <div class="listen-halo" aria-hidden="true"></div>
       <div class="listen-disc">
         <div class="vinyl" aria-hidden="true">
-          <img class="vinyl-art" id="listenArt" src="img/cover-huiyi-chengguang.webp" alt="《回忆成光》" width="1024" height="1024">
+          <img class="vinyl-art" id="listenArt" src="img/s/cover-huiyi-chengguang-320.webp" alt="《回忆成光》" width="1024" height="1024" decoding="async" srcset="img/s/cover-huiyi-chengguang-800.webp 800w, img/cover-huiyi-chengguang.webp 1254w" sizes="(max-width: 980px) 46vw, 480px">
         </div>
       </div>
     </div>
@@ -204,11 +220,11 @@
       </div>
       <div class="listen-tracks">
         <button type="button" class="listen-track is-current" data-track="huiyi" aria-current="true">
-          <img src="img/cover-huiyi-chengguang.webp" alt="" width="80" height="80">
+          <img src="img/s/cover-huiyi-chengguang-320.webp" alt="" width="80" height="80" decoding="async" srcset="img/s/cover-huiyi-chengguang-800.webp 800w, img/cover-huiyi-chengguang.webp 1254w" sizes="(max-width: 980px) 46vw, 480px">
           <span><b data-i18n="t040">《回忆成光》</b><small>5:30</small></span>
         </button>
         <button type="button" class="listen-track" data-track="waiting" aria-current="false">
-          <img src="img/n11-3.webp" alt="" width="80" height="80">
+          <img src="img/s/n11-3-320.webp" alt="" width="80" height="80" decoding="async" srcset="img/s/n11-3-800.webp 800w, img/n11-3.webp 1080w" sizes="(max-width: 980px) 46vw, 480px">
           <span><b data-i18n="t044">《Waiting For You》</b><small>4:19</small></span>
         </button>
       </div>
@@ -228,7 +244,7 @@
 </div>
 <div class="song-grid" id="songGrid">
 <article class="song" id="song-huiyi">
-<div class="song-art"><img alt="《回忆成光》封面" data-i18n-alt="alt039" decoding="async" height="1024" loading="lazy" src="img/cover-huiyi-chengguang.webp" width="1024"/></div>
+<div class="song-art"><img alt="《回忆成光》封面" data-i18n-alt="alt039" decoding="async" height="1024" loading="lazy" src="img/cover-huiyi-chengguang.webp" width="1024" srcset="img/s/cover-huiyi-chengguang-720.webp 720w, img/cover-huiyi-chengguang.webp 1254w" sizes="(max-width: 720px) 92vw, 420px"/></div>
 <div class="song-body">
 <h3 data-i18n="t040">《回忆成光》</h3>
 <p class="sub" data-i18n="t041">第二首单曲 · 2025 年 7 月首演</p>
@@ -240,7 +256,7 @@
 </div>
 </article>
 <article class="song" id="song-waiting">
-<div class="song-art"><img alt="《Waiting For You》单曲封面" data-i18n-alt="alt043" decoding="async" height="1080" loading="lazy" src="img/n11-3.webp" width="1080"/></div>
+<div class="song-art"><img alt="《Waiting For You》单曲封面" data-i18n-alt="alt043" decoding="async" height="1080" loading="lazy" src="img/n11-3.webp" width="1080" srcset="img/s/n11-3-720.webp 720w, img/n11-3.webp 1080w" sizes="(max-width: 720px) 92vw, 420px"/></div>
 <div class="song-body">
 <h3 data-i18n="t044">《Waiting For You》</h3>
 <p class="sub" data-i18n="t045">第一首单曲 · 2026 年 4 月发行</p>
@@ -252,7 +268,7 @@
 </div>
 </article>
 <article class="song">
-<div class="song-art"><img alt="主唱在排练室演唱《Shall I Stay》" data-i18n-alt="alt047" decoding="async" height="1441" loading="lazy" src="img/n3-1.webp" width="1080"/></div>
+<div class="song-art"><img alt="《Shall I Stay》封面" data-i18n-alt="alt047" decoding="async" height="1080" loading="lazy" src="img/cover-shall-i-stay.webp" width="1080" srcset="img/s/cover-shall-i-stay-720.webp 720w, img/cover-shall-i-stay.webp 1080w" sizes="(max-width: 720px) 92vw, 420px"/></div>
 <div class="song-body">
 <h3 data-i18n="t048">《Shall I Stay》</h3>
 <p class="sub" data-i18n="t049">原创 · 关于「不属于这里」</p>
@@ -276,15 +292,19 @@
 <h2 class="section-title sd rv-title" data-i18n="t055">我们的演出足迹</h2>
 <p class="section-lead sd rv" data-i18n="t056">从公园草坪到纽约 live house，从婚礼现场到第一首单曲发行。时间由近及远，带视频的卡片可以直接在网页里播放，每张卡片也都能回到当年的小红书笔记。</p>
 </div>
-<div class="hscroll tl" id="hscroll">
+<div class="hscroll" id="hscroll">
 <div class="hscroll-stage">
-<div aria-hidden="true" class="hscroll-head">
-<span class="hs-count"><b id="hsIdx">01</b><em>/ 13</em></span>
-<span class="hs-label" id="hsLabel">2026.11.21</span>
-<span class="hs-bar"><i class="sd-in rg-contain"></i></span>
+<div class="hscroll-head">
+<span aria-hidden="true" class="hs-count"><b id="hsIdx">01</b><em>/ 13</em></span>
+<span aria-hidden="true" class="hs-label" id="hsLabel">2026.11.21</span>
+<span aria-hidden="true" class="hs-bar"><i id="hsBar"></i></span>
+<span class="hs-nav">
+<button aria-controls="timeline" aria-label="上一场演出" class="hs-btn hs-prev" data-i18n-aria="aria194" disabled id="hsPrev" type="button"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.4 4.6 8 12l7.4 7.4 1.2-1.2L10.4 12l6.2-6.2z" fill="currentColor"></path></svg></button>
+<button aria-controls="timeline" aria-label="下一场演出" class="hs-btn hs-next" data-i18n-aria="aria195" id="hsNext" type="button"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m8.6 4.6-1.2 1.2L13.6 12l-6.2 6.2 1.2 1.2L16 12z" fill="currentColor"></path></svg></button>
+</span>
 </div>
-<div class="timeline sd-in rg-contain" id="timeline">
-<article class="event sd-in rg-contain">
+<div aria-label="演出足迹时间线，可左右滑动" class="timeline" data-i18n-aria="aria196" id="timeline" role="region" tabindex="0">
+<article class="event">
 <div class="event-date">2026.11.21<small data-i18n="t057">即将上演</small></div>
 <div class="event-copy">
 <h3 data-i18n="t058">原创专场 @ The Delancey</h3>
@@ -292,10 +312,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/6acd4adf000000001403ba81" rel="noopener" target="_blank">
-<img alt="乐队在 Openland 标志前的合影" data-i18n-alt="alt061" decoding="async" loading="lazy" src="img/n1-2.webp"/>
+<img alt="乐队在 Openland 标志前的合影" data-i18n-alt="alt061" decoding="async" loading="lazy" src="img/n1-2.webp" width="1536" height="1024" srcset="img/s/n1-2-960.webp 960w, img/n1-2.webp 1536w" sizes="(max-width: 720px) 80vw, 460px"/>
 </a>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date">2026.10<small data-i18n="t062">金秋婚礼</small></div>
 <div class="event-copy">
 <h3 data-i18n="t063">十月婚礼演出</h3>
@@ -303,10 +323,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/6aea91ff000000000e00c72e" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/6aea91ff000000000e00c72e" rel="noopener" target="_blank">
-<img alt="婚礼现场乐队与主唱合影" data-i18n-alt="alt065" decoding="async" loading="lazy" src="img/n4-3.webp"/>
+<img alt="婚礼现场乐队与主唱合影" data-i18n-alt="alt065" decoding="async" loading="lazy" src="img/n4-3.webp" width="1620" height="1080" srcset="img/s/n4-3-960.webp 960w, img/n4-3.webp 1620w" sizes="(max-width: 720px) 80vw, 460px"/>
 </a>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date" data-i18n="t066">2026 年中<small>公园 / 校友会</small></div>
 <div class="event-copy">
 <h3 data-i18n="t067">中央公园春游会 &amp; 校友会野餐文化节</h3>
@@ -316,10 +336,10 @@
               <a class="xhs-link" data-i18n="t070" href="https://www.xiaohongshu.com/explore/6a3b1326000000001603da5f" rel="noopener" target="_blank">野餐文化节笔记</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/69f53337000000003701e11c" rel="noopener" target="_blank">
-<img alt="中央公园春游会海报「觅春而至 沐春而歌」" data-i18n-alt="alt071" decoding="async" loading="lazy" src="img/n9-2.webp"/>
+<img alt="中央公园春游会海报「觅春而至 沐春而歌」" data-i18n-alt="alt071" decoding="async" loading="lazy" src="img/n9-2.webp" width="1024" height="1436"/>
 </a>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date">2026.04<small data-i18n="t072">首单发行</small></div>
 <div class="event-copy">
 <h3 data-i18n="t073">《Waiting For You》发行</h3>
@@ -327,10 +347,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/69d6d9960000000021013155" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/69d6d9960000000021013155" rel="noopener" target="_blank">
-<img alt="Openland 首张单曲发行海报，乐队成员合影" data-i18n-alt="alt075" decoding="async" loading="lazy" src="img/n11-5.webp"/>
+<img alt="Openland 首张单曲发行海报，乐队成员合影" data-i18n-alt="alt075" decoding="async" loading="lazy" src="img/n11-5.webp" width="1312" height="811" srcset="img/s/n11-5-960.webp 960w, img/n11-5.webp 1312w" sizes="(max-width: 720px) 80vw, 460px"/>
 </a>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date">2026.02.28<small data-i18n="t076">新春联欢</small></div>
 <div class="event-copy">
 <h3 data-i18n="t077">「清武飞扬」新春联欢会</h3>
@@ -338,10 +358,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/69a0e587000000001600ae4c" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/69a0e587000000001600ae4c" rel="noopener" target="_blank">
-<img alt="清武飞扬新春联欢会红色海报" data-i18n-alt="alt079" decoding="async" loading="lazy" src="img/n12-1.webp"/>
+<img alt="清武飞扬新春联欢会红色海报" data-i18n-alt="alt079" decoding="async" loading="lazy" src="img/n12-1.webp" width="1080" height="1528"/>
 </a>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date">2026.02.22<small data-i18n="t080">布鲁克林</small></div>
 <div class="event-copy">
 <h3 data-i18n="t081">梦响计划美食音乐联欢</h3>
@@ -349,10 +369,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/69990342000000001d025d44" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/69990342000000001d025d44" rel="noopener" target="_blank">
-<img alt="音乐美食博主联欢会海报" data-i18n-alt="alt083" decoding="async" loading="lazy" src="img/n13-1.webp"/>
+<img alt="音乐美食博主联欢会海报" data-i18n-alt="alt083" decoding="async" loading="lazy" src="img/n13-1.webp" width="1080" height="1528"/>
 </a>
 </article>
-<article class="event has-video sd-in rg-contain">
+<article class="event has-video">
 <div class="event-date">2025.07<small data-i18n="t084">原创首演</small></div>
 <div class="event-copy">
 <h3 data-i18n="t085">《回忆成光》首演</h3>
@@ -367,7 +387,7 @@
 </div>
 </article>
 
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date">2025.06.01<small data-i18n="t092">校友会</small></div>
 <div class="event-copy">
 <h3 data-i18n="t093">大纽约高校校友会</h3>
@@ -375,10 +395,10 @@
 <a class="xhs-link" data-i18n="t060" href="https://www.xiaohongshu.com/explore/6850c9880000000012007465" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/6850c9880000000012007465" rel="noopener" target="_blank">
-<img alt="乐队在校友会蓝色舞台背景前演出" data-i18n-alt="alt095" decoding="async" loading="lazy" src="img/n17-8.webp"/>
+<img alt="乐队在校友会蓝色舞台背景前演出" data-i18n-alt="alt095" decoding="async" loading="lazy" src="img/n17-8.webp" width="1620" height="1080" srcset="img/s/n17-8-960.webp 960w, img/n17-8.webp 1620w" sizes="(max-width: 720px) 80vw, 460px"/>
 </a>
 </article>
-<article class="event has-video sd-in rg-contain">
+<article class="event has-video">
 <div class="event-date">2025.04.26<small data-i18n="t096">婚礼爵士</small></div>
 <div class="event-copy">
 <h3 data-i18n="t097">婚礼现场 · Just the Two of Us</h3>
@@ -392,14 +412,14 @@
 <button aria-label="播放：婚礼现场 Just the Two of Us 视频" class="play" data-i18n-aria="aria099" type="button"><span class="play-icon"><svg viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span><span class="video-dur">1:36</span></button><button aria-label="关闭字幕" aria-pressed="true" class="cc-toggle is-on" data-i18n-aria="aria177" type="button"><span>CC</span></button>
 </div>
 </article>
-<article class="event has-slideshow sd-in rg-contain">
+<article class="event has-slideshow">
 <div class="event-date">2025.01.25<small>THE DUO</small></div>
 <div class="event-copy">
 <h3 data-i18n="t100">THE DUO 音乐节</h3>
 <p data-i18n="t101">正式演出前一周进行了设备调试与试音。1 月 25 日登台，欢迎新老朋友一起来捧场。</p>
 <a class="xhs-link" data-i18n="t087" href="https://www.xiaohongshu.com/explore/678d3771000000001601a4fa" rel="noopener" target="_blank">小红书原帖 ↗</a>
 </div>
-<div class="event-media is-slideshow"><div aria-label="THE DUO 音乐节彩排照片 / Photos from THE DUO rehearsal" aria-roledescription="carousel" class="duo-show" id="duoShow" role="region" style="--duo-ar: 720 / 480" tabindex="0">
+<div class="event-media is-slideshow"><div aria-label="THE DUO 音乐节彩排照片 / Photos from THE DUO rehearsal" aria-roledescription="carousel" class="duo-show" id="duoShow" role="region" tabindex="0">
 <div class="duo-viewport">
 <img alt="THE DUO 彩排合影：键盘、萨克斯、主唱、鼓与贝斯" class="duo-slide is-current" decoding="async" draggable="false" height="480" loading="eager" src="img/theduo/01.webp" width="720"/>
 <img alt="大提琴手放放与主唱 Sakura 在彩排间隙交谈" class="duo-slide" decoding="async" draggable="false" height="481" loading="eager" src="img/theduo/02.webp" width="720"/>
@@ -427,7 +447,7 @@
 <span aria-live="polite" class="duo-live visually-hidden"></span>
 </div></div>
 </article>
-<article class="event sd-in rg-contain">
+<article class="event">
 <div class="event-date" data-i18n="t103">2024 夏<small>公园舞台</small></div>
 <div class="event-copy">
 <h3 data-i18n="t104">夏日公园演出</h3>
@@ -435,10 +455,10 @@
 <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6678e59b000000001d016a17" rel="noopener" target="_blank">在小红书观看</a>
 </div>
 <a class="event-media" href="https://www.xiaohongshu.com/explore/6678e59b000000001d016a17" rel="noopener" target="_blank">
-<img alt="夏日公园舞台上的乐队" data-i18n-alt="alt106" decoding="async" loading="lazy" src="img/n20-2.webp"/>
+<img alt="夏日公园舞台上的乐队" data-i18n-alt="alt106" decoding="async" loading="lazy" src="img/n20-2.webp" width="1619" height="1080" srcset="img/s/n20-2-960.webp 960w, img/n20-2.webp 1619w" sizes="(max-width: 720px) 80vw, 460px"/>
 </a>
 </article>
-<article class="event has-video sd-in rg-contain">
+<article class="event has-video">
 <div class="event-date">2024.06<small data-i18n="t107">早期翻唱</small></div>
 <div class="event-copy">
 <h3>Don't Know Why</h3>
@@ -452,7 +472,7 @@
 <button aria-label="播放：早期翻唱 Don't Know Why 视频" class="play" data-i18n-aria="aria109" type="button"><span class="play-icon"><svg viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span><span class="video-dur">2:58</span></button><button aria-label="关闭字幕" aria-pressed="true" class="cc-toggle is-on" data-i18n-aria="aria177" type="button"><span>CC</span></button>
 </div>
 </article>
-<article class="event has-video sd-in rg-contain">
+<article class="event has-video">
 <div class="event-date">2024.06<small>Penstock Coffee</small></div>
 <div class="event-copy">
 <h3 data-i18n="t110">首个 Live Video Cover</h3>
@@ -477,7 +497,7 @@
 <p class="section-lead sd rv" data-i18n="t114">现任成员与特邀嘉宾。</p>
 <div class="member-grid">
 <article class="member sd">
-<img alt="Joy Qiu（Sakura）演唱" class="member-photo sd zoom" data-i18n-alt="alt115" decoding="async" height="1000" loading="lazy" src="img/member-sakura.webp" width="800"/>
+<img alt="Joy Qiu（Sakura）演唱" class="member-photo sd zoom" data-i18n-alt="alt115" decoding="async" height="1000" loading="lazy" src="img/member-sakura.webp" width="800" srcset="img/s/member-sakura-480.webp 480w, img/member-sakura.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Joy Qiu</h3>
 <span class="nick">Sakura</span>
@@ -485,7 +505,7 @@
 </div>
 </article>
 <article class="member sd">
-<img alt="Xiao Wei 韦笑吹萨克斯" class="member-photo sd zoom" data-i18n-alt="alt117" decoding="async" height="1000" loading="lazy" src="img/member-xiaowei.webp" width="800"/>
+<img alt="Xiao Wei 韦笑吹萨克斯" class="member-photo sd zoom" data-i18n-alt="alt117" decoding="async" height="1000" loading="lazy" src="img/member-xiaowei.webp" width="800" srcset="img/s/member-xiaowei-480.webp 480w, img/member-xiaowei.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Xiao Wei</h3>
 <span class="nick" data-i18n="t118">韦笑</span>
@@ -493,7 +513,7 @@
 </div>
 </article>
 <article class="member sd">
-<img alt="Will Song 老宋弹键盘" class="member-photo sd zoom" data-i18n-alt="alt120" decoding="async" height="1000" loading="lazy" src="img/member-will.webp" width="800"/>
+<img alt="Will Song 老宋弹键盘" class="member-photo sd zoom" data-i18n-alt="alt120" decoding="async" height="1000" loading="lazy" src="img/member-will.webp" width="800" srcset="img/s/member-will-480.webp 480w, img/member-will.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Will Song</h3>
 <span class="nick" data-i18n="t121">老宋</span>
@@ -501,7 +521,7 @@
 </div>
 </article>
 <article class="member sd">
-<img alt="Minghao Qin 薯条打鼓" class="member-photo sd zoom" data-i18n-alt="alt123" decoding="async" height="1000" loading="lazy" src="img/member-shutiao.webp" width="800"/>
+<img alt="Minghao Qin 薯条打鼓" class="member-photo sd zoom" data-i18n-alt="alt123" decoding="async" height="1000" loading="lazy" src="img/member-shutiao.webp" width="800" srcset="img/s/member-shutiao-480.webp 480w, img/member-shutiao.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Minghao Qin</h3>
 <span class="nick" data-i18n="t124">薯条</span>
@@ -510,7 +530,7 @@
 </div>
 </article>
 <article class="member sd">
-<img alt="Anki 安淇弹贝斯" class="member-photo sd zoom" data-i18n-alt="alt127" decoding="async" height="1000" loading="lazy" src="img/member-anki.webp" width="800"/>
+<img alt="Anki 安淇弹贝斯" class="member-photo sd zoom" data-i18n-alt="alt127" decoding="async" height="1000" loading="lazy" src="img/member-anki.webp" width="800" srcset="img/s/member-anki-480.webp 480w, img/member-anki.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Anki</h3>
 <span class="nick" data-i18n="t128">安淇</span>
@@ -518,14 +538,14 @@
 </div>
 </article>
 <article class="member sd">
-<img alt="Vickers 的手与电吉他（不露脸）" class="member-photo sd zoom" data-i18n-alt="alt130" decoding="async" height="1000" loading="lazy" src="img/member-vickers.webp" width="800"/>
+<img alt="Vickers 的手与电吉他（不露脸）" class="member-photo sd zoom" data-i18n-alt="alt130" decoding="async" height="1000" loading="lazy" src="img/member-vickers.webp" width="800" srcset="img/s/member-vickers-480.webp 480w, img/member-vickers.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Vickers</h3>
 <span class="role" data-i18n="t131">吉他 · Guitar</span>
 </div>
 </article>
 <article class="member sd">
-<img alt="Mangata 放放拉大提琴" class="member-photo sd zoom" data-i18n-alt="alt132" decoding="async" height="1000" loading="lazy" src="img/member-mangata.webp" width="800"/>
+<img alt="Mangata 放放拉大提琴" class="member-photo sd zoom" data-i18n-alt="alt132" decoding="async" height="1000" loading="lazy" src="img/member-mangata.webp" width="800" srcset="img/s/member-mangata-480.webp 480w, img/member-mangata.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3>Mangata</h3>
 <span class="nick" data-i18n="t133">放放</span>
@@ -537,14 +557,14 @@
 <span class="guest-tag" data-i18n="t135">特邀嘉宾 · Guests</span>
 <div class="guest-cards">
 <article class="member member-sm sd">
-<img alt="老王拉小提琴" class="member-photo sd zoom" data-i18n-alt="alt136" decoding="async" height="1000" loading="lazy" src="img/member-laowang.webp" width="800"/>
+<img alt="老王拉小提琴" class="member-photo sd zoom" data-i18n-alt="alt136" decoding="async" height="1000" loading="lazy" src="img/member-laowang.webp" width="800" srcset="img/s/member-laowang-480.webp 480w, img/member-laowang.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3 data-i18n="t137">老王</h3>
 <span class="role" data-i18n="t138">小提琴 · Violin</span>
 </div>
 </article>
 <article class="member member-sm sd">
-<img alt="新超弹贝斯" class="member-photo sd zoom" data-i18n-alt="alt139" decoding="async" height="1000" loading="lazy" src="img/member-xinchao.webp" width="800"/>
+<img alt="新超弹贝斯" class="member-photo sd zoom" data-i18n-alt="alt139" decoding="async" height="1000" loading="lazy" src="img/member-xinchao.webp" width="800" srcset="img/s/member-xinchao-480.webp 480w, img/member-xinchao.webp 800w" sizes="(max-width: 980px) 46vw, 240px"/>
 <div class="member-body">
 <h3 data-i18n="t140">新超</h3>
 <span class="role" data-i18n="t129">贝斯 · Bass</span>
@@ -557,17 +577,17 @@
 <h3 class="gallery-title sd rv" data-i18n="t143">现场掠影</h3>
 <p class="gallery-note sd rv" data-i18n="t144">来自 2024 夏日公园演出的成员特写与合照，作为整支乐队的相册，不为单人标注。</p>
 <div class="gallery">
-<img alt="公园舞台全景" class="wide sd g-in" data-i18n-alt="alt145" decoding="async" loading="lazy" src="img/n20-2.webp"/>
-<img alt="演出后的合影" class="sd g-in" data-i18n-alt="alt146" decoding="async" loading="lazy" src="img/n20-3.webp"/>
-<img alt="主唱在舞台上" class="sd g-in" data-i18n-alt="alt147" decoding="async" loading="lazy" src="img/n20-4.webp"/>
-<img alt="原声吉他演奏" class="sd g-in" data-i18n-alt="alt148" decoding="async" loading="lazy" src="img/n20-5.webp"/>
-<img alt="粉色贝斯特写" class="sd g-in" data-i18n-alt="alt149" decoding="async" loading="lazy" src="img/n20-6.webp"/>
-<img alt="贝斯手演奏" class="sd g-in" data-i18n-alt="alt150" decoding="async" loading="lazy" src="img/n20-7.webp"/>
-<img alt="萨克斯与键盘" class="sd g-in" data-i18n-alt="alt151" decoding="async" loading="lazy" src="img/n20-8.webp"/>
-<img alt="鼓手准备" class="sd g-in" data-i18n-alt="alt152" decoding="async" loading="lazy" src="img/n20-9.webp"/>
-<img alt="后台与观众席一瞥" class="sd g-in" data-i18n-alt="alt153" decoding="async" loading="lazy" src="img/n20-10.webp"/>
-<img alt="调试鼓组" class="sd g-in" data-i18n-alt="alt154" decoding="async" loading="lazy" src="img/n20-11.webp"/>
-<img alt="键盘与萨克斯同框" class="sd g-in" data-i18n-alt="alt155" decoding="async" loading="lazy" src="img/n20-12.webp"/>
+<img alt="公园舞台全景" class="wide sd g-in" data-i18n-alt="alt145" decoding="async" loading="lazy" src="img/n20-2.webp" width="1619" height="1080" srcset="img/s/n20-2-1040.webp 1040w, img/n20-2.webp 1619w" sizes="(max-width: 720px) 96vw, 580px"/>
+<img alt="演出后的合影" class="sd g-in" data-i18n-alt="alt146" decoding="async" loading="lazy" src="img/n20-3.webp" width="1619" height="1080" srcset="img/s/n20-3-720.webp 720w, img/n20-3.webp 1619w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="主唱在舞台上" class="sd g-in" data-i18n-alt="alt147" decoding="async" loading="lazy" src="img/n20-4.webp" width="1080" height="1620" srcset="img/s/n20-4-720.webp 720w, img/n20-4.webp 1080w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="原声吉他演奏" class="sd g-in" data-i18n-alt="alt148" decoding="async" loading="lazy" src="img/n20-5.webp" width="1619" height="1080" srcset="img/s/n20-5-720.webp 720w, img/n20-5.webp 1619w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="粉色贝斯特写" class="sd g-in" data-i18n-alt="alt149" decoding="async" loading="lazy" src="img/n20-6.webp" width="1398" height="1080" srcset="img/s/n20-6-720.webp 720w, img/n20-6.webp 1398w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="贝斯手演奏" class="sd g-in" data-i18n-alt="alt150" decoding="async" loading="lazy" src="img/n20-7.webp" width="1080" height="1621" srcset="img/s/n20-7-720.webp 720w, img/n20-7.webp 1080w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="萨克斯与键盘" class="sd g-in" data-i18n-alt="alt151" decoding="async" loading="lazy" src="img/n20-8.webp" width="1619" height="1080" srcset="img/s/n20-8-720.webp 720w, img/n20-8.webp 1619w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="鼓手准备" class="sd g-in" data-i18n-alt="alt152" decoding="async" loading="lazy" src="img/n20-9.webp" width="1080" height="1621" srcset="img/s/n20-9-720.webp 720w, img/n20-9.webp 1080w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="后台与观众席一瞥" class="sd g-in" data-i18n-alt="alt153" decoding="async" loading="lazy" src="img/n20-10.webp" width="1621" height="1080" srcset="img/s/n20-10-720.webp 720w, img/n20-10.webp 1621w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="调试鼓组" class="sd g-in" data-i18n-alt="alt154" decoding="async" loading="lazy" src="img/n20-11.webp" width="1619" height="1080" srcset="img/s/n20-11-720.webp 720w, img/n20-11.webp 1619w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
+<img alt="键盘与萨克斯同框" class="sd g-in" data-i18n-alt="alt155" decoding="async" loading="lazy" src="img/n20-12.webp" width="1619" height="1080" srcset="img/s/n20-12-720.webp 720w, img/n20-12.webp 1619w" sizes="(max-width: 720px) 50vw, (max-width: 980px) 34vw, 290px"/>
 </div>
 </div>
 </section>
@@ -579,7 +599,7 @@
 <div class="footer-brand">
 <div class="en">Openland</div>
 <div class="zh" data-i18n="t003">旷野乐队</div>
-<p data-i18n="t156">曲风多变的新泽西独立乐队。<br/>合作 / 商演欢迎通过小红书私信联系。</p>
+<p data-i18n="t156">曲风多变的新泽西独立乐队。<br/>合作 / 商演欢迎通过小红书私信或邮件联系。</p>
 </div>
 <div>
 <h4 data-i18n="t014">收听</h4>
@@ -594,6 +614,7 @@
 <h4 data-i18n="t157">关注</h4>
 <ul>
 <li><a data-i18n="t158" href="https://www.xiaohongshu.com/user/profile/66688eaa0000000003030a98" rel="noopener" target="_blank">小红书 @Openland旷野乐队</a></li>
+<li><a class="footer-mail-link" href="mailto:openlandband@gmail.com"><svg aria-hidden="true" class="ico-mail" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 7.5 8.5 6 8.5-6"></path></svg><span>openlandband@gmail.com</span></a></li>
 <li><a data-i18n="t159" href="#upcoming">11/21 纽约原创专场</a></li>
 </ul>
 </div>
@@ -808,8 +829,8 @@
       document.addEventListener('webkitfullscreenchange', onFs);
     });
   </script>
-  <script src="i18n.js?v=20261116f"></script>
-  <script src="listen.js?v=20261116f"></script>
+  <script src="i18n.js?v=20261116h"></script>
+  <script src="listen.js?v=20261116h"></script>
 
 <script>
     (function () {
@@ -892,68 +913,93 @@
       var live = root.querySelector('.duo-live');
       var n = slides.length;
       if (!n) return;
-      var i = 0, timer = null, paused = false;
+      var i = -1, timer = null, hover = false, focus = false, hidden = false, offscreen = false, touching = false;
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var INTERVAL = 3500;
+      var INTERVAL = 4600, FADE = reduce ? 320 : 1150;
 
       slides.forEach(function (_, idx) {
         var b = document.createElement('button');
         b.type = 'button';
         b.setAttribute('role', 'tab');
         b.setAttribute('aria-label', 'Photo ' + (idx + 1) + ' / 第 ' + (idx + 1) + ' 张');
-        b.addEventListener('click', function () { go(idx, true); });
+        b.addEventListener('click', function (e) { e.stopPropagation(); go(idx, true); });
         dotsWrap.appendChild(b);
       });
       var dots = Array.prototype.slice.call(dotsWrap.children);
+      var pill = document.createElement('span');
+      pill.className = 'duo-dot-pill';
+      pill.setAttribute('aria-hidden', 'true');
+      dotsWrap.appendChild(pill);
 
       function preload(idx) {
         var img = slides[(idx + n) % n];
         if (img.getAttribute('loading') === 'lazy') img.loading = 'eager';
       }
 
-      function go(next, user) {
+      /* cross-fade: the incoming photo starts slightly to the side it comes from and settles,
+         the outgoing one keeps its Ken Burns drift while it fades. dir: 1 = forward, -1 = back */
+      function go(next, user, dir) {
         next = (next + n) % n;
-        slides[i].classList.remove('is-current');
-        dots[i].classList.remove('is-on');
-        dots[i].removeAttribute('aria-selected');
+        if (next === i) { if (user) restart(); return; }
+        if (dir == null) dir = (i < 0 || next > i) ? 1 : -1;
+        var prev = slides[i], cur = slides[next];
+        root.style.setProperty('--duo-dir', String(dir));
+        if (prev) {
+          prev.classList.remove('is-current');
+          prev.classList.add('is-leaving');
+          dots[i].classList.remove('is-on');
+          dots[i].removeAttribute('aria-selected');
+          clearTimeout(prev._t);
+          prev._t = setTimeout(function () { prev.classList.remove('is-leaving'); }, FADE + 80);
+        }
+        clearTimeout(cur._t);
+        cur.classList.remove('is-leaving');
+        if (prev && !reduce) {
+          cur.classList.add('is-prep');   /* jump to the start position without a transition */
+          void cur.offsetWidth;
+          cur.classList.remove('is-prep');
+        }
+        cur.classList.add('is-current');
         i = next;
-        slides[i].classList.add('is-current');
         dots[i].classList.add('is-on');
         dots[i].setAttribute('aria-selected', 'true');
-        var w = slides[i].getAttribute('width') || slides[i].naturalWidth;
-        var h = slides[i].getAttribute('height') || slides[i].naturalHeight;
-        if (w && h) root.style.setProperty('--duo-ar', w + ' / ' + h);
+        dotsWrap.style.setProperty('--duo-i', String(i));
         if (live) live.textContent = (i + 1) + ' / ' + n;
-        preload(i + 1);
+        preload(i + 1); preload(i - 1);
         if (user) restart();
       }
 
-      function tick() { if (!paused) go(i + 1, false); }
+      function isPaused() { return hover || focus || hidden || offscreen || touching; }
+      function sync() { root.classList.toggle('is-paused', isPaused()); }
+      function tick() { if (!isPaused()) go(i + 1, false, 1); }
       function restart() {
         if (timer) clearInterval(timer);
         timer = null;
         if (!reduce) timer = setInterval(tick, INTERVAL);
       }
-      function pause() { paused = true; }
-      function resume() { paused = false; }
+      function pause() { touching = true; sync(); }
+      function resume() { touching = false; sync(); }
 
       go(0, false);
       restart();
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          offscreen = !es[es.length - 1].isIntersecting; sync();
+        }, { threshold: 0.2 }).observe(root);
+      }
 
-      root.querySelector('.duo-prev').addEventListener('click', function (e) { e.stopPropagation(); go(i - 1, true); });
-      root.querySelector('.duo-next').addEventListener('click', function (e) { e.stopPropagation(); go(i + 1, true); });
-      root.addEventListener('mouseenter', pause);
-      root.addEventListener('mouseleave', resume);
-      root.addEventListener('focusin', pause);
+      root.querySelector('.duo-prev').addEventListener('click', function (e) { e.stopPropagation(); go(i - 1, true, -1); });
+      root.querySelector('.duo-next').addEventListener('click', function (e) { e.stopPropagation(); go(i + 1, true, 1); });
+      root.addEventListener('mouseenter', function () { hover = true; sync(); });
+      root.addEventListener('mouseleave', function () { hover = false; sync(); });
+      root.addEventListener('focusin', function () { focus = true; sync(); });
       root.addEventListener('focusout', function (e) {
-        if (!root.contains(e.relatedTarget)) resume();
+        if (!root.contains(e.relatedTarget)) { focus = false; sync(); }
       });
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) pause(); else resume();
-      });
+      document.addEventListener('visibilitychange', function () { hidden = document.hidden; sync(); });
       root.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, true); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, true); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, true, -1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, true, 1); }
         if (e.key === 'Home') { e.preventDefault(); go(0, true); }
         if (e.key === 'End') { e.preventDefault(); go(n - 1, true); }
       });
@@ -969,7 +1015,7 @@
         tracking = false;
         var dx = e.clientX - sx, dy = e.clientY - sy;
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
-          go(i + (dx < 0 ? 1 : -1), true);
+          go(i + (dx < 0 ? 1 : -1), true, dx < 0 ? 1 : -1);
         }
         resume();
       });
