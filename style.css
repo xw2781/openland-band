@@ -1184,6 +1184,8 @@ html[lang="ja"] body, html[lang="en"] body { overflow-wrap: break-word; }
 .listen-viz-wrap {
   position: relative;
   width: 100%;
+  height: auto;
+  align-self: center;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
