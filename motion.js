@@ -252,8 +252,62 @@
     }
   }
 
+  /* ── hero: keep its layers promoted only while it is on (or about to be on) screen ── */
+  var hero = $('.hero');
+  if ('IntersectionObserver' in window) {
+    /* .is-live = "on or near the screen": the hero and the gig card keep their layers pinned
+       (will-change) only then */
+    var liveIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
+    }, { rootMargin: '25% 0px 25% 0px' });
+    $$('.hero, .upcoming-card').forEach(function (el) { liveIO.observe(el); });
+
+    /* ambient washes: each one only shows while its section crosses the viewport, so it is only
+       drawn (and only holds a full-viewport layer) while that section is near */
+    var ambOf = [];
+    var ambIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        for (var i = 0; i < ambOf.length; i++) if (ambOf[i].sec === e.target) ambOf[i].amb.classList.toggle('on', e.isIntersecting);
+      });
+    }, { rootMargin: '30% 0px 30% 0px' });
+    $$('.amb[data-follow]').forEach(function (amb) {
+      var sec = $(amb.getAttribute('data-follow'));
+      if (sec) { ambOf.push({ amb: amb, sec: sec }); ambIO.observe(sec); } else amb.classList.add('on');
+    });
+    root.classList.add('amb-gate');
+  }
+
   /* ── fallback engine (Safari / iOS / Firefox without animation-timeline) ── */
   var items = [], songs = [], songGrid = $('#songGrid'), navBar = $('.nav-progress');
+
+  /* hero scrub for the fallback engine: same keyframes as the CSS (hero-zoom / -shade / -text /
+     fade-out / hero-exit / hero-dim), written straight to transform + opacity on the hero layers.
+     Reads nothing from layout: top / height are cached by measure(). */
+  var hp = hero && {
+    stage: $('.hero-stage', hero), zoom: $('.hero-zoom', hero), shade: $('.hero-shade', hero),
+    dim: $('.hero-dim', hero), inner: $('.hero-inner', hero), cue: $('.hero-cue', hero)
+  };
+  if (hp && !(hp.stage && hp.zoom && hp.shade && hp.dim && hp.inner && hp.cue)) hp = null;
+  var heroTop = 0, heroH = 0, heroKey = '';
+  function seg(p, s, e) { return clamp((p - s) / (e - s), 0, 1); }
+  function heroUpdate(y, vh) {
+    var m = Math.min(vh, heroH) || 1;
+    var pc = clamp(heroH >= vh ? (y - heroTop) / ((heroH - vh) || 1) : (y - (heroTop + heroH - vh)) / ((vh - heroH) || 1), 0, 1);
+    var px = clamp((y - (heroTop + heroH - m)) / m, 0, 1);
+    var key = pc.toFixed(4) + '|' + px.toFixed(4) + '|' + vh;
+    if (key === heroKey) return;
+    heroKey = key;
+    var t = seg(pc, 0.04, 0.62), x = seg(px, 0, 0.9);
+    var dim = (1 - 0.85 * x).toFixed(4);
+    hp.zoom.style.transform = 'scale(' + (1 + 0.16 * pc).toFixed(4) + ')';
+    hp.zoom.style.opacity = dim;
+    hp.dim.style.opacity = dim;
+    hp.shade.style.opacity = (1 - 0.7 * seg(pc, 0.05, 0.7)).toFixed(4);
+    hp.inner.style.opacity = (1 - t).toFixed(4);
+    hp.inner.style.transform = t ? 'translate3d(0,' + (-0.14 * vh * t).toFixed(1) + 'px,0) scale(' + (1 + 0.14 * t).toFixed(4) + ')' : '';
+    hp.cue.style.opacity = (1 - seg(pc, 0, 0.18)).toFixed(4);
+    hp.stage.style.transform = x ? 'scale(' + (1 - 0.05 * x).toFixed(4) + ')' : '';
+  }
   function absTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
 
   function collect() {
@@ -263,7 +317,10 @@
       (followers[sel] = followers[sel] || []).push(f);
     });
     var seen = [];
-    $$('.tl, .sd').forEach(function (el) { seen.push(el); items.push({ el: el, targets: [el], top: 0, h: 0, key: '' }); });
+    $$('.tl, .sd').forEach(function (el) {
+      if (hp && el === hero) return; /* the hero has its own scrub (heroUpdate) */
+      seen.push(el); items.push({ el: el, targets: [el], top: 0, h: 0, key: '' });
+    });
     Object.keys(followers).forEach(function (sel) {
       var el = $(sel); if (!el) return;
       var i = seen.indexOf(el);
@@ -273,6 +330,7 @@
     if (songGrid) songs = $$('.song', songGrid).map(function (el) { return { el: el, top: 0, h: 0, stick: 0, key: '' }; });
   }
   function measure() {
+    if (hp) { heroTop = absTop(hero); heroH = hero.offsetHeight; heroKey = ''; }
     for (var i = 0; i < items.length; i++) {
       items[i].top = absTop(items[i].el); items[i].h = items[i].el.offsetHeight; items[i].key = '';
     }
@@ -290,6 +348,7 @@
   function f4(v) { return clamp(v, -1, 2).toFixed(4); }
   function update() {
     var y = window.pageYOffset, vh = VH;
+    if (hp) heroUpdate(y, vh);
     for (var i = 0; i < items.length; i++) {
       var it = items[i], a = y + vh - it.top, h = it.h;
       var state = a < -vh * 0.6 ? 'b' : (y > it.top + h + vh * 0.6 ? 'a' : '');

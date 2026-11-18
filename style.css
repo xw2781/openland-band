@@ -105,8 +105,9 @@ section[id] { scroll-margin-top: calc(var(--nav-h) - 8px); }
   padding: calc(var(--nav-h) + 40px) 0 80px;
   overflow: hidden;
 }
-.hero-zoom, .hero-bg, .hero-shade { position: absolute; inset: 0; }
-.hero-bg { background: url("img/n1-2.webp") center 30% / cover no-repeat; }
+.hero-zoom, .hero-bg, .hero-dim, .hero-shade { position: absolute; inset: 0; }
+/* the photo is a real <img> (srcset, async decode, high fetch priority) filling the one layer that zooms */
+.hero-img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center 30%; }
 .hero-shade {
   background:
     radial-gradient(ellipse at 70% 40%, transparent 0%, rgba(16,14,12,0.35) 70%),
@@ -472,7 +473,7 @@ footer a:hover { color: var(--gold-2); }
   to   { transform: translate3d(-33.3333%, 0, 0); }
 }
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .hero-bg { background: none; }
+  .hero-img { display: none; }
   .hero-track {
     display: flex; position: absolute; top: 0; left: 0; height: 100%;
     width: max-content;
@@ -484,6 +485,8 @@ footer a:hover { color: var(--gold-2); }
     aspect-ratio: 1686 / 1024;
     background: url("img/hero-tile.webp") center / 100% 100% no-repeat;
   }
+  /* nothing to animate once the hero has scrolled away */
+  .motion .hero:not(.is-live) .hero-track { animation-play-state: paused; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -495,6 +498,8 @@ footer a:hover { color: var(--gold-2); }
 .motion .ambient { display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .motion .amb, .motion .amb > i { position: absolute; inset: 0; display: block; }
 .motion .amb { opacity: 0; will-change: opacity; }
+/* a wash whose section is nowhere near the screen is not drawn at all (class set by motion.js) */
+.amb-gate .amb:not(.on) { visibility: hidden; will-change: auto; }
 .motion .amb-warm > i {
   background:
     radial-gradient(95% 70% at 50% -8%, rgba(236,172,88,0.46) 0%, rgba(168,88,30,0.24) 38%, rgba(60,28,10,0) 72%),
@@ -537,13 +542,14 @@ footer a:hover { color: var(--gold-2); }
 }
 @keyframes intro-up { from { opacity: 0; transform: translate3d(0, 28px, 0); } to { opacity: 1; transform: none; } }
 @keyframes intro-photo { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: none; } }
-.motion .hero-inner > * { animation: intro-up 1s var(--ease-out) both; }
+/* fill backwards only: the end state is the natural state, so a finished intro leaves no layer behind */
+.motion .hero-inner > * { animation: intro-up 1s var(--ease-out) backwards; }
 .motion .hero-inner > :nth-child(1) { animation-delay: 0.15s; }
 .motion .hero-inner > :nth-child(2) { animation-delay: 0.25s; }
 .motion .hero-inner > :nth-child(3) { animation-delay: 0.4s; }
 .motion .hero-inner > :nth-child(4) { animation-delay: 0.52s; }
 .motion .hero-inner > :nth-child(5) { animation-delay: 0.64s; }
-.motion .hero-bg { animation: intro-photo 1.6s var(--ease-out) both; }
+.motion .hero-bg { animation: intro-photo 1.6s var(--ease-out) backwards; }
 
 /* statement: characters light up.
    Wide screens: pinned for a short 60vh (a few wheel notches).
@@ -782,7 +788,8 @@ footer a:hover { color: var(--gold-2); }
 @keyframes hero-zoom  { from { transform: scale(1); } to { transform: scale(1.16); } }
 @keyframes hero-shade { from { opacity: 1; } to { opacity: 0.3; } }
 @keyframes hero-text  { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate3d(0, -14vh, 0) scale(1.14); } }
-@keyframes hero-exit  { from { opacity: 1; transform: none; } to { opacity: 0.15; transform: scale(0.95); } }
+@keyframes hero-exit  { from { transform: none; } to { transform: scale(0.95); } }
+@keyframes hero-dim   { from { opacity: 1; } to { opacity: 0.15; } }
 @keyframes date-in    { from { opacity: 0; transform: translate3d(0, 24%, 0) scale(1.7); } to { opacity: 1; transform: none; } }
 @keyframes card-rise  { from { opacity: 0; translate: 0 110px; scale: 0.9; } to { opacity: 1; translate: 0 0; scale: 1; } }
 @keyframes quote-in   { from { opacity: 0; transform: translate3d(0, 12vh, 0) scale(0.9); } to { opacity: 1; transform: none; } }
@@ -808,18 +815,38 @@ footer a:hover { color: var(--gold-2); }
 .motion .stat:nth-child(3) { --s: 0.06; --e: 0.28; }
 .motion .stat:nth-child(4) { --s: 0.09; --e: 0.32; }
 
-/* hero */
-.motion .hero-zoom  { animation-name: hero-zoom; will-change: transform; }
+/* hero: transform / opacity only, each on its own layer.
+   .is-live (set by motion.js while the hero is on or near the screen) pins the raster scale of the
+   three scaled layers, so scaling never re-rasters the photo or the text; it is dropped off-screen. */
+.motion .hero-zoom  { animation-name: hero-zoom, hero-dim; }
+.motion .hero-dim   { animation-name: hero-dim; --e: 0.9; }
 .motion .hero-shade { animation-name: hero-shade; --s: 0.05; --e: 0.7; }
-.motion .hero-inner { animation-name: hero-text; --s: 0.04; --e: 0.62; will-change: transform, opacity; }
+.motion .hero-inner { animation-name: hero-text; --s: 0.04; --e: 0.62; }
 .motion .hero-cue   { animation-name: fade-out; --e: 0.18; }
 .motion .hero-stage { animation-name: hero-exit; --e: 0.9; }
+.motion .hero.is-live .hero-stage,
+.motion .hero.is-live .hero-shade,
+.motion .hero.is-live .hero-cue   { will-change: transform; }
+.motion .hero.is-live .hero-zoom,
+.motion .hero.is-live .hero-inner { will-change: transform, opacity; }
+/* exit fade: the photo and the shade each fade on their own layer (text and cue are already at 0).
+   Fading the whole stage instead is a group opacity, which makes the compositor draw the hero into
+   an off-screen full-viewport surface on every frame for as long as the hero is pinned. */
+.sda .hero-zoom { animation-range: contain 0% contain 100%, exit 0% exit 90%; }
+/* fallback engine: motion.js writes the hero's transform / opacity itself (no scrubbed animations,
+   no inherited custom properties, so no per-frame style recalc of the hero subtree) */
+.sdf .hero .sd-in { animation: none; }
 
 /* upcoming */
 /* photo settles from the top-left corner so the people only ever move away from the headline */
 .motion .upcoming-photo img.zoom { animation-name: gig-zoom; }
 @keyframes gig-zoom { from { transform: scale(1.1); } to { transform: scale(1); } }
 .motion .upcoming-card { animation-name: card-rise; --e: 0.24; --ease: var(--ease-out); }
+/* pin the raster scale while the card is near the screen (class set by motion.js): the card, its
+   photo and the photo's gradient overlay are scaled by the compositor instead of re-rastered */
+.motion .upcoming-card.is-live { will-change: transform, opacity; }
+.motion .upcoming-card.is-live .upcoming-photo img,
+.motion .upcoming-card.is-live .upcoming-photo::after { will-change: transform; }
 
 /* statement */
 .motion .statement-text { animation-name: quote-in; --s: 0.25; --e: 1; --ease: var(--ease-out); }
@@ -1716,6 +1743,21 @@ html[lang="ja"] body, html[lang="en"] body { overflow-wrap: break-word; }
 
 /* ── email contact ── */
 .ico-mail { width: 16px; height: 16px; flex: none; display: block; }
+/* phones: gig card actions = primary on its own row, the two contact buttons as equal halves */
+@media (max-width: 560px) {
+  .upcoming-body .btn-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: stretch; }
+  .upcoming-body .btn-row .btn { justify-content: center; min-height: 46px; padding: 10px 12px; text-align: center; line-height: 1.25; }
+  .upcoming-body .btn-row .btn-solid { grid-column: 1 / -1; }
+}
+/* wider screens: 中文 fits on one line and stays as it was; the longer en / ja / ko labels used to
+   wrap the email button onto a row of its own, so they get the same two-row arrangement */
+@media (min-width: 561px) {
+  :lang(en) .upcoming-body .btn-row, :lang(ja) .upcoming-body .btn-row, :lang(ko) .upcoming-body .btn-row {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; max-width: 420px;
+  }
+  :lang(en) .upcoming-body .btn-row .btn, :lang(ja) .upcoming-body .btn-row .btn, :lang(ko) .upcoming-body .btn-row .btn { justify-content: center; text-align: center; }
+  :lang(en) .upcoming-body .btn-row .btn-solid, :lang(ja) .upcoming-body .btn-row .btn-solid, :lang(ko) .upcoming-body .btn-row .btn-solid { grid-column: 1 / -1; }
+}
 .footer-mail, .footer-mail-link { display: inline-flex; align-items: center; gap: 8px; }
 .footer-mail {
   margin-top: 4px; padding: 9px 16px; border-radius: 999px;
