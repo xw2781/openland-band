@@ -904,8 +904,8 @@
   if (!chip || !label) return;
   var bars = Array.prototype.slice.call(chip.querySelectorAll('.np-bars i'));
   var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
-  var cards = new Map(); /* video -> its timeline card (the video itself may move into the theater) */
-  videos.forEach(function (v) { cards.set(v, v.closest('.event') || v.parentNode); });
+  var cards = new Map(); /* video -> its card: a timeline .event, or a standalone [data-video-card] (the video itself may move into the theater) */
+  videos.forEach(function (v) { cards.set(v, v.closest('.event, [data-video-card]') || v.closest('.has-player') || v.parentNode); });
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var src = null, hideT = 0, live = false;
   var ARIA = { zh: '正在播放：{title}，点击跳转' };
@@ -918,7 +918,7 @@
   function titleOf(s) {
     if (!s) return '';
     if (s === audio) return (window.OPENLAND_LISTEN && window.OPENLAND_LISTEN.title()) || '';
-    var card = cards.get(s), h = card && card.querySelector && card.querySelector('h3');
+    var card = cards.get(s), h = card && card.querySelector && card.querySelector('h3, h4');
     return h ? h.textContent.trim() : '';
   }
   function paint() {
@@ -978,7 +978,8 @@
       return;
     }
     var card = cards.get(src);
-    /* block: page scroll to the card; inline: the timeline carousel brings the card to its centre */
+    /* block: page scroll to the card; inline: the timeline carousel brings the card to its centre
+       (a card outside the timeline, e.g. the coffee-shop videos, simply gets the page scroll) */
     if (card && card.scrollIntoView) card.scrollIntoView({ behavior: smooth, block: 'center', inline: 'center' });
   });
 
