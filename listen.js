@@ -500,13 +500,32 @@
     if (lang !== 'zh' && sec.key && dict[sec.key]) return dict[sec.key];
     return (lang === 'zh' ? sec.zh : sec.en) || sec.en || sec.zh || '';
   }
+  /* instrument / role names follow the page language (names stay as written) */
+  var CREDIT_PARTS = {
+    'Vocals': { zh: '主唱', ja: 'ボーカル', ko: '보컬' },
+    'Saxophone': { zh: '萨克斯', ja: 'サックス', ko: '색소폰' },
+    'Keyboards': { zh: '键盘', ja: 'キーボード', ko: '키보드' },
+    'Drums': { zh: '鼓', ja: 'ドラム', ko: '드럼' },
+    'Bass': { zh: '贝斯', ja: 'ベース', ko: '베이스' },
+    'Guitar': { zh: '吉他', ja: 'ギター', ko: '기타' },
+    'Cello': { zh: '大提琴', ja: 'チェロ', ko: '첼로' },
+    'Violin': { zh: '小提琴', ja: 'バイオリン', ko: '바이올린' },
+    'Songwriter': { zh: '创作人', ja: 'ソングライター', ko: '송라이터' },
+    'Recording Engineer': { zh: '录音师', ja: 'レコーディング・エンジニア', ko: '레코딩 엔지니어' }
+  };
+  function creditPart(part) {
+    var m = CREDIT_PARTS[part];
+    var lang = siteLang();
+    return (m && m[lang]) || part;
+  }
   function creditRows(firstT) {
     var secs = (lyricsData && lyricsData.credits) || [];
     var out = [];
     secs.forEach(function (sec) {
       out.push({ head: true, text: creditHead(sec) });
       (sec.people || []).forEach(function (p) {
-        out.push({ head: false, name: p[0], part: p[1], text: p[0] + ' — ' + p[1] });
+        var pt = creditPart(p[1]);
+        out.push({ head: false, name: p[0], part: pt, text: p[0] + ' — ' + pt });
       });
     });
     var span = Number(firstT) - 1; /* keep ~1s clear before the first lyric */
