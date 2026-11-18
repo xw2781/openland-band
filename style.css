@@ -186,16 +186,16 @@ section { padding: 96px 0; }
 /* gig poster: the photo is the hero, the headline is set in its negative space.
    All type is sized in cqw so its position relative to the people never drifts. */
 .upcoming-poster { position: relative; background: var(--ink-2); overflow: hidden; container-type: inline-size; }
-.upcoming-photo { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
-.upcoming-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 0 0; }
+.upcoming-photo { position: relative; aspect-ratio: 1280 / 530; overflow: hidden; }
+.upcoming-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 0; }
 .upcoming-photo::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
     linear-gradient(180deg, rgba(26,23,20,0) 70%, rgba(26,23,20,0.62) 90%, var(--ink-2) 100%),
-    radial-gradient(60% 55% at 12% 14%, rgba(16,14,12,0.42), rgba(16,14,12,0) 70%);
+    radial-gradient(34% 48% at 50% 18%, rgba(16,14,12,0.5), rgba(16,14,12,0) 75%);
 }
 .gig-type {
-  position: absolute; z-index: 1; left: 4.6cqw; top: 2.5cqw; max-width: 60cqw;
+  position: absolute; z-index: 1; left: 35cqw; top: 2.2cqw; max-width: 31cqw;
   display: flex; flex-direction: column; align-items: flex-start; pointer-events: none;
 }
 .gig-top { display: flex; align-items: center; gap: 1.3cqw; white-space: nowrap; }
@@ -433,7 +433,8 @@ footer a:hover { color: var(--gold-2); }
   :lang(ja) .gig-name, :lang(ko) .gig-name { font-size: clamp(20px, 6.2cqw, 30px); }
   .gig-date { font-size: clamp(84px, 30cqw, 150px); }
   .upcoming-poster { display: flex; flex-direction: column-reverse; }
-  .upcoming-photo { margin-top: -4px; }
+  .upcoming-photo { margin-top: -4px; aspect-ratio: 16 / 9; }
+  .upcoming-photo img { object-position: 42% 0; }
   .upcoming-photo::after {
     background:
       linear-gradient(180deg, var(--ink-2) 0%, rgba(26,23,20,0) 7%),
