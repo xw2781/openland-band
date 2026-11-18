@@ -729,7 +729,7 @@ footer a:hover { color: var(--gold-2); }
 .motion .event-copy { order: 2; padding: 18px 22px 22px; min-height: 0; }
 .motion .event-copy h3 { font-size: clamp(21px, 2vw, 26px); line-height: 1.25; }
 .motion .event-copy p { font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
-@media (hover: hover) { .motion a.event-media:hover img { transform: scale(1.04); } }
+@media (hover: hover) { .motion .event-media:not(.is-video):not(.is-slideshow):hover img { transform: scale(1.04); } }
 @media (max-width: 720px) {
   .motion .hscroll-head { width: min(var(--max), calc(100% - 36px)); gap: 12px; }
   .motion .hs-label { min-width: 0; }
@@ -1852,3 +1852,4 @@ html[lang="ja"] body, html[lang="en"] body { overflow-wrap: break-word; }
 .wave i { transform-origin: 50% 50%; transition: transform 0.5s ease; }
 .wave.is-live i { transition: none; will-change: transform; }
 .wave.is-live .wave-dim { opacity: 0.4; }
+.timeline .event:not(.is-active) { cursor: pointer; }

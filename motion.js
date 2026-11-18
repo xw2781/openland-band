@@ -191,6 +191,14 @@
       else if (k === 'End') { e.preventDefault(); hsGo(events.length - 1); }
     });
 
+    /* clicking a side card just brings it into focus; only the small Xiaohongshu link leaves the page */
+    tl.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t.closest || t.closest('a, button, input, video, .has-player.playing')) return;
+      var ev = t.closest('.event'), i = events.indexOf(ev);
+      if (i >= 0 && i !== curIdx) hsGo(i);
+    });
+
     /* mouse: click-drag to pan (touch / trackpad / shift+wheel are native) */
     var drag = null, settleT = 0, swallowClick = false;
     var settle = function () { clearTimeout(settleT); tl.classList.remove('is-dragging'); };
