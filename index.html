@@ -800,6 +800,9 @@
         document.querySelectorAll('.has-player video').forEach(function (o) { if (o !== v) o.pause(); });
         if (window.OPENLAND_LISTEN) window.OPENLAND_LISTEN.pause();
         applyTracks();
+        /* a video started in a side card: glide that card to the centre of the timeline */
+        var ev = box.closest('.event');
+        if (ev && box.contains(v) && window.OPENLAND_MOTION && window.OPENLAND_MOTION.showEvent) window.OPENLAND_MOTION.showEvent(ev);
       });
       v.addEventListener('loadedmetadata', applyTracks);
       if (cc) {
