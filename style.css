@@ -294,6 +294,7 @@ section { padding: 96px 0; }
 
 /* ───────────── EVENTS (static = vertical list) ───────────── */
 .hscroll-head { display: none; }
+.hs-hint { display: none; } /* swipe hint only exists for the horizontal carousel */
 .timeline { display: flex; flex-direction: column; gap: 22px; position: relative; width: min(var(--max), calc(100% - 56px)); margin: 0 auto; }
 .event {
   position: relative;
@@ -674,9 +675,29 @@ footer a:hover { color: var(--gold-2); }
 .motion .timeline::-webkit-scrollbar { display: none; }
 .motion .timeline::after { content: ""; flex: none; width: 1px; margin-left: -1px; } /* keeps the end padding scrollable in every engine */
 .motion .timeline:focus-visible { box-shadow: inset 0 0 0 2px rgba(224,195,138,0.5); border-radius: 12px; }
+.motion .timeline.is-hinting { scroll-snap-type: none; } /* snap must not fight the one-time nudge */
 .motion .timeline.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; -webkit-user-select: none; }
 .motion .timeline.is-dragging .event { pointer-events: none; }
 @media (hover: hover) and (pointer: fine) { .motion .timeline { cursor: grab; } }
+/* one-time "swipe sideways" chip: overlays the foot of the photo row, never takes part in layout */
+.motion .hs-hint {
+  position: absolute; z-index: 3; left: 50%;
+  top: calc(118px + clamp(180px, 34vw, 300px) - 50px); /* head 44 + timeline padding 74 + media height */
+  display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 16px 0 12px;
+  border: 1px solid rgba(224,195,138,0.4); border-radius: 999px;
+  background: rgba(8, 12, 26, 0.8); color: var(--cream);
+  font-size: 12px; line-height: 1; letter-spacing: 0.14em; white-space: nowrap;
+  pointer-events: none; user-select: none; -webkit-user-select: none;
+  opacity: 0; visibility: hidden; transform: translate3d(-50%, 8px, 0);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), visibility 0s linear 0.35s;
+}
+.motion .hs-hint.is-on { opacity: 1; visibility: visible; transform: translate3d(-50%, 0, 0); transition-delay: 0s; }
+.motion .hs-hint[hidden] { display: none; }
+.hs-hint svg { flex: none; width: 22px; height: 22px; display: block; color: var(--gold-2); }
+@keyframes hs-hint-sway { 0%, 100% { transform: translate3d(-3px, 0, 0); } 50% { transform: translate3d(3px, 0, 0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .motion .hs-hint.is-on svg { animation: hs-hint-sway 1.05s ease-in-out 3; }
+}
 .motion .event {
   flex: none; width: var(--w);
   scroll-snap-align: center;

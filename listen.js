@@ -543,9 +543,12 @@
     }
     lyricsList.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
   }
+  /* early lines don't sit in the middle: the list never drops below the top of the view, so there is no empty gap above the first line */
+  var LYRIC_TOP = 28; /* just below the top fade of the mask */
+  function clampLyricY(y) { return Math.min(LYRIC_TOP, y); }
   function centerLyric(i, instant) {
     var ln = lyricLines[i];
-    if (ln) setLyricY(lyricViewH / 2 - ln.c, instant);
+    if (ln) setLyricY(clampLyricY(lyricViewH / 2 - ln.c), instant);
   }
   function paintLyricClasses(currentIdx, targetIdx) {
     lyricLines.forEach(function (ln, i) {
@@ -633,7 +636,7 @@
         try { lyricsView.setPointerCapture(e.pointerId); } catch (err) {}
       }
       var first = lyricLines[0], last = lyricLines[lyricLines.length - 1];
-      var y = Math.max(lyricViewH / 2 - last.c, Math.min(lyricViewH / 2 - first.c, lyricPointer.y0 + dy));
+      var y = Math.max(lyricViewH / 2 - last.c, Math.min(clampLyricY(lyricViewH / 2 - first.c), lyricPointer.y0 + dy));
       setLyricY(y, false);
       var i = lineNearestCenter();
       if (i !== lyricPointer.i) { lyricPointer.i = i; previewLyric(i); }

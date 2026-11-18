@@ -111,7 +111,7 @@
   var hsTotal = hs && $('.hs-count em', hs);
   if (hsTotal && events.length) hsTotal.textContent = '/ ' + events.length;
 
-  var curIdx = -1, hsPos = [], hsMax = 0, hsRaf = 0, tickFlip = false;
+  var curIdx = -1, hsPos = [], hsMax = 0, hsX = 0, hsRaf = 0, tickFlip = false;
   function tick(el, text) {
     /* restart the little rise animation by swapping between two identical keyframes (no forced reflow) */
     if (!el) return;
@@ -140,7 +140,7 @@
   function updateHs() {
     hsRaf = 0;
     if (!tl || !hsPos.length) return;
-    var x = tl.scrollLeft, best = 0, bd = Infinity;
+    var x = hsX = tl.scrollLeft, best = 0, bd = Infinity;
     for (var i = 0; i < hsPos.length; i++) { var d = Math.abs(hsPos[i] - x); if (d < bd) { bd = d; best = i; } }
     setIdx(best);
     if (hsBar) {
@@ -148,9 +148,33 @@
       hsBar.style.transform = 'scaleX(' + ((1 + (n - 1) * p) / n).toFixed(4) + ')';
     }
   }
+  /* ── timeline: one-time "swipe sideways" hint (chip + a small out-and-back nudge) ──
+     Shown once per page load when the chip scrolls into view and the row overflows. Any touch,
+     drag, horizontal wheel, key or arrow press stops the nudge where it is and fades the chip. */
+  var hint = $('#hsHint'), hintState = 0; /* 0 waiting · 1 showing · 2 done */
+  var hintT = 0, nudgeT = 0, nudgeRaf = 0, snapT = 0, tlTouch = false;
+  function snapBack(ms) { clearTimeout(snapT); snapT = setTimeout(function () { tl.classList.remove('is-hinting'); }, ms); }
+  /* native = a touch / wheel gesture owns the scroll now and snaps by itself; otherwise
+     snapping stays off until the glide that follows (hsGo) has landed, like after a drag */
+  function stopNudge(native) {
+    clearTimeout(nudgeT); nudgeT = 0;
+    if (!nudgeRaf) return false;
+    cancelAnimationFrame(nudgeRaf); nudgeRaf = 0;
+    if (native) { clearTimeout(snapT); tl.classList.remove('is-hinting'); } else snapBack(520);
+    return true;
+  }
+  function hideHint() {
+    if (hintState !== 1) return;
+    hintState = 2;
+    clearTimeout(hintT);
+    hint.classList.remove('is-on');
+    setTimeout(function () { hint.hidden = true; }, 420); /* out of paint once the fade is over */
+  }
+  function hintTook(native) { stopNudge(native); hideHint(); }
   function hsGo(i, instant) {
     if (!tl || !hsPos.length) return;
     i = clamp(i, 0, events.length - 1);
+    hintTook(false); /* arrows, keys, drag release, showEvent: the hint steps aside */
     try { tl.scrollTo({ left: hsPos[i], behavior: instant ? 'auto' : 'smooth' }); }
     catch (e) { tl.scrollLeft = hsPos[i]; }
   }
@@ -204,6 +228,70 @@
     tl.addEventListener('click', function (e) { if (swallowClick) { e.preventDefault(); e.stopPropagation(); } }, true);
     tl.addEventListener('dragstart', function (e) { e.preventDefault(); });
     measureHs();
+
+    if (hint && 'IntersectionObserver' in window) {
+      /* time-driven: only writes scrollLeft (start position comes from the last scroll update),
+         so there is no layout read per frame; the existing scroll handler keeps counter/bar in sync */
+      var nudge = function () {
+        nudgeT = 0;
+        if (hintState !== 1 || tlTouch || drag || curIdx !== 0) return;
+        var from = hsX, amp = Math.min(70, hsMax), t0 = 0;
+        clearTimeout(snapT);
+        tl.classList.add('is-hinting');
+        var step = function (ts) {
+          if (!t0) t0 = ts;
+          var p = clamp((ts - t0) / 1100, 0, 1);
+          tl.scrollLeft = p < 1 ? from + amp * (1 - Math.cos(2 * Math.PI * p)) / 2 : from;
+          if (p < 1) nudgeRaf = requestAnimationFrame(step);
+          else { nudgeRaf = 0; tl.classList.remove('is-hinting'); } /* back on card 01: snap returns */
+        };
+        nudgeRaf = requestAnimationFrame(step);
+      };
+      var hintIO = new IntersectionObserver(function (es) {
+        if (!es[es.length - 1].isIntersecting) return;
+        hintIO.disconnect();
+        if (hintState !== 0) return;
+        /* nothing to swipe, or the row has already been moved: never show it */
+        if (hsMax < 2 || curIdx !== 0) { hintState = 2; hint.hidden = true; return; }
+        hintState = 1;
+        hint.classList.add('is-on');
+        hintT = setTimeout(hideHint, 3500);
+        var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!calm && !tlTouch && !drag) nudgeT = setTimeout(nudge, 320);
+      }, { threshold: 0.9 });
+      hintIO.observe(hint);
+
+      var touchOff = function () { tlTouch = false; };
+      tl.addEventListener('touchstart', function () { tlTouch = true; hintTook(true); }, { passive: true });
+      tl.addEventListener('touchend', touchOff, { passive: true });
+      tl.addEventListener('touchcancel', touchOff, { passive: true });
+      tl.addEventListener('pointerdown', function (e) {
+        if (hintState !== 1) return;
+        if (e.pointerType !== 'mouse') { hintTook(true); return; }
+        if (stopNudge(false)) {
+          /* mouse: hold the row where it was caught; a drag takes it from there, a plain click glides it home */
+          snapBack(4000);
+          var up = function () {
+            window.removeEventListener('pointerup', up);
+            window.removeEventListener('pointercancel', up);
+            if (!swallowClick) hsGo(curIdx);
+            snapBack(520);
+          };
+          window.addEventListener('pointerup', up);
+          window.addEventListener('pointercancel', up);
+        }
+        hideHint();
+      });
+      /* a vertical wheel is the page scrolling past, not the visitor taking over the row */
+      tl.addEventListener('wheel', function (e) {
+        if (hintState === 1 && (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY))) hintTook(true);
+      }, { passive: true });
+      /* runs after the arrow-key handler above: if a nudge is still going (any other key), glide home */
+      tl.addEventListener('keydown', function () {
+        if (hintState !== 1) return;
+        if (nudgeRaf) hsGo(curIdx); else hintTook(false);
+      });
+    }
   }
 
   /* ── in-page links glide (native scrollIntoView; html no longer has scroll-behavior: smooth) ── */
