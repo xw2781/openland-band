@@ -18,6 +18,7 @@
       ],
       cover: 'img/cover-huiyi-chengguang.webp',
       thumb: 'img/s/cover-huiyi-chengguang-320.webp',
+      srcset: 'img/s/cover-huiyi-chengguang-800.webp 800w, img/cover-huiyi-chengguang.webp 1254w',
       coverPos: '50% 50%',
       lyrics: 'audio/lyrics/huiyi-chengguang.json',
       ariaPlay: 'aria187'
@@ -34,6 +35,7 @@
       ],
       cover: 'img/n11-3.webp',
       thumb: 'img/s/n11-3-320.webp',
+      srcset: 'img/s/n11-3-800.webp 800w',
       coverPos: '50% 50%',
       lyrics: 'audio/lyrics/waiting-for-you.json',
       ariaPlay: 'aria188'
@@ -127,6 +129,7 @@
     current = track;
     setSources(track);
     titleEl.textContent = track.titleFull;
+    artEl.srcset = track.srcset || ''; /* srcset wins over src, so it must follow the track too */
     artEl.src = track.thumb || track.cover; /* the disc label is ~80px: no need to decode the 1254px cover */
     artEl.style.objectPosition = track.coverPos || '50% 50%';
     artEl.alt = track.titleFull;
@@ -329,12 +332,62 @@
     }
   }
 
+  /* ── the section waveform above the player dances with the music ── */
+  var waveEl = document.getElementById('wave'), waveBars = null, waveBase = null, waveCur = null, waveVis = true, waveLive = false;
+  if (waveEl && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { waveVis = es[0].isIntersecting; }).observe(waveEl);
+  }
+  function waveSetup() {
+    if (waveBars || !waveEl) return;
+    var dim = waveEl.querySelectorAll('.wave-dim i'), lit = waveEl.querySelectorAll('.wave-lit i');
+    if (!dim.length) return;
+    waveBars = []; waveBase = []; waveCur = [];
+    for (var i = 0; i < dim.length; i++) {
+      waveBars.push([dim[i], lit[i]]);
+      waveBase.push(parseFloat(dim[i].style.getPropertyValue('--h')) || 0.5);
+      waveCur.push(1);
+    }
+  }
+  function updateWave() {
+    if (!waveEl) return;
+    var on = !reduce && analyser && playing() && freq;
+    if (!on) {
+      if (waveLive) {
+        waveLive = false; waveEl.classList.remove('is-live');
+        for (var j = 0; waveBars && j < waveBars.length; j++) {
+          waveCur[j] = 1; waveBars[j][0].style.transform = ''; if (waveBars[j][1]) waveBars[j][1].style.transform = '';
+        }
+      }
+      return;
+    }
+    if (!waveVis) return;
+    waveSetup();
+    if (!waveBars) return;
+    if (!waveLive) { waveLive = true; waveEl.classList.add('is-live'); }
+    var n = waveBars.length, mid = (n - 1) / 2, top = Math.floor(freq.length * 0.62);
+    for (var k = 0; k < n; k++) {
+      var d = Math.abs(k - mid) / mid;               /* bass in the middle, highs toward the edges */
+      var bin = 1 + Math.floor(d * (top - 1));
+      var v = freq[bin] / 255 * (1 + d * 0.9);
+      var h = waveBase[k];
+      var target = Math.max(0.06, Math.min(1, 0.12 + v * 0.95)) / h;
+      target = Math.min(target, 1 / h);
+      var c = waveCur[k] + (target - waveCur[k]) * 0.35;
+      if (Math.abs(c - waveCur[k]) < 0.004) continue;
+      waveCur[k] = c;
+      var tr = 'scaleY(' + c.toFixed(3) + ')';
+      waveBars[k][0].style.transform = tr;
+      if (waveBars[k][1]) waveBars[k][1].style.transform = tr;
+    }
+  }
+
   function tick() {
     rafViz = 0;
-    if (!playing()) { updatePulse(); updateSeek(); updateLyrics(); return; }
+    if (!playing()) { updatePulse(); updateWave(); updateSeek(); updateLyrics(); return; }
     if (!seeking) setCur(currentTime());
     updateSeek();
     updatePulse();
+    updateWave();
     updateLyrics();
     if (window.OPENLAND_NOWPLAYING) window.OPENLAND_NOWPLAYING.levels(levels);
     rafViz = requestAnimationFrame(tick);

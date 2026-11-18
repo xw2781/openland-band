@@ -1847,3 +1847,8 @@ html[lang="ja"] body, html[lang="en"] body { overflow-wrap: break-word; }
 
 /* landscape video cards: the media box hugs the 16:9 player (no black strip under it) */
 .motion .event-media.has-player:not(.is-vertical) { height: auto; }
+
+/* waveform reacting to the player */
+.wave i { transform-origin: 50% 50%; transition: transform 0.5s ease; }
+.wave.is-live i { transition: none; will-change: transform; }
+.wave.is-live .wave-dim { opacity: 0.4; }
