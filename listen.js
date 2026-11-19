@@ -20,6 +20,13 @@
       cover: 'img/cover-huiyi-chengguang.webp',
       thumb: 'img/s/cover-huiyi-chengguang-320.webp',
       srcset: 'img/s/cover-huiyi-chengguang-800.webp 800w, img/cover-huiyi-chengguang.webp 1254w',
+      covers: {
+        en: {
+          cover: 'img/cover-huiyi-chengguang-en.webp',
+          thumb: 'img/s/cover-huiyi-chengguang-en-320.webp',
+          srcset: 'img/s/cover-huiyi-chengguang-en-800.webp 800w, img/cover-huiyi-chengguang-en.webp 1024w'
+        }
+      },
       coverPos: '50% 50%',
       lyrics: 'audio/lyrics/huiyi-chengguang.json',
       ariaPlay: 'aria187'
@@ -108,6 +115,20 @@
     var l = siteLang();
     return (track && track.titles && track.titles[l]) || (track && track.title) || '';
   }
+  /* English gets its own cover; zh/ja/ko keep the original Chinese art */
+  function trackArt(track) {
+    var pack = track && track.covers && track.covers[siteLang()];
+    return {
+      cover: (pack && pack.cover) || (track && track.cover) || '',
+      thumb: (pack && pack.thumb) || (track && track.thumb) || '',
+      srcset: (pack && pack.srcset) || (track && track.srcset) || ''
+    };
+  }
+  function paintArt() {
+    var art = trackArt(current);
+    artEl.srcset = art.srcset || '';
+    artEl.src = art.thumb || art.cover;
+  }
   function trackTitleFull(track) {
     if (!track) return '';
     return siteLang() === 'en' ? trackTitle(track) : track.titleFull;
@@ -143,8 +164,7 @@
     current = track;
     setSources(track);
     titleEl.textContent = trackTitleFull(track);
-    artEl.srcset = track.srcset || ''; /* srcset wins over src, so it must follow the track too */
-    artEl.src = track.thumb || track.cover; /* the disc label is ~80px: no need to decode the 1254px cover */
+    paintArt(); /* srcset wins over src, so it must follow the track (and language) too; disc label is ~80px */
     artEl.style.objectPosition = track.coverPos || '50% 50%';
     artEl.alt = trackTitleFull(track);
     durEl.textContent = fmt(track.duration);
@@ -768,7 +788,7 @@
         artist: 'Openland',
         album: siteLang() === 'en' ? 'Openland' : 'Openland 旷野乐队',
         artwork: [
-          { src: current.cover, sizes: '1080x1080', type: 'image/webp' }
+          { src: trackArt(current).cover, sizes: '1080x1080', type: 'image/webp' }
         ]
       });
       navigator.mediaSession.playbackState = playing() ? 'playing' : 'paused';
@@ -882,6 +902,7 @@
 
   new MutationObserver(function () {
     paintTitle();
+    paintArt();
     setMediaSession();
     if (liveEl && liveEl.textContent) liveEl.textContent = labels().now + ' — ' + trackTitleFull(current);
     updatePlayUi();
