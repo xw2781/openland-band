@@ -10,6 +10,7 @@
       id: 'huiyi',
       title: '回忆成光',
       titleFull: '《回忆成光》',
+      titles: { en: 'Memories Into Light' }, /* per-locale display titles; zh/ja/ko keep the original */
       artist: 'Openland',
       duration: 330.024,
       sources: [
@@ -102,6 +103,19 @@
     return 'zh';
   }
   function labels() { return LABELS[siteLang()] || LABELS.zh; }
+  /* display title for the page language: English drops the Chinese title and the 《》 brackets */
+  function trackTitle(track) {
+    var l = siteLang();
+    return (track && track.titles && track.titles[l]) || (track && track.title) || '';
+  }
+  function trackTitleFull(track) {
+    if (!track) return '';
+    return siteLang() === 'en' ? trackTitle(track) : track.titleFull;
+  }
+  function paintTitle() {
+    titleEl.textContent = trackTitleFull(current);
+    artEl.alt = trackTitleFull(current);
+  }
   function fmt(t) {
     if (!isFinite(t) || t < 0) t = 0;
     t = Math.floor(t);
@@ -128,11 +142,11 @@
     pendingT = null;
     current = track;
     setSources(track);
-    titleEl.textContent = track.titleFull;
+    titleEl.textContent = trackTitleFull(track);
     artEl.srcset = track.srcset || ''; /* srcset wins over src, so it must follow the track too */
     artEl.src = track.thumb || track.cover; /* the disc label is ~80px: no need to decode the 1254px cover */
     artEl.style.objectPosition = track.coverPos || '50% 50%';
-    artEl.alt = track.titleFull;
+    artEl.alt = trackTitleFull(track);
     durEl.textContent = fmt(track.duration);
     setCur(t);
     seekEl.setAttribute('aria-valuemax', String(Math.floor(track.duration)));
@@ -156,7 +170,7 @@
       if (p && p.catch) p.catch(function () {});
     }
     setMediaSession();
-    if (liveEl) liveEl.textContent = labels().now + ' — ' + track.titleFull;
+    if (liveEl) liveEl.textContent = labels().now + ' — ' + trackTitleFull(track);
   }
 
   function updatePlayUi() {
@@ -176,7 +190,7 @@
       var key = on ? 'aria185' : (TRACKS[b.getAttribute('data-track')] || {}).ariaPlay;
       var lab = labels();
       var track = TRACKS[b.getAttribute('data-track')];
-      b.setAttribute('aria-label', on ? lab.pause : (lab.play + (track ? ' ' + track.titleFull : '')));
+      b.setAttribute('aria-label', on ? lab.pause : (lab.play + (track ? ' ' + trackTitleFull(track) : '')));
       if (key) b.setAttribute('data-i18n-aria', key);
     });
   }
@@ -414,7 +428,12 @@
     };
     return lab[siteLang()] || lab.zh;
   }
+  /* English page: a Chinese lyric line is replaced by its English translation (shown as the main line) */
+  function enReplaces(line) {
+    return !!(line && line.tr && line.tr.en && siteLang() === 'en' && ((lyricsData && lyricsData.lang) || 'zh') !== 'en');
+  }
   function translationFor(line) {
+    if (enReplaces(line)) return '';
     if (!line || !line.tr) return '';
     var lang = siteLang();
     var src = (lyricsData && lyricsData.lang) || 'zh';
@@ -492,7 +511,7 @@
         var pt = document.createElement('span'); pt.className = 'pt'; pt.textContent = row.part;
         text.appendChild(nm); text.appendChild(pt);
       } else {
-        text.textContent = row.text;
+        text.textContent = (!kind && enReplaces(row)) ? row.tr.en : row.text;
       }
       btn.appendChild(text);
       var tr = kind ? '' : translationFor(row);
@@ -745,9 +764,9 @@
     if (!('mediaSession' in navigator)) return;
     try {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: current.title,
+        title: trackTitle(current),
         artist: 'Openland',
-        album: 'Openland 旷野乐队',
+        album: siteLang() === 'en' ? 'Openland' : 'Openland 旷野乐队',
         artwork: [
           { src: current.cover, sizes: '1080x1080', type: 'image/webp' }
         ]
@@ -862,6 +881,9 @@
   });
 
   new MutationObserver(function () {
+    paintTitle();
+    setMediaSession();
+    if (liveEl && liveEl.textContent) liveEl.textContent = labels().now + ' — ' + trackTitleFull(current);
     updatePlayUi();
     updateSongButtons();
     if (lyricsData) renderLyrics();
@@ -886,7 +908,7 @@
     pause: function () { try { audio.pause(); } catch (e) {} },
     play: playTrack,
     playing: playing,
-    title: function () { return current.titleFull; },
+    title: function () { return trackTitleFull(current); },
     el: root
   };
 
